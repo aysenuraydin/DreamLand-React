@@ -1,4 +1,4 @@
-# Dream Land
+# Dream Land ![SVG Logo](https://www.svgrepo.com/show/199765/cloudy-cloud.svg)
 # React - Tailwind CSS Project with Firebase, Redux, and More
 
 This project is a web application built using **React**, **Tailwind CSS**, **Firebase**, **Redux**, **Redux Thunk**, and various React hooks. The application implements modern state management with Redux and handles side effects with `useEffect`, while Firebase is used for data storage and authentication.
