@@ -1,4 +1,4 @@
-# Dream Land <img src="https://www.svgrepo.com/show/380212/dust-spell-witchcraft-wizard-halloween.svg" width="40">  <img src="https://www.svgrepo.com/show/380252/cloud-dream-fantasy-moon-sleep.svg" alt="Cloudy Logo" width="40"> 
+# Dream Land <img src="https://www.svgrepo.com/show/380212/dust-spell-witchcraft-wizard-halloween.svg" width="40" height="30">  <img src="https://www.svgrepo.com/show/380252/cloud-dream-fantasy-moon-sleep.svg" alt="Cloudy Logo" width="40"> 
 # React - Tailwind CSS Project with Firebase, Redux, and More
 
 This project is a web application built using **React**, **Tailwind CSS**, **Firebase**, **Redux**, **Redux Thunk**, and various React hooks. The application implements modern state management with Redux and handles side effects with `useEffect`, while Firebase is used for data storage and authentication.
