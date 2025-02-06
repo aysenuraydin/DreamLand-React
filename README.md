@@ -120,4 +120,13 @@ Firebase is used for authentication and cloud storage in this project. You can s
 1. Install Firebase SDK:
    ```bash
    npm install firebase
+    ```
+## Project Setup
+
+Follow these steps to set up the project locally:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/aysenuraydin/quicknote-React.git
+   ```
 
