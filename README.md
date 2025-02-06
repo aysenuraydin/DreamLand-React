@@ -1,4 +1,4 @@
-# Dream Land <img src="https://www.svgrepo.com/show/380252/cloud-dream-fantasy-moon-sleep.svg" alt="Cloudy Logo" height="30"> 
+# Dream Land <img src="https://www.svgrepo.com/show/380252/cloud-dream-fantasy-moon-sleep.svg" alt="Cloudy Logo" height="40"> 
 
 ## React - Tailwind CSS Project with Firebase, Redux, and More
 
