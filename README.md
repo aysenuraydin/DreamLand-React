@@ -1,4 +1,4 @@
-# Dream Land <img src="https://www.svgrepo.com/show/380252/cloud-dream-fantasy-moon-sleep.svg" alt="Cloudy Logo" height="40"> 
+# Dream Land <img src="https://www.svgrepo.com/show/390315/stars.svg" height="40">
 
 ## React - Tailwind CSS Project with Firebase, Redux, and More
 
@@ -21,6 +21,7 @@ This project leverages the power of **React** to build interactive UIs, **Tailwi
 ## React Hooks Used
 
 1. **`useState`**
+
    - **Description**: Used to manage local state in React components.
    - **Example**:
      ```javascript
@@ -29,13 +30,14 @@ This project leverages the power of **React** to build interactive UIs, **Tailwi
      ```
 
 2. **`useReducer`**
+
    - **Description**: Used for more complex state management, especially when the state transitions are more intricate.
    - **Example**:
      ```javascript
      const initialState = { count: 0 };
      function reducer(state, action) {
        switch (action.type) {
-         case 'increment':
+         case "increment":
            return { count: state.count + 1 };
          default:
            throw new Error();
@@ -45,23 +47,26 @@ This project leverages the power of **React** to build interactive UIs, **Tailwi
      ```
 
 3. **`useContext`**
+
    - **Description**: Shares state globally across components without passing props manually (prop drilling).
    - **Example**:
      ```javascript
-     const ThemeContext = React.createContext('light');
+     const ThemeContext = React.createContext("light");
      const theme = useContext(ThemeContext);
      ```
 
 4. **`useEffect`**
+
    - **Description**: Performs side effects such as data fetching or manually modifying the DOM. It runs after the component renders.
    - **Example**:
      ```javascript
      useEffect(() => {
-       console.log('Component mounted or updated');
+       console.log("Component mounted or updated");
      }, [dependency]);
      ```
 
 5. **`useRef`**
+
    - **Description**: Accesses DOM elements or stores mutable values that do not trigger a re-render.
    - **Example**:
      ```javascript
@@ -72,21 +77,24 @@ This project leverages the power of **React** to build interactive UIs, **Tailwi
      ```
 
 6. **`useSearchParams`**
+
    - **Description**: A React Router hook for reading and updating the query string in the URL.
    - **Example**:
      ```javascript
      const [searchParams, setSearchParams] = useSearchParams();
-     const searchTerm = searchParams.get('search');
+     const searchTerm = searchParams.get("search");
      ```
 
 7. **`useFetch`**
+
    - **Description**: Custom hook to fetch data asynchronously.
    - **Example**:
      ```javascript
-     const { data, loading, error } = useFetch('https://api.example.com/data');
+     const { data, loading, error } = useFetch("https://api.example.com/data");
      ```
 
 8. **`useParams`**
+
    - **Description**: Extracts route parameters from the URL.
    - **Example**:
      ```javascript
@@ -94,6 +102,7 @@ This project leverages the power of **React** to build interactive UIs, **Tailwi
      ```
 
 9. **`useRouteError`**
+
    - **Description**: Captures route-level errors (e.g., 404s or any route-specific errors).
    - **Example**:
      ```javascript
@@ -101,6 +110,7 @@ This project leverages the power of **React** to build interactive UIs, **Tailwi
      ```
 
 10. **`useActionData`**
+
     - **Description**: Provides data from the action of the current route.
     - **Example**:
       ```javascript
@@ -121,7 +131,8 @@ Firebase is used for authentication and cloud storage in this project. You can s
 1. Install Firebase SDK:
    ```bash
    npm install firebase
-    ```
+   ```
+
 ## Project Setup
 
 Follow these steps to set up the project locally:
@@ -130,4 +141,3 @@ Follow these steps to set up the project locally:
    ```bash
    git clone https://github.com/aysenuraydin/quicknote-React.git
    ```
-
