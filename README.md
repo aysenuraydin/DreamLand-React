@@ -1,4 +1,4 @@
-# Dream Land <img src="https://www.svgrepo.com/show/390315/stars.svg" height="40">
+# Dream Land <img src="https://www.svgrepo.com/show/390315/stars.svg" height="40"> - Ongoing
 
 ## React - Tailwind CSS Project with Firebase, Redux, and More
 
