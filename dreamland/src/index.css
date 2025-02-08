@@ -3,10 +3,34 @@
 @layer components {
     .navbar {
     @apply border border-[#f6d1cb] text-[#f6d1cb] rounded-full 
-    px-5 p-[0.35rem] shadow-md bg-white;
+    px-5 p-[0.35rem] shadow-md bg-white w-full inline-block lg:inline md:text-center text-start my-1 lg:my-0;
     }
+    .navbar-auth {
+        @apply border border-[#f6d1cb] text-[#f6d1cb] rounded-full 
+        px-3 p-[0.35rem] shadow-md bg-white w-full inline-block lg:inline md:text-center text-start my-1 lg:my-0;
+        }
     .footer-link {
     @apply text-base leading-6 text-gray-500 hover:text-gray-900;
+    }
+    .admin-icons {
+    @apply text-gray-400 text-xl mr-4;
+    }
+    .navbar-links {
+    @apply w-full lg:w-auto;
+    }
+    .admin-sidebar {
+    @apply w-full p-2 px-5 inline-block
+        border border-gray-300 shadow rounded-full 
+        my-[0.35rem] hover:bg-gray-100;
+    }
+    .admin-active {
+    @apply font-bold;
+    }
+    .admin-button {
+    @apply min-w-28 border block text-sm hover:text-white cursor-pointer hover:bg-gray-700 rounded-md text-center bg-white items-center pt-2;
+    }
+    .content-input {
+    @apply block w-full rounded-md bg-white px-3.5 py-1 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-600;
     }
 }
 @layer base {
