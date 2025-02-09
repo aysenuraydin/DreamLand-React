@@ -12,7 +12,7 @@ export const AdminSidebar = () => {
                 <li>
                     <NavLink to="/admin" end
                         className={({ isActive }) => isActive ? 'admin-active admin-sidebar':'admin-sidebar'}>
-                        <FontAwesomeIcon icon={faMicrosoft} className={'admin-icons' }/>
+                        <FontAwesomeIcon icon={faMicrosoft} className='admin-icons'/>
                         Dashboard
                     </NavLink>
                 </li>
@@ -27,7 +27,7 @@ export const AdminSidebar = () => {
                     <NavLink to="/admin/dreams" 
                         className={({ isActive }) => isActive ? 'admin-active admin-sidebar':'admin-sidebar'}>
                         <span className="admin-icons relative top-1">
-                        <Logo color="#98A1AE" size={45}/></span>
+                        <Logo color="#F7DE06" size={45}/></span>
                         Dreams
                     </NavLink>
                 </li>

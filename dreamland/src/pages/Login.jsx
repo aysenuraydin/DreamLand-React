@@ -1,15 +1,17 @@
 import React from "react";
+import { Form, redirect, useActionData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 export const Login = () => {
+  const errors = useActionData();
   return(
     <>
-      <div className="flex h-full items-center justify-center pt-20">
+      <div className="flex h-full items-center justify-center pt-20 min-h-screen">
         <div className="bg-gray-100 p-5 w-full my-16 max-w-lg border border-gray-300 rounded-3xl shadow-lg">
           <h2 className="text-2xl font-semibold text-gray-600 mb-6 text-center">
             Sign In
           </h2>
-          <form>
+          <Form>
             <div className="mb-3">
               <input type="email" id="email" name="email" className="mt-1 p-2 w-full border border-gray-300 rounded-xl text-gray-800 outline-none bg-white" placeholder="Email"/>
               <div>
@@ -29,9 +31,12 @@ export const Login = () => {
               Sign In
               <FontAwesomeIcon icon={faRightToBracket} className="ml-1"/>
             </button>
-          </form>
+          </Form>
         </div>
       </div>
     </>
   )
+}
+export const loginAction = async ({ request }) => {
+  return redirect("/");
 }
