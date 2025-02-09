@@ -1,18 +1,58 @@
 import React from "react"
 import { NavLink } from "react-router-dom";
-const dizi = [1,2,3,4,5,6,7,8,9,13,4,5,6,7,8,9,10]
-export const Sidebar = () => {
-    return(
-        <div className="px-3 lg:max-h-full mt-10 sm:mt-0 md:max-h-96 max-h-44 overflow-scroll">
+
+export const Sidebar = ({titles}) => {
+    return (
+        <div className="px-3 lg:max-h-full mt-10 sm:mt-0 max-h-52 overflow-scroll">
             <ul>
                 {
-                    dizi.map(i=> (
-                        <li key={i} className="p-2 px-4 cursor-pointer border  border-gray-300 shadow rounded-full my-3 hover:bg-gray-100">
-                            <NavLink to="/" >Lorem, ipsum dolor</NavLink>
+                    titles.map((title,index)=> (
+                        <li key={index} className="my-3">
+                            <NavLink to={`/dream/${title.id}`}
+                            className={({ isActive }) => isActive ? 'sidebar bg-[#1f3f96a2] text-white ':'sidebar'}>
+                                {title.id}-{title.title}
+                            </NavLink>
                         </li>
                     ))
                 }
             </ul>
         </div>
-    )
-}
+    );
+};
+
+
+
+// import React, { useEffect } from "react";
+// import { useNavigate, useLocation, useParams } from "react-router-dom";
+
+// export const Sidebar = ({ titles, editDream }) => {
+//     const location = useLocation(); 
+//     const navigate = useNavigate(); 
+//     const { id } = useParams();
+//     const pathname = location.pathname;
+
+//     const edit = (id) => {
+//         editDream(id);
+//         navigate(`/dream/${id}`);
+//     };
+
+//     return (
+//         <div className="px-3 lg:max-h-full mt-10 sm:mt-0 max-h-52 overflow-scroll">
+//             <ul>
+//                 {titles.map((title, index) => {
+//                     const isActive = location.pathname === `/dream/${title.id}`;
+
+//                     return (
+//                         <li 
+//                             key={index} 
+//                             className={`sidebar border ${isActive ? "text-[#f6d1cb]" : ""}`} 
+//                             onClick={() => edit(title.id)}
+//                         >
+//                             {title.id} - {title.title}
+//                         </li>
+//                     );
+//                 })}
+//             </ul>
+//         </div>
+//     );
+// };
