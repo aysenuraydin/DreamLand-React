@@ -101,7 +101,7 @@ export const Revievs = [
         id:1,
         date: new Date().toISOString().replace("T", " ").substring(0, 19),
         dreamTitle:"Denizde Yüzmek", 
-        dreamId:1,
+        dreamId :1,
         username:"aysayd1",
         isConfirm:true,
         comment:"1- autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio",
@@ -123,7 +123,34 @@ export const Revievs = [
         username:"aysayd3",
         isConfirm:true,
         comment:"3- autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio",
-    }
+    },
+    {
+        id:4,
+        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        dreamTitle:"Beyaz Elbise Giymek", 
+        dreamId:2,
+        username:"aysayd4",
+        isConfirm:false,
+        comment:"4- autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio",
+    },
+    {
+        id:5,
+        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        dreamTitle:"Yılan Görmek",  
+        dreamId:3,
+        username:"aysayd5",
+        isConfirm:true,
+        comment:"5- autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio",
+    },
+    {
+        id:6,
+        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        dreamTitle:"Yılan Görmek",  
+        dreamId:3,
+        username:"aysayd6",
+        isConfirm:true,
+        comment:"6- autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio",
+    },
 ];
 export const Messages = [
     {
@@ -136,7 +163,7 @@ export const Messages = [
         email: "ali.yilmaz@example.com",
         phone: "+90 532 123 45 67",
         content: "Denizde yüzmek bana huzur veriyor. Dalgalara karşı koymak harika bir his!"
-    },
+    }, 
     {
         id: 2,
         date: new Date().toISOString().replace("T", " ").substring(0, 19),
@@ -180,7 +207,7 @@ export const Headers = [
         url: "header.png",
     },
     {
-        id: 1,
+        id: 2,
         date: new Date().toISOString().replace("T", " ").substring(0, 19),
         isActive:false,
         name: "header2",

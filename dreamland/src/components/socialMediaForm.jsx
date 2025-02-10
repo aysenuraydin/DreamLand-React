@@ -1,8 +1,7 @@
 import React from "react"
-import { Link } from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faMagnifyingGlass, faFloppyDisk, faPenToSquare ,faAdd ,faCancel, faTrash, faXmark} from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 export const SocialMediaForm = ({editSocialMedia, socialMedias}) => {
     const setSocialMedias = (event) => {

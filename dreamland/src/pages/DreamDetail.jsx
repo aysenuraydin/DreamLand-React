@@ -1,34 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { Logo } from "../icons/logo";
 import { useLoaderData} from "react-router-dom";
 import { Return } from "../icons/return";
 import { Link } from "react-router-dom";
+import { Comment } from "../components/Comment";
 
-export const DreamDetail = ({dream}) => {
+export const DreamDetail = ({dream, reviewsByDreamId, getReviewsByDreamId, addReview }) => {
   const dreams = useLoaderData();
-  return(
-    <div className="my-10 mx-5 p-10 py-18 rounded-3xl relative
-    shadow-lg border border-gray-300 min-h-3/4
-    bg-gradient-to-b from-[#f6d1cb] from-0% via-white via-40% to-white to-100%">
-      <Link to="/" className="inline-block w-12  absolute bottom-5 right-5 cursor-pointer"><Return /></Link>
-      <div className="flex justify-center">
-        <Logo size={70} color="#1f3f96"/>
-        <h1 className="text-2xl text-[#1f3f96] px-5 -mt-2">{dream.id} - {dream.title}</h1>
-        <Logo size={70} color="#1f3f96"/>
-      </div>
-      <div className="mt-5 text-gray-600">
-        <p className="indent-6 pb-3 text-gray-600">{dream.content}</p>
-        <p className="indent-6 pb-3 text-gray-600">{dream.content}</p>
-        <p className="indent-6 pb-3 text-gray-600">{dream.content}</p>
-        <p className="indent-6 pb-3 text-gray-600">{dream.content}</p>
-        <p className="indent-6 pb-3 text-gray-600">{dream.content}</p>
-      </div>
-      
 
-      {/* {
-        dreams.map(user => user)
-      } */}
-    </div>
+  return(
+      <>
+        <div className="my-10 mx-5 rounded-3xl shadow-lg border border-gray-300 relative">
+        <div className='bg-gradient-to-b from-[#1f3f9682] from-0% via-white via-40% to-white to-100% h-[35rem] w-full rounded-3xl absolute'></div>
+          <div className="relative p-10 pb-18 h-3/4">
+            <Link to="/" className="inline-block w-12 absolute bottom-5 right-5 cursor-pointer hover:scale-125"><Return /></Link>
+            <div className="flex justify-center pt-10">
+              <h1 className="text-2xl text-white px-5 -mt-2 text-shadow">{dream.title}</h1>
+            </div>
+            <div className='flex justify-center mt-10 scale-125 pt-10'><Logo /></div>
+            <div className="mt-5 text-gray-600 min-h-72 pt-10">
+              <p className="indent-6 pb-3 text-gray-600">{dream.content}</p>
+            </div>
+          </div>
+      </div>
+      <div className="p-6 py-12">
+        <Comment 
+          dreamId={dream.id} 
+          dreamTitle={dream.title} 
+          reviewsByDreamId={reviewsByDreamId} 
+          getReviewsByDreamId={getReviewsByDreamId}
+          addReview={addReview}
+        />
+      </div>
+      </>
   )
 }
 export const dreamLoader = async () => {

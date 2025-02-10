@@ -1,12 +1,15 @@
 @import "tailwindcss";
 
 @layer components {
+    .scroll-top {
+    @apply cursor-pointer w-12 h-12 fixed bottom-8 right-8 z-50 rounded-lg shadow-md bg-[#92A2CD] hover:scale-110 
+    }
     .navbar {
-    @apply border border-[#f6d1cb] text-[#f6d1cb] rounded-full 
+    @apply border border-[#1f3f96a2] text-[#1f3f96a2] rounded-full 
     px-5 p-[0.35rem] shadow-md bg-white w-full inline-block lg:inline md:text-center text-start my-1 lg:my-0;
     }
     .navbar-auth {
-        @apply border border-[#f6d1cb] text-[#f6d1cb] rounded-full 
+        @apply border border-[#1f3f96a2] text-[#1f3f96a2] rounded-full 
         px-3 p-[0.35rem] shadow-md bg-white w-full inline-block lg:inline md:text-center text-start my-1 lg:my-0;
         }
     .footer-link {
@@ -14,6 +17,9 @@
     }
     .admin-icons {
     @apply text-inherit text-xl mr-4;
+    }
+    .review-button {
+    @apply flex text-sm mr-2 pt-1 w-full justify-center items-center gap-x-1 hover:bg-gray-500 hover:text-white border border-[#1f3f96a2] rounded-lg text-center cursor-pointer;
     }
     .navbar-links {
     @apply w-full lg:w-auto;
@@ -27,7 +33,7 @@
     @apply inline-block p-2 px-4 cursor-pointer border  border-gray-300 shadow rounded-full w-full hover:bg-gray-100 text-gray-500 bg-gray-50;
     }
     .admin-active {
-    @apply bg-[#1f3f96a2] text-white;
+    @apply bg-[#92A2CD] text-white;
     }
     .admin-button {
     @apply min-w-28 border block text-sm hover:text-white cursor-pointer hover:bg-gray-700 rounded-md text-center bg-white items-center pt-2;
@@ -39,6 +45,9 @@
 @layer base {
     :root {
     font-family: "Gill Sans", "Gill Sans MT", sans-serif;
+    }
+    .text-shadow {
+        text-shadow: 2px 2px #1f3f96a0;
     }
 }
 @layer utilities {

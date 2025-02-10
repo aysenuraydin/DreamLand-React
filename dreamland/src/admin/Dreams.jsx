@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Search } from "../components/Search";
 import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faCancel, faTrash, faAdd, faPenToSquare, faXmark, faPlus} from "@fortawesome/free-solid-svg-icons";
 import { Logo } from "../icons/logo";
 import SyncLoader from "react-spinners/SyncLoader";
-import { Pagination } from '../components/pagination';
-
-// ed = { id: 1, title: "", content: "", interpretation: "", date: ""}
+import { Pagination } from '../components/Pagination';
 
 export const Dreams = ({dreams,dream ,getDream, resetDream,addDream,deleteDream }) => {
-  const [visible, setVisible] = useState(false);
   const errors = useActionData();
   const items = useLoaderData();
+  const [visible, setVisible] = useState(false);
   const formRef = useRef(null); 
 
   const add = (event) => {
@@ -20,13 +18,12 @@ export const Dreams = ({dreams,dream ,getDream, resetDream,addDream,deleteDream 
     const title = event.target.elements.title.value;
     const interpretation = event.target.elements.interpretation.value;
     if(title && interpretation){
-        addDream({title:title, content:interpretation})
+        addDream({title:title, content:interpretation, date:dream.date})
         formRef.current.reset();
     }
   }
   const reset = () => {
     resetDream(); 
-    setVisible(false);
     formRef.current.reset();
   }
   const edit = (id) => {
@@ -34,7 +31,7 @@ export const Dreams = ({dreams,dream ,getDream, resetDream,addDream,deleteDream 
     getDream(id);
   }
   return(
-    <div className="p-8" ref={formRef}>
+    <div className="p-8">
       <div className="min-h-[80vh] max-w-6xl mx-auto">
         <div className="flex justify-between border-b-2 text-gray-400 border-gray-300 pb-[0.6rem] px-4">
           <h1 className="text-3xl">Dreams
@@ -68,7 +65,6 @@ export const Dreams = ({dreams,dream ,getDream, resetDream,addDream,deleteDream 
         {
           visible && (
             <Form onSubmit={add} ref={formRef} className="w-4/5 mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300">
-              id: {dream.id??"-"}
               <div className="mb-3 flex">
                   <label htmlFor="title" className="min-w-24 mt-3 text-sm">Title</label>
                   <input id="title" type="text" className="mt-1 p-1 w-full border border-gray-300  rounded-lg text-gray-800 outline-none" defaultValue={dream?.title}/>
@@ -106,13 +102,13 @@ export const Dreams = ({dreams,dream ,getDream, resetDream,addDream,deleteDream 
           )
         }
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">
-          <span className="w-1/6 text-center text-sm bg-white border border-[#f6d1cb] p-1 rounded-full">
-            <span className="font-bold text-[#f6d1cb]">Number</span>
+          <span className="w-1/6 text-center text-sm bg-white border border-[#1f3f96a2] p-1 rounded-full">
+            <span className="font-bold text-[#1f3f96a2]">Number</span>
           </span>
-          <span className="w-10/12 text-center text-sm border p-1 rounded-full text-[#f6d1cb] border-[#f6d1cb] bg-white">
+          <span className="w-10/12 text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2] bg-white">
             <span className= "font-bold">Title</span>
           </span>
-          <span className="w-1/3 bg-white text-center text-sm border p-1 rounded-full text-[#f6d1cb] border-[#f6d1cb]">
+          <span className="w-1/3 bg-white text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2]">
             <span className= "font-bold">Created At</span>
           </span>
           <span className="w-1/4">  </span>
