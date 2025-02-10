@@ -129,9 +129,10 @@ export const Messages = [
     {
         id: 1,
         date: new Date().toISOString().replace("T", " ").substring(0, 19),
-        isArchive:true,
+        isArchive:false,
         name: "Ali",
         surname: "Yılmaz",
+        company: "",
         email: "ali.yilmaz@example.com",
         phone: "+90 532 123 45 67",
         content: "Denizde yüzmek bana huzur veriyor. Dalgalara karşı koymak harika bir his!"
@@ -142,6 +143,7 @@ export const Messages = [
         isArchive:false,
         name: "Zeynep",
         surname: "Kaya",
+        company: "",
         email: "zeynep.kaya@example.com",
         phone: "+90 531 987 65 43",
         content: "Rüyamda denizde yüzdüğümü gördüm. Acaba ne anlama geliyor?"
@@ -152,6 +154,7 @@ export const Messages = [
         isArchive:true,
         name: "Mehmet",
         surname: "Demir",
+        company: "",
         email: "mehmet.demir@example.com",
         phone: "+90 530 555 44 33",
         content: "Denizde yüzmek en büyük tutkum. Her yaz mutlaka tatile giderim."
@@ -159,8 +162,10 @@ export const Messages = [
     {
         id: 4,
         date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        isArchive:true,
         name: "Ayşe",
         surname: "Çelik",
+        company: "",
         email: "ayse.celik@example.com",
         phone: "+90 545 678 90 12",
         content: "Suda olmak beni rahatlatıyor. Keşke her gün yüzme fırsatım olsa!"

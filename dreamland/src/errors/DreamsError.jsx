@@ -15,7 +15,7 @@ export default function DreamsError() {
     }
 
     return (
-        <div className="sm:pt-32 pt-20 flex justify-center items-center">
+        <div className="flex justify-center items-center bg-[url('https://www.svgrepo.com/show/390315/stars.svg')] bg-[length:40px_40px] bg-white/[97%] bg-blend-overlay">
             <main className="bg-white px-6 py-14 lg:px-8 border border-gray-300 shadow-2xl rounded-[2rem]">
                 <div className="text-center">
                     <p className="text-base font-semibold text-gray-600">ERROR</p>

@@ -6,6 +6,7 @@ import { faMagnifyingGlass , faCancel, faTrash, faImage,
 import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
 import { Header } from "../components/Header";
 import SyncLoader from "react-spinners/SyncLoader";
+import { Pagination } from '../components/pagination';
 
 export const Headers = ({headers} ) => {
   const items = useLoaderData();
@@ -21,9 +22,6 @@ export const Headers = ({headers} ) => {
           <div className="flex gap-x-3">
             <div className="flex items-center relative">
               <Search/>
-              <div id="search-link" className="cursor-pointer rounded-md px-2 text-sm font-medium border border-gray-400 hover:scale-110 h-9 pt-[0.4rem]">
-                  <FontAwesomeIcon icon={faMagnifyingGlass} className="text-md pl-1"/>
-              </div>
             </div>
             {
               !visible && (
@@ -107,7 +105,7 @@ export const Headers = ({headers} ) => {
           {
             headers.map((header, index)=>{
             return(
-              <div className="flex border border-gray-300 items-center px-3 shadow rounded-md  bg-white">
+              <div key={index} className="flex border border-gray-300 items-center px-3 shadow rounded-md  bg-white">
                 <span className="w-1/6 text-center text-sm">
                   {index+1} - {header.id}
                 </span>
@@ -140,6 +138,7 @@ export const Headers = ({headers} ) => {
             )
           }
         </div>
+        <Pagination/>
       </div>
     </div>
   )
