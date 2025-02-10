@@ -27,7 +27,8 @@ import { OtherLayout } from '../layouts/OtherLayout';
 
 
 
-export const AppRouter = ({dreams, dream, titles, editDream, activeDream, about, contact, faqs, socialMedias, allDreams, reviews, messages, headers}) => {
+export const AppRouter = ({dreams, dream, titles, editDream, activeDream, about, contact, faq, faqs, socialMedias, allDreams, reviews, messages, headers, editAbout , editContact,    
+  editSocialMedia, addFaq, getFaq, resetFaq, deleteFaq, getDream, resetDream, addDream, deleteDream, review, getReview, resetReview, addReview,editReview , deleteReview, message, getMessage, addMessage, deleteMessage, resetMessage, editMessage }) => {
   const router = createBrowserRouter([
     {
       path: "/admin",
@@ -36,11 +37,60 @@ export const AppRouter = ({dreams, dream, titles, editDream, activeDream, about,
       children: [
         { index: true,  element: <Dashboard/>  },
         { path: "informations",  element: 
-        <Informations about={about} contact={contact} faqs={faqs} socialMedias={socialMedias}/>, 
+        <Informations 
+          about={about} 
+          editAbout={editAbout}
+          contact={contact} 
+          editContact={editContact}    
+          faqs={faqs} 
+          faq={faq} 
+          addFaq={addFaq}
+          getFaq={getFaq}
+          resetFaq={resetFaq} 
+          deleteFaq={deleteFaq} 
+          socialMedias={socialMedias}
+          editSocialMedia={editSocialMedia} 
+        />, 
         loader: informationsLoader   },
-        { path: "dreams",  element: <Dreams dreams={allDreams}/>, action: dreamsAction, loader: dreamsLoader },
-        { path: "reviews",  element: <Reviews reviews={reviews} />, loader: reviewsLoader   },
-        { path: "messages",  element: <Messages messages={messages} />, loader: messagesLoader   },
+        { 
+          path: "dreams",  
+          element: <Dreams  
+                dreams={allDreams}
+                dream={dream}
+                getDream={getDream} 
+                resetDream={resetDream} 
+                addDream={addDream} 
+                deleteDream={deleteDream} 
+              />, 
+          action: dreamsAction, 
+          loader: dreamsLoader 
+        },
+        { 
+          path: "reviews",  
+          element: <Reviews  
+            reviews={reviews} 
+            review={review} 
+            getReview={getReview} 
+            editReview={editReview} 
+            deleteReview={deleteReview} 
+            // resetReview={resetReview}
+            // addReview={addReview} 
+          />, 
+          loader: reviewsLoader   
+        },
+        { 
+          path: "messages",  
+          element: <Messages 
+            messages={messages} 
+            message={message} 
+            getMessage={getMessage} 
+            editMessage={editMessage} 
+            deleteMessage={deleteMessage} 
+            // resetMessage={resetMessage} 
+            // addMessage={addMessage} 
+            />, 
+          loader: messagesLoader   
+        },
         { path: "headers",  element: <Headers headers={headers} />, action: headersAction, loader: headersLoader },
       ]
     },

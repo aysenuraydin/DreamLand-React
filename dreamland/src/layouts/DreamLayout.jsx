@@ -25,10 +25,7 @@ export const DreamLayout = ({ children, titles, editDream}) => {
                     <div className="flex justify-between w-full border-b-2 p-3 text-[#1f3f96] border-[#1f3f96a4]">
                         <h1 className="sm:text-3xl text-2xl">Dream Interpretations</h1>
                         <div className="flex items-center relative">
-                        <Search/>
-                        <div id="search-link" className="cursor-pointer rounded-md px-2 p-[0.4rem] text-sm font-medium border hover:scale-110">
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className="text-md"/>
-                        </div>
+                            <Search/>
                         </div>
                     </div>
                     { <Outlet/>}

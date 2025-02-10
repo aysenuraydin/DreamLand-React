@@ -14,9 +14,6 @@ export const Dashboard = () => {
                 </h1>
                 <div className="flex items-center relative">
                     <Search/>
-                    <div id="search-link" className="cursor-pointer rounded-md px-2 text-sm font-medium border hover:scale-110 h-9 pt-[0.4rem]">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} className="text-md"/>
-                    </div>
                 </div>
             </div>
             <main className="mt-5 sm:p-5 p-10 grid gap-6">

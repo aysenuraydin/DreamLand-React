@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass , faCancel, faTrash, faComment, faStar as solidStar,
-  faAdd, faPenToSquare, faXmark, faPlus , faCheck} from "@fortawesome/free-solid-svg-icons";
+import { faCancel, faTrash, faComment, faStar as solidStar, faPenToSquare, faXmark, faCheck} from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData} from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
+import { Pagination } from '../components/pagination';
+import { Reject } from '../icons/Reject';
+import { Confirm } from '../icons/confirm';
 
-export const Reviews = ({reviews} ) => {
+export const Reviews = ({reviews, review, editReview, getReview, deleteReview } ) => {
   const items = useLoaderData();
   const [visible, setVisible] = useState(false);
+  const get = (id) => {
+    setVisible(true);
+    getReview(id);
+  }
+  const del = (id) => {
+    setVisible(false);
+    deleteReview(id);
+  }
+  const edit = (id) => {
+    setVisible(false);
+    editReview(id);
+  }
   return(
     <div className="p-8">
       <div className="min-h-[80vh] max-w-6xl mx-auto">
@@ -19,9 +33,6 @@ export const Reviews = ({reviews} ) => {
           <div className="flex gap-x-3">
             <div className="flex items-center relative">
               <Search/>
-              <div id="search-link" className="cursor-pointer rounded-md px-2 text-sm font-medium border border-gray-400 hover:scale-110 h-9 pt-[0.4rem]">
-                  <FontAwesomeIcon icon={faMagnifyingGlass} className="text-md pl-1"/>
-              </div>
             </div>
             {
               visible && (
@@ -39,30 +50,38 @@ export const Reviews = ({reviews} ) => {
             <div className="w-4/5 mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300">
               <div className="mb-3 flex">
                 <label htmlFor="color" className="min-w-24 mt-3 text-sm">Username</label>
-                <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">username</div>
+                <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">{review.username}</div>
               </div>
               <div className="mb-3 flex">
                 <label htmlFor="color" className="min-w-24 mt-3 text-sm">Created At</label>
-                <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">createdAt</div>
+                <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">{review.date}</div>
               </div>
               <div className="mb-3 flex">
                 <label htmlFor="color" className="min-w-24 mt-3 text-sm">Dreams</label>
-                <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">Dreams</div>
+                <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">{review.dreamTitle}</div>
               </div>
               <div className="mb-6 flex">
                 <label htmlFor="color" className="min-w-24 mt-3 text-sm">Reviews</label>
-                <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800 max-h-40 h-36 overflow-scroll">text</div>
+                <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800 max-h-40 h-36 overflow-scroll">{review.comment}</div>
               </div>
 
               <div className="pl-[6rem]">
                   <div className="w-full flex">
-                    <button className="block w-full px-4 py-2 text-sm mr-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center cursor-pointer">
-                          Unconfirm <FontAwesomeIcon icon={faXmark}/>
-                    </button>
-                    <button className="block w-full px-4 py-2 text-sm mr-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center cursor-pointer">
-                          Confirm <FontAwesomeIcon icon={faCheck}/>
-                    </button>
-                    <button className="block w-full px-4 py-2 text-sm mr-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center cursor-pointer">
+                    {
+                      review.isConfirm && (
+                        <button className="block w-16 text-sm mr-2 pt-1 hover:bg-gray-500 hover:text-white border border-gray-300 rounded-lg text-center cursor-pointer" onClick={()=> edit(review.id)}>
+                          <Reject/>
+                        </button>
+                      )
+                    }
+                    {
+                      !review.isConfirm && (
+                        <button className="block w-16 text-sm mr-2 pt-1 hover:bg-gray-500 hover:text-white border border-gray-300 rounded-lg text-center cursor-pointer" onClick={()=> edit(review.id)}>
+                          <Confirm/>
+                        </button>
+                      )
+                    }
+                    <button className="block w-full text-sm mr-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center cursor-pointer" onClick={()=> del(review.id)}>
                       Delete <FontAwesomeIcon icon={faTrash}/>
                     </button>
                   </div>
@@ -89,9 +108,9 @@ export const Reviews = ({reviews} ) => {
           <div className="w-1/6 text-center"></div>
         </div>
         <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-4'/> 
-        <div id="reviews" className="space-y-5 max-h-[30rem] overflow-scroll">
+        <div id="reviews" className="space-y-5 h-[30rem] overflow-scroll">
           {
-            reviews.map((review, index)=>{
+            [...reviews].reverse().map((review, index)=>{
               return(
                 <div key={index} className="flex border  border-gray-300 items-center p-1 shadow rounded-md  bg-white">
                   <span className="w-1/6 text-center text-sm">
@@ -110,7 +129,8 @@ export const Reviews = ({reviews} ) => {
                   <span className="w-1/3 text-center text-sm">
                     <div
                     className="inline-block rounded-md
-                    mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> {review.comment.slice(0,20)}... </div>
+                    mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> 
+                    {review.isConfirm ? <Confirm/> : <Reject/> } </div>
                   </span>
                   <span className="w-1/4 text-center text-sm">
                     <div
@@ -119,7 +139,7 @@ export const Reviews = ({reviews} ) => {
                   </span>
                   <span className="w-1/6">
                     <div  className="flex items-center justify-center">
-                      <button className="block mx-1 p-1 py-2 border border-gray-400 text-sm hover:text-white hover:bg-gray-700 rounded-md text-center w-12 cursor-pointer" onClick={()=> setVisible(true)}>
+                      <button className="block mx-1 p-1 py-2 border border-gray-400 text-sm hover:text-white hover:bg-gray-700 rounded-md text-center w-12 cursor-pointer" onClick={()=> get(review.id)}>
                         <FontAwesomeIcon icon={faPenToSquare} className="text-sm"/>
                       </button>
                     </div>
@@ -137,7 +157,8 @@ export const Reviews = ({reviews} ) => {
             )
           }
         </div>
-        </div>
+        <Pagination/>
+      </div>
     </div>
   )
 }
