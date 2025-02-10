@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Logo = ({color ='#F7DE05', size =100}) => {
+export const Logo = ({color ='#F7DE05', size = 100}) => {
     return(
         <div className="inline text-center">
             <svg className="inline h-10 -mt-4"

@@ -1,17 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass , faCancel, faTrash, faImage,
+import { faCancel, faTrash, faImage,
   faAdd, faPenToSquare, faXmark, faPlus} from "@fortawesome/free-solid-svg-icons";
 import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
 import { Header } from "../components/Header";
 import SyncLoader from "react-spinners/SyncLoader";
-import { Pagination } from '../components/pagination';
+import { Pagination } from '../components/Pagination';
+import { Confirm } from '../icons/confirm';
+import { Reject } from '../icons/Reject';
 
-export const Headers = ({headers} ) => {
+export const Headers = ({headers, header, addHeader, deleteHeader, getHeader, resetHeader } ) => {
   const items = useLoaderData();
   const errors = useActionData();
   const [visible, setVisible] = useState(false);
+  const [isActive, setActive] = useState(false);
+  const formRef = useRef(null); 
+
+  useEffect(()=> {
+    setActive(header.isActive)
+  },[header])
+  const add = (event) => {
+    event.preventDefault(); 
+
+    const name = event.target.elements.name.value;
+    const url = event.target.elements.url.value;
+
+    if(name && url){
+        addHeader({name:name, isActive:isActive, url:url});
+        formRef.current.reset();
+    }
+  }
+  const reset = () => {
+    resetHeader(); 
+    formRef.current.reset();
+  }
+  const edit = (id) => {
+    setVisible(true);
+    getHeader(id);
+  }
+  const changeActive = () => {
+    setVisible((prev)=> {
+      setActive(!prev)
+    });
+  }
+
   return(    
     <div className="p-8">
       <div className="min-h-[80vh] max-w-6xl mx-auto">
@@ -45,39 +78,49 @@ export const Headers = ({headers} ) => {
           </div>
         </div>
         { visible && (
-          <Form className="w-4/5 mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300 flex">
+          <Form onSubmit={add} ref={formRef} className="w-4/5 mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300 flex">
           <div className="w-1/3 py-5">
             <div className="flex justify-center mb-5 h-32 w-40">
               <img src="https://dummyimage.com/600x500/ccc/aaa" className="object-cover"/>
             </div>
             <div className="flex justify-center">
-              <input type="file" className="mt-1 p-1 w-[6.5rem] border rounded-lg text-gray-800 outline-none text-sm cursor-pointer"/>
+              <input type="file" className="mt-1 p-1 w-[6.5rem] border rounded-lg text-gray-800 outline-none text-sm cursor-pointer" />
             </div>
           </div>
-          <div className="w-2/3 pt-4 ml-12">
-            <input type="createdAt" className="hidden"/>
-            <div className="w-full">
-              <label htmlFor="name" className="w-full mt-2">Name</label>
-              <div className="flex">
-              <input type="text" id="name" className="mt-1 h-8 w-full border rounded-lg text-gray-800 outline-none px-3"/>
-              <input id="isActive" type="checkbox" className="mt-1 contact-checkbox w-10 h-8 ml-3"/>
+          <div className="w-2/3 py-4 ml-12">
+            <div className="w-full flex">
+              <label htmlFor="name" className="w-15 mt-2">Name</label>
+              <div className="flex w-full gap-x-2">
+                <input type="text" id="name" name="name" className="mt-1 h-8 w-full border rounded-lg text-gray-800 outline-none px-3" defaultValue={header?.name}/>
+                <div className='pt-1 cursor-pointer' onClick={()=> setActive(prev => !prev)}>
+                  {isActive ? <Confirm/> : <Reject/> }
+                </div>
               </div>
             </div>
+            <div className="w-full flex mt-1">
+              <label htmlFor="url" className="mt-2 w-15">Url</label>
+              <input type="text" id="url" name="url" className="mt-1 h-8 w-full border rounded-lg text-gray-800 outline-none px-3" defaultValue={header?.url}/>
+            </div>
             <div className="w-full flex gap-x-2 mt-4">
-              <button className="block w-full px-3 py-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm">
-                <span> Edit 
-                  <FontAwesomeIcon icon={faPenToSquare} className="text-sm ml-1"/>
-                </span>
-              </button>
-              <button type="submit" className="block w-full px-3 py-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm">
-                <span> Add 
-                  <FontAwesomeIcon icon={faAdd} className="text-sm ml-1"/>
-                </span>
-              </button>
-              <button className="block w-full px-3 py-2 bg-gray-200 rounded-lg text-center text-sm hover:bg-gray-500 hover:text-white"> Delete 
-                <FontAwesomeIcon icon={faTrash} className="text-sm ml-1"/>
-              </button>
-              <button className="block w-full px-3 py-2 bg-gray-200 rounded-lg text-center text-sm hover:bg-gray-500 hover:text-white" onClick={()=> setVisible(false)}> Clear 
+              {
+                header?.id && (
+                  <button  type="submit"  className="block w-full px-3 py-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm">
+                    <span> Edit 
+                      <FontAwesomeIcon icon={faPenToSquare} className="text-sm ml-1"/>
+                    </span>
+                  </button>
+                )
+              }
+              {
+                !header?.id && (
+                  <button type="submit" className="block w-full px-3 py-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm">
+                    <span> Add 
+                      <FontAwesomeIcon icon={faAdd} className="text-sm ml-1"/>
+                    </span>
+                  </button>
+                )
+              }
+              <button className="block w-full px-3 py-2 bg-gray-200 rounded-lg text-center text-sm hover:bg-gray-500 hover:text-white" onClick={reset}> Clear 
                 <FontAwesomeIcon icon={faCancel} className="text-sm ml-1"/>
               </button>
             </div>
@@ -88,22 +131,24 @@ export const Headers = ({headers} ) => {
           <Header/>
         )}
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">
-          <span className="w-1/6 text-center text-sm border border-[#f6d1cb] p-1 rounded-full bg-white">
-            <span className="font-bold text-[#f6d1cb]">Number</span>
+          <span className="w-1/6 text-center text-sm border border-[#1f3f96a2] p-1 rounded-full bg-white">
+            <span className="font-bold text-[#1f3f96a2]">Number</span>
           </span>
-          <span className="w-1/3 text-center text-sm border p-1 rounded-full text-[#f6d1cb] border-[#f6d1cb] bg-white">
+          <span className="w-1/3 text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2] bg-white">
             <span className= "font-bold">Img</span>
           </span>
-          <span className="w-10/12 text-center text-sm border p-1 rounded-full text-[#f6d1cb] border-[#f6d1cb] bg-white">
+          <span className="w-6/12 text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2] bg-white">
             <span className= "font-bold">Name</span>
           </span>
-
+          <span className="w-4/12 text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2] bg-white">
+            <span className= "font-bold">Is Active ?</span>
+          </span>
           <span className="w-1/6"></span>
         </div>
         <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-5'/> 
-        <div id="dreams" className="space-y-5 overflow-scroll max-h-[30rem]">
+        <div id="headers" className="space-y-5 overflow-scroll max-h-[30rem]">
           {
-            headers.map((header, index)=>{
+            [...headers].reverse().map((header, index)=>{
             return(
               <div key={index} className="flex border border-gray-300 items-center px-3 shadow rounded-md  bg-white">
                 <span className="w-1/6 text-center text-sm">
@@ -112,19 +157,24 @@ export const Headers = ({headers} ) => {
                 <span className="w-1/3 text-center text-sm">
                 <img src="https://dummyimage.com/600x500/ccc/aaa" className="object-cover"/>
                 </span>
-                <span className="w-10/12 text-center text-sm">
-                  <div
-                  className="inline-block rounded-md
+                <span className="w-7/12 text-center text-sm">
+                  <div className="inline-block rounded-md
                   mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> {header.name} </div>
                 </span>
-                <span className="w-1/12">
-                  <div  className="flex items-center justify-center">
-                  <button className="block mx-1 p-1 py-2 border border-gray-400 text-sm hover:text-white hover:bg-gray-700 rounded-md text-center w-12 cursor-pointer"
-                  onClick={()=> setVisible(true)}>
-                    <FontAwesomeIcon icon={faPenToSquare} className="text-sm"/>
-                  </button>
-                  </div>
+                <span className="w-3/12 text-center text-sm">
+                  <div className="inline-block rounded-md
+                  mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> {header.isActive ? <Confirm/> : <Reject/> } </div>
                 </span>
+                <div className="w-1/4 flex items-center justify-end pr-4">
+                    <button className="inline-block mx-1 p-2 text-sm text-gray-700 bg-gray-300 hover:text-white hover:bg-gray-700 rounded-md text-center w-8 h-9 cursor-pointer" 
+                    onClick={()=> edit(header.id)}>
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                    </button>
+                    <button className="inline-block mx-1 p-2 text-sm text-gray-700 bg-gray-300 hover:text-white hover:bg-gray-700 rounded-md text-center w-8 h-9 cursor-pointer" 
+                    onClick={()=> deleteHeader(header.id)}>
+                        <FontAwesomeIcon icon={faTrash} className="text-sm"/>
+                    </button>
+                </div>
               </div>
             )
           })

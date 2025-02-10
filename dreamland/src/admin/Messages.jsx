@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faTrash, faEnvelope, faBoxArchive, faPenToSquare, faXmark, faPhone} from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData} from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
-import { Pagination } from '../components/pagination';
+import { Pagination } from '../components/Pagination';
 
 export const Messages = ({ messages, message, getMessage, editMessage, deleteMessage }) => {
   const items = useLoaderData();
@@ -127,16 +127,16 @@ export const Messages = ({ messages, message, getMessage, editMessage, deleteMes
           }
         
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">
-          <span className="w-1/6 text-center text-sm border border-[#f6d1cb] p-1 rounded-full bg-white">
-            <span className="font-bold text-[#f6d1cb]">Number</span>
+          <span className="w-1/6 text-center text-sm border border-[#1f3f96a2] p-1 rounded-full bg-white">
+            <span className="font-bold text-[#1f3f96a2]">Number</span>
           </span>
-          <span className="w-1/3 text-center text-sm border p-1 rounded-full text-[#f6d1cb] border-[#f6d1cb] bg-white">
+          <span className="w-1/3 text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2] bg-white">
             <span className= "font-bold">User</span>
           </span>
-          <span className="w-[45%] text-center text-sm border p-1 rounded-full text-[#f6d1cb] border-[#f6d1cb] bg-white">
+          <span className="w-[45%] text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2] bg-white">
             <span className= "font-bold">Info</span>
           </span>
-          <span className="w-1/3 text-center text-sm border p-1 rounded-full text-[#f6d1cb] border-[#f6d1cb] bg-white">
+          <span className="w-1/3 text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2] bg-white">
             <span className= "font-bold">Created At</span>
           </span>
           <div className="w-1/6 text-center"></div>
@@ -154,7 +154,7 @@ export const Messages = ({ messages, message, getMessage, editMessage, deleteMes
                   <span className="w-1/3 text-center text-sm">
                     <div
                     className="inline-block rounded-md
-                    mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> {message.name} {message.surname} </div>
+                    mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> {message.fullname} </div>
                   </span>
                   <span className="w-[45%] text-center text-sm">
                     <div

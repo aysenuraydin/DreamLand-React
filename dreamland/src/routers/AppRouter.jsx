@@ -27,8 +27,10 @@ import { OtherLayout } from '../layouts/OtherLayout';
 
 
 
-export const AppRouter = ({dreams, dream, titles, editDream, activeDream, about, contact, faq, faqs, socialMedias, allDreams, reviews, messages, headers, editAbout , editContact,    
-  editSocialMedia, addFaq, getFaq, resetFaq, deleteFaq, getDream, resetDream, addDream, deleteDream, review, getReview, resetReview, addReview,editReview , deleteReview, message, getMessage, addMessage, deleteMessage, resetMessage, editMessage }) => {
+export const AppRouter = ({dreams, dream, titles, editDream, about, contact, faq, faqs, socialMedias, allDreams, reviews, messages, editAbout , editContact,    
+  editSocialMedia, addFaq, getFaq, resetFaq, deleteFaq, getDream, resetDream, addDream, deleteDream, review, getReview, resetReview, addReview,editReview , deleteReview, message, getMessage, addMessage, deleteMessage, resetMessage, editMessage , reviewsByDreamId,
+  getReviewsByDreamId, headers, header, addHeader, deleteHeader, getHeader, resetHeader }) => {
+
   const router = createBrowserRouter([
     {
       path: "/admin",
@@ -73,8 +75,6 @@ export const AppRouter = ({dreams, dream, titles, editDream, activeDream, about,
             getReview={getReview} 
             editReview={editReview} 
             deleteReview={deleteReview} 
-            // resetReview={resetReview}
-            // addReview={addReview} 
           />, 
           loader: reviewsLoader   
         },
@@ -86,12 +86,20 @@ export const AppRouter = ({dreams, dream, titles, editDream, activeDream, about,
             getMessage={getMessage} 
             editMessage={editMessage} 
             deleteMessage={deleteMessage} 
-            // resetMessage={resetMessage} 
-            // addMessage={addMessage} 
             />, 
           loader: messagesLoader   
         },
-        { path: "headers",  element: <Headers headers={headers} />, action: headersAction, loader: headersLoader },
+        { path: "headers",  element: 
+        <Headers
+          headers={headers}   
+          header={header} 
+          addHeader={addHeader} 
+          deleteHeader={deleteHeader} 
+          getHeader={getHeader} 
+          resetHeader={resetHeader} 
+        />, 
+        action: headersAction, 
+        loader: headersLoader },
       ]
     },
     {
@@ -101,10 +109,22 @@ export const AppRouter = ({dreams, dream, titles, editDream, activeDream, about,
       children: [
         {
           path: "", 
-          element: <DreamLayout titles={titles}  editDream={editDream} activeDream={activeDream} />,
+          element: 
+            <DreamLayout 
+              titles={titles}  
+              editDream={editDream} 
+            />,
           children: [
             { index: true, element: <Home dreams={dreams}/> , loader: homeLoader },
-            {  path: "dream/:id",  element: <DreamDetail dream={dream}/>, loader: dreamLoader },
+            {  path: "dream/:id",  
+              element: 
+              <DreamDetail 
+                dream={dream}
+                reviewsByDreamId={reviewsByDreamId} 
+                getReviewsByDreamId={getReviewsByDreamId} 
+                addReview={addReview}
+              />, 
+              loader: dreamLoader },
             // loader: usersLoader → Sayfa Açılmadan Önce Veri Çek
           ]
         }
@@ -115,7 +135,7 @@ export const AppRouter = ({dreams, dream, titles, editDream, activeDream, about,
       element: <OtherLayout />,
       children: [
         { path: "/about", element: <About about={about} socialMedias={socialMedias} />, loader: aboutLoader   },
-        { path: "/contact",  element: <Contact contact={contact} />, action: contactAction, loader: contactLoader  },
+        { path: "/contact",  element: <Contact contact={contact} addMessage={addMessage}/>, action: contactAction, loader: contactLoader  },
         // Bir form veya veri gönderimi (POST, PATCH, DELETE vs.) olursa, çalıştırılır
         { path: "/faqs", element: <Faqs faqs={faqs} />, loader: faqsLoader  },
         { path: "/login",  element: <Login />, action: loginAction   },
@@ -126,12 +146,4 @@ export const AppRouter = ({dreams, dream, titles, editDream, activeDream, about,
   return <RouterProvider router={router} fallbackElement={
     <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1}/> } />;
 };
-// {
-//   path: "/create",
-//   element: <Create 
-//             addNote={addNote} 
-//             clearNote={clearNote} 
-//             note={note} 
-//           />
-// }
 // return <RouterProvider key={notes.length} router={router} />;

@@ -1,5 +1,8 @@
 import React from "react";
 import { useLoaderData} from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuestion} from "@fortawesome/free-solid-svg-icons";
+
 export const Faqs = ({faqs}) => {
     const items = useLoaderData();
     return(
@@ -8,16 +11,18 @@ export const Faqs = ({faqs}) => {
         <div className="relative isolate overflow-hidden px-6 lg:px-8 text-xl leading-[3rem] flex justify-center">
           <div className="rounded-[2rem] m-10 bg-gray-100 border border-gray-300 p-14 shadow-xl">
             <div className="w-lg text-center mb-10">
-              <h2 className="text-4xl font-semibold tracking-tight text-gray-900">Faqs</h2>
+              <h2 className="text-4xl font-semibold tracking-tight text-[#1f3f96a2]">Faqs</h2>
             </div>
-            <div className="px-2 max-h-96 overflow-scroll">
+            <div className="max-h-96 overflow-scroll px-10">
             {
               faqs.map((faq,index) => {
                 return(
-                  <div key={index} className="w-full mb-4 bg-white rounded-lg shadow px-5 pb-2" >
-                  <h4 className="mt-1 text-md font-semibold text-dark " >  {faq.question}  </h4>
-                  <p className="py-1 leading-relaxed text-body-color text-sm" >  
-                  {faq.answer} </p>
+                  <div key={index} className="w-full mb-4 bg-white rounded-lg shadow p-5 pb-2" >
+                    <h4 className="mt-1 text-sm font-semibold text-dark ">  
+                    <FontAwesomeIcon icon={faQuestion} className="text-[#4768c4ec] text-lg mr-2"/>
+                      {faq.question} ?
+                    </h4>
+                    <p className="py-1 leading-relaxed text-body-color text-sm text-gray-500" > {faq.answer} </p>
                 </div>
                 )
               })

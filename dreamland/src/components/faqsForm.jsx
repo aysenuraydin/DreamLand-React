@@ -19,7 +19,6 @@ export const FaqsForm = ({addFaq, faq, resetFaq}) => {
     }
     return(
         <form onSubmit={add} ref={formRef}>
-            <span>{faq.id} - {faq.question} - {faq.answer}</span>
             <h1 className="text-2xl p-5 pt-0 text-center">Faqs</h1>
             <div className="bg-white rounded-2xl">
                 <input type="text" name="question" id="question" className="w-full border border-gray-300 p-2 my-1 mb-2 rounded-md" placeholder="Question" defaultValue={faq?.question}/>

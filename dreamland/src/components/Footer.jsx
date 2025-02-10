@@ -12,25 +12,25 @@ export const Footer = () => {
             <nav className="flex flex-wrap justify-center -mx-5 -my-2">
                 <div className="px-5 py-2">
                     <NavLink to="/"
-                    className={({ isActive }) => isActive?'footer-link text-gray-300':'footer-link' } >
+                    className={({ isActive }) => isActive?'footer-link text-[#4768c4ec]':'footer-link' } >
                         Home
                     </NavLink>
                 </div>
                 <div className="px-5 py-2">
                     <NavLink to="/about"
-                    className={({ isActive }) => isActive?'footer-link text-gray-300':'footer-link' } >
+                    className={({ isActive }) => isActive?'footer-link text-[#4768c4ec]':'footer-link' } >
                         About
                     </NavLink>
                 </div>
                 <div className="px-5 py-2">
                     <NavLink to="/contact"
-                    className={({ isActive }) => isActive?'footer-link text-gray-300':'footer-link' } >
+                    className={({ isActive }) => isActive?'footer-link text-[#4768c4ec]':'footer-link' } >
                         Contact
                     </NavLink>
                 </div>
                 <div className="px-5 py-2">
                     <NavLink to="/faqs"
-                    className={({ isActive }) => isActive?'footer-link text-gray-300':'footer-link' } >
+                    className={({ isActive }) => isActive?'footer-link text-[#4768c4ec]':'footer-link' } >
                         Faqs
                     </NavLink>
                 </div>

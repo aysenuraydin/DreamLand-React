@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { Footer } from '../components/Footer';
-import { ScrollTop } from "../components/scroll-top";
+import { ScrollTop } from "../components/Scroll-top";
 import { AdminSidebar } from '../components/AdminSidebar';
 
 export const AdminLayout = ({ children }) => {

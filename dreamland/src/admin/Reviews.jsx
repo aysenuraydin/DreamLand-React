@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCancel, faTrash, faComment, faStar as solidStar, faPenToSquare, faXmark, faCheck} from "@fortawesome/free-solid-svg-icons";
+import { faCancel, faTrash, faComment, faPenToSquare, faXmark} from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData} from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
-import { Pagination } from '../components/pagination';
+import { Pagination } from '../components/Pagination';
 import { Reject } from '../icons/Reject';
 import { Confirm } from '../icons/confirm';
 
@@ -69,15 +70,17 @@ export const Reviews = ({reviews, review, editReview, getReview, deleteReview } 
                   <div className="w-full flex">
                     {
                       review.isConfirm && (
-                        <button className="block w-16 text-sm mr-2 pt-1 hover:bg-gray-500 hover:text-white border border-gray-300 rounded-lg text-center cursor-pointer" onClick={()=> edit(review.id)}>
-                          <Reject/>
+                        <button className="review-button" onClick={()=> edit(review.id)}>
+                          <span className='scale-75 pb-1'><Reject/></span>
+                          <span className='text-[#1f3f96a2]'>Reject</span>
                         </button>
                       )
                     }
                     {
                       !review.isConfirm && (
-                        <button className="block w-16 text-sm mr-2 pt-1 hover:bg-gray-500 hover:text-white border border-gray-300 rounded-lg text-center cursor-pointer" onClick={()=> edit(review.id)}>
-                          <Confirm/>
+                        <button className="review-button" onClick={()=> edit(review.id)}>
+                          <span className='scale-75 pb-1'><Confirm/></span>
+                          <span className='text-[#1f3f96a2]'>Confirm</span>
                         </button>
                       )
                     }
@@ -90,19 +93,19 @@ export const Reviews = ({reviews, review, editReview, getReview, deleteReview } 
           )
         }
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">
-          <span className="w-1/6 bg-white text-center text-sm border border-[#f6d1cb] p-1 rounded-full">
-            <span className="font-bold text-[#f6d1cb]">Number</span>
+          <span className="w-1/6 bg-white text-center text-sm border border-[#1f3f96a2] p-1 rounded-full">
+            <span className="font-bold text-[#1f3f96a2]">Number</span>
           </span>
-          <span className="w-1/3 bg-white text-center text-sm border p-1 rounded-full text-[#f6d1cb] border-[#f6d1cb]">
+          <span className="w-1/3 bg-white text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2]">
             <span className= "font-bold">User</span>
           </span>
-          <span className="w-1/3 bg-white text-center text-sm border p-1 rounded-full text-[#f6d1cb] border-[#f6d1cb]">
+          <span className="w-1/3 bg-white text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2]">
             <span className= "font-bold">Dream</span>
           </span>
-          <span className="w-1/3 bg-white text-center text-sm border p-1 rounded-full text-[#f6d1cb] border-[#f6d1cb]">
-            <span className= "font-bold">Comment</span>
+          <span className="w-1/3 bg-white text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2]">
+            <span className= "font-bold">Is Confirm ?</span>
           </span>
-          <span className="w-1/4 bg-white text-center text-sm border p-1 rounded-full text-[#f6d1cb] border-[#f6d1cb]">
+          <span className="w-1/4 bg-white text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2]">
             <span className= "font-bold">Created At</span>
           </span>
           <div className="w-1/6 text-center"></div>
@@ -122,15 +125,14 @@ export const Reviews = ({reviews, review, editReview, getReview, deleteReview } 
                     mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> {review.username}  </div>
                   </span>
                   <span className="w-1/3 text-center text-sm">
-                    <div
-                    className="inline-block rounded-md
-                    mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> {review.dreamId} - {review.dreamTitle} </div>
+                    <Link to="/dream/9" className="inline-block rounded-md
+                    mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium cursor-pointer hover:underline"> {review.dreamId} - {review.dreamTitle}</Link>
                   </span>
                   <span className="w-1/3 text-center text-sm">
-                    <div
-                    className="inline-block rounded-md
+                    <div className="inline-block rounded-md
                     mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> 
-                    {review.isConfirm ? <Confirm/> : <Reject/> } </div>
+                      { review.isConfirm ? <Confirm/> : <Reject/> } 
+                    </div>
                   </span>
                   <span className="w-1/4 text-center text-sm">
                     <div
