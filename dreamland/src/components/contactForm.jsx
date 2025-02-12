@@ -3,14 +3,18 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
-export const ContactForm = ({editContact,contact}) => {
+export const ContactForm = ({contact, infoDispatch}) => {
 
     const setContact = (event) => {
         event.preventDefault();
         const email = event.target.elements.email.value;
         const phone = event.target.elements.phone.value;
         const address = event.target.elements.address.value;
-        editContact({email:email, phone:phone,address:address});
+
+        infoDispatch({ 
+            type: "EDİT_CONTACT",
+            payload: {email:email, phone:phone,address:address}
+        });
     }
     return(
         <form  onSubmit={setContact} className="bg-white p-10 rounded-2xl border border-gray-300 shadow-lg mx-10 px-10  pt-10">

@@ -3,14 +3,18 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
-export const SocialMediaForm = ({editSocialMedia, socialMedias}) => {
+export const SocialMediaForm = ({socialMedias, infoDispatch}) => {
     const setSocialMedias = (event) => {
         event.preventDefault();
         const instagram = event.target.elements.instagram.value;
         const facebook = event.target.elements.facebook.value;
         const twitter = event.target.elements.twitter.value;
         const github = event.target.elements.github.value;
-        editSocialMedia({instagram:instagram,facebook:facebook,twitter:twitter,github:github});
+        
+        infoDispatch({ 
+            type: "EDİT_SOCİALMEDİA",
+            payload: {instagram:instagram,facebook:facebook,twitter:twitter,github:github}
+        });
     }
     return(
         <form  onSubmit={setSocialMedias} className="bg-white p-10 rounded-2xl border border-gray-300 shadow-lg mx-10 px-10 pt-10">

@@ -21,7 +21,7 @@ export default function GlobalErrors() {
         }
     }
     return (
-        <div className="flex justify-center items-center bg-[url('https://www.svgrepo.com/show/390315/stars.svg')] bg-[length:40px_40px] min-h-screen bg-white/[97%] bg-blend-overlay">
+        <div className="flex justify-center items-center bg-[url('https://www.svgrepo.com/show/390315/stars.svg')] bg-[length:40px_40px] h-screen bg-white/[97%] bg-blend-overlay">
             <main className="bg-white px-6 py-14 lg:px-8 border-gray-300 shadow-2xl rounded-[2rem] border">
                 <div className="text-center">
                 <p className="text-base font-semibold text-gray-600">ERROR</p>

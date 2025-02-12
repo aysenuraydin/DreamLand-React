@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Logo } from "../icons/logo";
-import { useLoaderData} from "react-router-dom";
+import { useLoaderData,useParams} from "react-router-dom";
 import { Return } from "../icons/return";
 import { Link } from "react-router-dom";
 import { Comment } from "../components/Comment";
 
-export const DreamDetail = ({dream, reviewsByDreamId, getReviewsByDreamId, addReview }) => {
+export const DreamDetail = ({dream, reviewsByDreamId, reviewDispatch}) => {
   const dreams = useLoaderData();
-
   return(
       <>
         <div className="my-10 mx-5 rounded-3xl shadow-lg border border-gray-300 relative">
@@ -15,21 +14,20 @@ export const DreamDetail = ({dream, reviewsByDreamId, getReviewsByDreamId, addRe
           <div className="relative p-10 pb-18 h-3/4">
             <Link to="/" className="inline-block w-12 absolute bottom-5 right-5 cursor-pointer hover:scale-125"><Return /></Link>
             <div className="flex justify-center pt-10">
-              <h1 className="text-2xl text-white px-5 -mt-2 text-shadow">{dream.title}</h1>
+              <h1 className="text-2xl text-white px-5 -mt-2 text-shadow">{dream?.title}</h1>
             </div>
             <div className='flex justify-center mt-10 scale-125 pt-10'><Logo /></div>
             <div className="mt-5 text-gray-600 min-h-72 pt-10">
-              <p className="indent-6 pb-3 text-gray-600">{dream.content}</p>
+              <p className="indent-6 pb-3 text-gray-600">{dream?.content}</p>
             </div>
           </div>
       </div>
       <div className="p-6 py-12">
         <Comment 
-          dreamId={dream.id} 
-          dreamTitle={dream.title} 
+          dreamId={dream?.id} 
+          dreamTitle={dream?.title} 
           reviewsByDreamId={reviewsByDreamId} 
-          getReviewsByDreamId={getReviewsByDreamId}
-          addReview={addReview}
+          reviewDispatch={reviewDispatch} 
         />
       </div>
       </>

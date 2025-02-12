@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCancel, faTrash, faImage,
-  faAdd, faPenToSquare, faXmark, faPlus} from "@fortawesome/free-solid-svg-icons";
-import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
+import { faCancel, faImage,  faPlus} from "@fortawesome/free-solid-svg-icons";
+import { redirect, useActionData, useLoaderData } from "react-router-dom";
 import { Header } from "../components/Header";
 import SyncLoader from "react-spinners/SyncLoader";
 import { Pagination } from '../components/Pagination';
-import { Confirm } from '../icons/confirm';
-import { Reject } from '../icons/Reject';
+import { HeaderList } from '../components/HeaderList';
+import { HeaderForm } from '../components/HeaderForm';
 
-export const Headers = ({headers, header, addHeader, deleteHeader, getHeader, resetHeader } ) => {
+export const Headers = ({headers, header, headerDispatch } ) => {
   const items = useLoaderData();
   const errors = useActionData();
   const [visible, setVisible] = useState(false);
@@ -20,6 +19,7 @@ export const Headers = ({headers, header, addHeader, deleteHeader, getHeader, re
   useEffect(()=> {
     setActive(header.isActive)
   },[header])
+
   const add = (event) => {
     event.preventDefault(); 
 
@@ -27,22 +27,45 @@ export const Headers = ({headers, header, addHeader, deleteHeader, getHeader, re
     const url = event.target.elements.url.value;
 
     if(name && url){
-        addHeader({name:name, isActive:isActive, url:url});
+        if(header?.id){
+          headerDispatch({ 
+            type: "EDİT_HEADER",
+            payload: {id:header?.id, name:name, isActive:isActive, url:url}
+          });
+        } else {
+          headerDispatch({ 
+            type: "ADD_HEADER",
+            payload: {name:name, isActive:isActive, url:url}
+          });
+        }
+        setActive(false);
         formRef.current.reset();
     }
   }
   const reset = () => {
-    resetHeader(); 
+    headerDispatch({ 
+      type: "CLEAR_HEADER",
+    });
+    setActive(false);
+    setVisible(false);
     formRef.current.reset();
   }
-  const edit = (id) => {
+  const edit = (header) => {
     setVisible(true);
-    getHeader(id);
+    headerDispatch({ 
+      type: "GET_HEADER",
+      payload: header
+    });
+  }
+  const del = (header) => {
+    setVisible(true);
+    headerDispatch({ 
+      type: "DELETE_HEADER",
+      payload: header
+    });
   }
   const changeActive = () => {
-    setVisible((prev)=> {
-      setActive(!prev)
-    });
+    setActive(prev => !prev)
   }
 
   return(    
@@ -67,7 +90,7 @@ export const Headers = ({headers, header, addHeader, deleteHeader, getHeader, re
             }
             {
               visible && (
-              <div className="admin-button" onClick={()=> setVisible(!visible)}>
+              <div className="admin-button" onClick={reset}>
                 <span className="text-red-500"> Close 
                   <FontAwesomeIcon icon={faCancel} className="text-sm pl-1"/>
                 </span>
@@ -77,58 +100,14 @@ export const Headers = ({headers, header, addHeader, deleteHeader, getHeader, re
             
           </div>
         </div>
-        { visible && (
-          <Form onSubmit={add} ref={formRef} className="w-4/5 mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300 flex">
-          <div className="w-1/3 py-5">
-            <div className="flex justify-center mb-5 h-32 w-40">
-              <img src="https://dummyimage.com/600x500/ccc/aaa" className="object-cover"/>
-            </div>
-            <div className="flex justify-center">
-              <input type="file" className="mt-1 p-1 w-[6.5rem] border rounded-lg text-gray-800 outline-none text-sm cursor-pointer" />
-            </div>
-          </div>
-          <div className="w-2/3 py-4 ml-12">
-            <div className="w-full flex">
-              <label htmlFor="name" className="w-15 mt-2">Name</label>
-              <div className="flex w-full gap-x-2">
-                <input type="text" id="name" name="name" className="mt-1 h-8 w-full border rounded-lg text-gray-800 outline-none px-3" defaultValue={header?.name}/>
-                <div className='pt-1 cursor-pointer' onClick={()=> setActive(prev => !prev)}>
-                  {isActive ? <Confirm/> : <Reject/> }
-                </div>
-              </div>
-            </div>
-            <div className="w-full flex mt-1">
-              <label htmlFor="url" className="mt-2 w-15">Url</label>
-              <input type="text" id="url" name="url" className="mt-1 h-8 w-full border rounded-lg text-gray-800 outline-none px-3" defaultValue={header?.url}/>
-            </div>
-            <div className="w-full flex gap-x-2 mt-4">
-              {
-                header?.id && (
-                  <button  type="submit"  className="block w-full px-3 py-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm">
-                    <span> Edit 
-                      <FontAwesomeIcon icon={faPenToSquare} className="text-sm ml-1"/>
-                    </span>
-                  </button>
-                )
-              }
-              {
-                !header?.id && (
-                  <button type="submit" className="block w-full px-3 py-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm">
-                    <span> Add 
-                      <FontAwesomeIcon icon={faAdd} className="text-sm ml-1"/>
-                    </span>
-                  </button>
-                )
-              }
-              <button className="block w-full px-3 py-2 bg-gray-200 rounded-lg text-center text-sm hover:bg-gray-500 hover:text-white" onClick={reset}> Clear 
-                <FontAwesomeIcon icon={faCancel} className="text-sm ml-1"/>
-              </button>
-            </div>
-          </div>
-        </Form>
-        )}
+        {
+          visible && ( 
+              <HeaderForm del={del} header={header} add={add} reset={reset} formRef={formRef} changeActive={changeActive} isActive={isActive} /> 
+            ) 
+        }
         { !visible && (
-          <Header/>
+          <div className='-my-9'> <Header/> </div>
+          
         )}
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">
           <span className="w-1/6 text-center text-sm border border-[#1f3f96a2] p-1 rounded-full bg-white">
@@ -143,51 +122,13 @@ export const Headers = ({headers, header, addHeader, deleteHeader, getHeader, re
           <span className="w-4/12 text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2] bg-white">
             <span className= "font-bold">Is Active ?</span>
           </span>
-          <span className="w-1/6"></span>
+          <span className="w-4/12 text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2] bg-white">
+            <span className= "font-bold">Created At </span>
+          </span>
+          <span className="w-1/4"></span>
         </div>
         <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-5'/> 
-        <div id="headers" className="space-y-5 overflow-scroll max-h-[30rem]">
-          {
-            [...headers].reverse().map((header, index)=>{
-            return(
-              <div key={index} className="flex border border-gray-300 items-center px-3 shadow rounded-md  bg-white">
-                <span className="w-1/6 text-center text-sm">
-                  {index+1} - {header.id}
-                </span>
-                <span className="w-1/3 text-center text-sm">
-                <img src="https://dummyimage.com/600x500/ccc/aaa" className="object-cover"/>
-                </span>
-                <span className="w-7/12 text-center text-sm">
-                  <div className="inline-block rounded-md
-                  mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> {header.name} </div>
-                </span>
-                <span className="w-3/12 text-center text-sm">
-                  <div className="inline-block rounded-md
-                  mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> {header.isActive ? <Confirm/> : <Reject/> } </div>
-                </span>
-                <div className="w-1/4 flex items-center justify-end pr-4">
-                    <button className="inline-block mx-1 p-2 text-sm text-gray-700 bg-gray-300 hover:text-white hover:bg-gray-700 rounded-md text-center w-8 h-9 cursor-pointer" 
-                    onClick={()=> edit(header.id)}>
-                        <FontAwesomeIcon icon={faPenToSquare} />
-                    </button>
-                    <button className="inline-block mx-1 p-2 text-sm text-gray-700 bg-gray-300 hover:text-white hover:bg-gray-700 rounded-md text-center w-8 h-9 cursor-pointer" 
-                    onClick={()=> deleteHeader(header.id)}>
-                        <FontAwesomeIcon icon={faTrash} className="text-sm"/>
-                    </button>
-                </div>
-              </div>
-            )
-          })
-          }
-          {
-            headers.length==0 && (
-              <div className="bg-white text-center mt-4 p-7 rounded-md shadow-md border border-gray-300">
-                <FontAwesomeIcon icon={faXmark} className="text-sm mr-2"/>
-                  No headers image available.
-              </div>
-            )
-          }
-        </div>
+        <HeaderList headers={headers} edit={edit} />
         <Pagination/>
       </div>
     </div>
@@ -199,3 +140,8 @@ export const headersAction = async ({ request }) => {
 export const headersLoader = async () => {
   return;
 }
+
+
+
+
+

@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import { Link } from "react-router-dom";
 import { Logo } from "../icons/logo"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,7 @@ export const Card = ({dream}) => {
         bg-gradient-to-b from-[#1f3f9682] from-0% via-white via-40% to-white to-100%"> 
             <Link to={`dream/${dream.id}`}>
                 <h1 className="text-center text-shadow text-2xl sm:text-lg my-5 text-white hover:scale-110 h-12">
-                    { dream.title }
+                    { dream.title}
                 </h1>
             </Link>
             <Logo size={70}/>

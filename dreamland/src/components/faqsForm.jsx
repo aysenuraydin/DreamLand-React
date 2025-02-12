@@ -2,20 +2,34 @@ import React,  { useRef } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare ,faAdd ,faCancel} from "@fortawesome/free-solid-svg-icons";
 
-export const FaqsForm = ({addFaq, faq, resetFaq}) => {
+export const FaqsForm = ({faq, faqDispatch}) => {
     const formRef = useRef(null); 
     const add = (event) => {
         event.preventDefault(); 
         const question = event.target.elements.question.value;
         const answer = event.target.elements.answer.value;
         if(question && answer){
-            addFaq({question:question, answer:answer})
+            if(faq?.id){
+                console.log("EDIT_FAQ")
+                faqDispatch({ 
+                    type: "EDIT_FAQ",
+                    payload: {id: faq?.id, question:question, answer:answer} 
+                });
+            } else {
+                console.log("ADD_FAQ")
+                faqDispatch({ 
+                    type: "ADD_FAQ",
+                    payload: {question:question, answer:answer}
+                });
+            }
             formRef.current.reset();
         }
     }
     const reset = () => {
         formRef.current.reset();
-        resetFaq(); 
+        faqDispatch({ 
+            type: "CLEAR_FAQ",
+        });
     }
     return(
         <form onSubmit={add} ref={formRef}>

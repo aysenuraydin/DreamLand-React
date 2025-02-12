@@ -3,15 +3,28 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash, faXmark} from "@fortawesome/free-solid-svg-icons";
 
-export const FaqsList = ({faqs, getFaq, deleteFaq}) => {
-   
+export const FaqsList = ({faqs, faqDispatch}) => {
+    const get = (faq) => {
+        console.log("GET_FAQ",{...faq});
+        faqDispatch({ 
+            type: "GET_FAQ",
+            payload: {...faq}
+        });
+    }
+    const del = (faq) => {
+        console.log("DELETE_FAQ",{...faq})
+        faqDispatch({ 
+            type: "DELETE_FAQ",
+            payload: {...faq}
+        });
+    }
     return(
         <>
             <div className="faq-list pt-10">
                 <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/> 
                 <ul className="max-h-[25rem] px-2 overflow-scroll">
                     {
-                    faqs.map((faq,index)=> {
+                    [...faqs].reverse().map((faq,index)=> {
                     return(
                         <li key={index}>
                         <div className="flex border border-gray-300 shadow-lg my-5 m-1 p-1 rounded-md bg-gray-100">
@@ -25,11 +38,11 @@ export const FaqsList = ({faqs, getFaq, deleteFaq}) => {
                             </div>
                             <div className="w-1/4 flex items-center justify-end pr-4">
                                 <button className="inline-block mx-1 p-2 text-sm text-gray-700 bg-gray-300 hover:text-white hover:bg-gray-700 rounded-md text-center w-8 h-9 cursor-pointer" 
-                                onClick={()=> getFaq(faq.id)}>
+                                onClick={()=> get(faq)}>
                                     <FontAwesomeIcon icon={faPenToSquare} />
                                 </button>
                                 <button className="inline-block mx-1 p-2 text-sm text-gray-700 bg-gray-300 hover:text-white hover:bg-gray-700 rounded-md text-center w-8 h-9 cursor-pointer" 
-                                onClick={()=> deleteFaq(faq.id)}>
+                                onClick={()=> del(faq)}>
                                     <FontAwesomeIcon icon={faTrash} className="text-sm"/>
                                 </button>
                             </div>

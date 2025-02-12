@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 export const Sidebar = ({titles}) => {
     return (
-        <div className="px-3 lg:max-h-full mt-10 pt-9 sm:mt-0 max-h-52 overflow-scroll">
+        <div className="px-3 lg:max-h-full pt-9 max-h-52 overflow-scroll">
             <ul>
                 {
                     titles.map((title,index)=> (
