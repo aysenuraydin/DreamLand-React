@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Form , Link} from "react-router-dom";
 import { CommentCard } from './commentCard';
 
-export const Comment = ({dreamId, dreamTitle, reviewsByDreamId, getReviewsByDreamId, addReview}) => {
+export const Comment = ({dreamId, dreamTitle, reviewsByDreamId, reviewDispatch }) => {
     const [comment, setComment] = useState([]);
     const formRef = useRef(null); 
 
     useEffect(() => {
-        getReviewsByDreamId(dreamId)
+        reviewDispatch({ 
+            type: "SET_REVİEWS_BY_DREAMID",
+            payload:  { id:dreamId }
+        });
         setComment([]);
     }, [dreamId]); 
 
@@ -16,14 +19,15 @@ export const Comment = ({dreamId, dreamTitle, reviewsByDreamId, getReviewsByDrea
         const username = event.target.elements.username.value;
         const comment = event.target.elements.comment.value;
         if(username && comment){
-            addReview(
-                {
+            reviewDispatch({ 
+                type: "ADD_REVİEW",
+                payload:  {
                     username:username, 
                     comment:comment, 
                     dreamId:dreamId, 
                     dreamTitle:dreamTitle
                 }
-            )
+            });
             setComment((prev)=>[
                 ...prev, 
                 {

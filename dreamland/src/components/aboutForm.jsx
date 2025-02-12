@@ -3,11 +3,15 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk} from "@fortawesome/free-solid-svg-icons";
 
-export const AboutForm = ({about, editAbout}) => {
+export const AboutForm = ({about, infoDispatch}) => {
     const setAbout = (event) => {
         event.preventDefault();
         const value = event.target.elements.about.value;
-        editAbout(value);
+        console.log(value);
+        infoDispatch({ 
+            type: "EDİT_ABOUT",
+            payload: value
+        });
     }
     return(
         <form  onSubmit={setAbout} className="bg-white p-10 rounded-2xl border border-gray-300 shadow-lg mx-10 px-10 pt-10">

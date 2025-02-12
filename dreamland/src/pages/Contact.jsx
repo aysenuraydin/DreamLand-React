@@ -3,7 +3,7 @@ import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEnvelope, faPhone} from "@fortawesome/free-solid-svg-icons";
 
-export const Contact = ({contact, addMessage}) => {
+export const Contact = ({contact, messageDispatch}) => {
   const items = useLoaderData();
   const errors = useActionData();
   const formRef = useRef(null); 
@@ -13,22 +13,20 @@ export const Contact = ({contact, addMessage}) => {
 
     const name = event.target.elements.name.value;
     const surname = event.target.elements.surname.value;
-    const company = event.target.elements.company.value;
     const email = event.target.elements.email.value;
     const phone = event.target.elements.phone.value;
     const content = event.target.elements.content.value;
 
     if(name && surname && email && phone && content){
-      addMessage(
-            {
-                name:name, 
-                surname:surname, 
-                company:company, 
-                email:email,
-                phone:phone,
-                content:content
-            }
-        )
+        messageDispatch({ 
+          type: "ADD_MESSAGE",
+          payload:  {
+              fullname:  name+' '+surname,
+              email:email,
+              phone:phone,
+              content:content
+          }
+        });
     }
     formRef.current.reset();
 }
@@ -73,12 +71,6 @@ export const Contact = ({contact, addMessage}) => {
                   </label>
                   <div className="">
                     <input type="text" name="surname" id="surname" className="content-input"/>
-                  </div>
-                </div>
-                <div className="sm:col-span-2">
-                  <label htmlFor="company" className="block text-sm/6 font-semibold text-gray-900">Company</label>
-                  <div className="">
-                    <input type="text" name="company" id="company" className="content-input"/>
                   </div>
                 </div>
                 <div className="sm:col-span-2">

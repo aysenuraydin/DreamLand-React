@@ -3,15 +3,17 @@ import { Outlet , useParams} from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { Search } from "../components/Search";
+import { Letters } from '../components/letters';
 
-export const DreamLayout = ({ children, titles, editDream}) => {
+export const DreamLayout = ({ children, titles, dreamDispatch}) => {
     const { id } = useParams();
     useEffect(() => {
-        editDream(id);
-    }, []);
-    useEffect(() => {
-        editDream(id);
+        dreamDispatch({ 
+            type: "GET_DREAM_BY_ID",
+            payload:  {id:id}
+        });
     }, [id]);
+
     return (
         <div className="-mt-20">
             <Header/>
@@ -24,6 +26,7 @@ export const DreamLayout = ({ children, titles, editDream}) => {
             <div className="flex lg:flex-row flex-col">
                 <div className="lg:w-96 lg:pl-10 px-5 pb-10">
                     <Sidebar  titles={titles} />
+                    <Letters />
                 </div>
                 <div className="w-full px-5">
                     { <Outlet/>}

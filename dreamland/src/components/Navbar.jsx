@@ -18,7 +18,7 @@ export const Navbar = () => {
 
   return (
     <nav className={`px-10 fixed top-0 w-full transition-all duration-500 z-150
-      ${scrolled ? "bg-[#ffffff] shadow-xl" : ""}`}>
+      ${scrolled ? "bg-[#F3F4F6] shadow-xl border-b border-gray-300" : ""} ${bar ? "bg-[#F3F4F6]" : ""}`}>
       <div className="max-w-[70rem] mx-auto flex justify-between px-5 p-3">
         <Link to="/">
           <span className="text-2xl mr-1 sm:text-3xl tracking-widest text-[#1f3f96]">Dream Land</span>
@@ -29,7 +29,7 @@ export const Navbar = () => {
           <FontAwesomeIcon icon={faBars}/>
         </div>
       </div>
-      { bar && <div className="lg:hidden block mx-auto pb-3 bg-white -mt-3"> <NavbarLinks/> </div> }
+      { bar && <div className="lg:hidden block mx-auto pb-3 px-6"> <NavbarLinks/> </div> }
     </nav>
   );
 };
