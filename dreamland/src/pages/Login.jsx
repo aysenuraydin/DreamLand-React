@@ -6,8 +6,8 @@ export const Login = () => {
   const errors = useActionData();
   return(
     <>
-      <div className="flex h-full items-center justify-center pt-20 min-h-screen">
-        <div className="bg-gray-100 p-5 w-full my-16 max-w-lg border border-gray-300 rounded-3xl shadow-lg">
+      <div className="flex items-center justify-center h-screen">
+        <div className="bg-gray-100 p-5 w-full max-w-lg border border-gray-300 rounded-3xl shadow-lg -mt-60">
           <h2 className="text-2xl font-semibold text-gray-600 mb-6 text-center">
             Sign In
           </h2>

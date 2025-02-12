@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { DreamContext } from '../contexts/DreamContext';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faComment} from "@fortawesome/free-solid-svg-icons";
@@ -8,9 +9,14 @@ import { Pagination } from '../components/Pagination';
 import { ReviewList } from '../components/reviewList';
 import { ReviewForm } from '../components/reviewForm';
 
-export const Reviews = ({reviews, review, reviewDispatch } ) => {
+export const Reviews = () => {
   const items = useLoaderData();
   const [visible, setVisible] = useState(false);
+
+  const { reviewState , reviewDispatch } = useContext(DreamContext);
+  const review = reviewState.review;
+  const reviews = reviewState.reviews;
+
   const get = (review) => {
     setVisible(true);
     reviewDispatch({ 

@@ -1,8 +1,12 @@
-import React,  { useRef } from "react"
+import React,  { useRef, useContext } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare ,faAdd ,faCancel} from "@fortawesome/free-solid-svg-icons";
+import { DreamContext } from "../contexts/DreamContext";
 
-export const FaqsForm = ({faq, faqDispatch}) => {
+export const FaqsForm = () => {
+    const { faqState, faqDispatch } = useContext(DreamContext); 
+    const faq = faqState.faq;
+
     const formRef = useRef(null); 
     const add = (event) => {
         event.preventDefault(); 
@@ -10,13 +14,11 @@ export const FaqsForm = ({faq, faqDispatch}) => {
         const answer = event.target.elements.answer.value;
         if(question && answer){
             if(faq?.id){
-                console.log("EDIT_FAQ")
                 faqDispatch({ 
                     type: "EDIT_FAQ",
                     payload: {id: faq?.id, question:question, answer:answer} 
                 });
             } else {
-                console.log("ADD_FAQ")
                 faqDispatch({ 
                     type: "ADD_FAQ",
                     payload: {question:question, answer:answer}

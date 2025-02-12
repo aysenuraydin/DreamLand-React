@@ -1,18 +1,20 @@
-import React from "react"
+import React, { useContext } from 'react';
+import { DreamContext } from '../contexts/DreamContext';
 import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash, faXmark} from "@fortawesome/free-solid-svg-icons";
 
-export const FaqsList = ({faqs, faqDispatch}) => {
+export const FaqsList = () => {
+    const { faqState, faqDispatch } = useContext(DreamContext);
+    const faqs = faqState.faqs;
+
     const get = (faq) => {
-        console.log("GET_FAQ",{...faq});
         faqDispatch({ 
             type: "GET_FAQ",
             payload: {...faq}
         });
     }
     const del = (faq) => {
-        console.log("DELETE_FAQ",{...faq})
         faqDispatch({ 
             type: "DELETE_FAQ",
             payload: {...faq}

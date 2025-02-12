@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState, useRef, useContext, useEffect } from 'react';
+import { DreamContext } from '../contexts/DreamContext';
 import { useLoaderData } from "react-router-dom";
 import { Facebook } from "../icons/facebook";
 import { Instagram } from "../icons/instagram";
 import { Twiter } from "../icons/twiter";
 import { Github } from "../icons/github";
-export const About = ({about, socialMedias}) => {
+
+export const About = () => {
+  const { infoState } = useContext(DreamContext);
+  const about = infoState.about;
+  const socialMedias = infoState.socialMedias;
+
   const items = useLoaderData();
   return(
     <div className="p-10">

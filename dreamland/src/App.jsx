@@ -1,3 +1,18 @@
+import React from 'react';
+import './App.css'
+import { AppRouter } from './routers/AppRouter'
+import { DreamProvider } from './contexts/DreamContext';
+
+function App() {
+  return (
+    <DreamProvider>
+      <AppRouter />
+    </DreamProvider>
+  )
+}
+export default App
+
+/*
 import { useState, useMemo, useEffect, useReducer } from 'react'
 import './App.css'
 import { AppRouter } from './routers/AppRouter'
@@ -91,3 +106,4 @@ function App() {
 }
 export default App
 
+*/

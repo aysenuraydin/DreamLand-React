@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { DreamContext } from '../contexts/DreamContext';
 import { Logo } from "../icons/logo";
-import { useLoaderData,useParams} from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { Return } from "../icons/return";
 import { Link } from "react-router-dom";
 import { Comment } from "../components/Comment";
 
-export const DreamDetail = ({dream, reviewsByDreamId, reviewDispatch}) => {
-  const dreams = useLoaderData();
+export const DreamDetail = () => {
+    const dreams = useLoaderData();
+    const { dreamState } = useContext(DreamContext);
+    const dream = dreamState.dream;
+
   return(
       <>
         <div className="my-10 mx-5 rounded-3xl shadow-lg border border-gray-300 relative">
@@ -23,12 +27,7 @@ export const DreamDetail = ({dream, reviewsByDreamId, reviewDispatch}) => {
           </div>
       </div>
       <div className="p-6 py-12">
-        <Comment 
-          dreamId={dream?.id} 
-          dreamTitle={dream?.title} 
-          reviewsByDreamId={reviewsByDreamId} 
-          reviewDispatch={reviewDispatch} 
-        />
+        <Comment dreamId={dream?.id} dreamTitle={dream?.title}/>
       </div>
       </>
   )

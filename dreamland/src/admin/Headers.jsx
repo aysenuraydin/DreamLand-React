@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
+import { DreamContext } from '../contexts/DreamContext';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faImage,  faPlus} from "@fortawesome/free-solid-svg-icons";
@@ -9,12 +10,17 @@ import { Pagination } from '../components/Pagination';
 import { HeaderList } from '../components/HeaderList';
 import { HeaderForm } from '../components/HeaderForm';
 
-export const Headers = ({headers, header, headerDispatch } ) => {
+export const Headers = () => {
   const items = useLoaderData();
   const errors = useActionData();
+  
   const [visible, setVisible] = useState(false);
   const [isActive, setActive] = useState(false);
   const formRef = useRef(null); 
+
+  const { headerState , headerDispatch } = useContext(DreamContext);
+  const headers = headerState.headers;
+  const header = headerState.header;
 
   useEffect(()=> {
     setActive(header.isActive)
@@ -140,6 +146,8 @@ export const headersAction = async ({ request }) => {
 export const headersLoader = async () => {
   return;
 }
+
+
 
 
 

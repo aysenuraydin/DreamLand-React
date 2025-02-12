@@ -1,9 +1,13 @@
-import React from "react"
+import React, { useContext } from 'react';
 import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { DreamContext } from "../contexts/DreamContext";
 
-export const SocialMediaForm = ({socialMedias, infoDispatch}) => {
+export const SocialMediaForm = () => {
+    const { infoState, infoDispatch} = useContext(DreamContext); 
+    const socialMedias = infoState.socialMedias;
+
     const setSocialMedias = (event) => {
         event.preventDefault();
         const instagram = event.target.elements.instagram.value;

@@ -1,9 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useContext } from 'react';
+import { DreamContext } from '../contexts/DreamContext';
 import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEnvelope, faPhone} from "@fortawesome/free-solid-svg-icons";
 
-export const Contact = ({contact, messageDispatch}) => {
+export const Contact = () => {
+  const { infoState, messageDispatch } = useContext(DreamContext);
+  const contact = infoState.contact;
+
   const items = useLoaderData();
   const errors = useActionData();
   const formRef = useRef(null); 

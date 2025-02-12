@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { DreamContext } from '../contexts/DreamContext';
 import { Outlet , useParams} from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { Search } from "../components/Search";
 import { Letters } from '../components/letters';
 
-export const DreamLayout = ({ children, titles, dreamDispatch}) => {
+export const DreamLayout = () => {
+    const {  dreamState , dreamDispatch } = useContext(DreamContext);
+    const titles = dreamState.dreamsTitle;
+
     const { id } = useParams();
     useEffect(() => {
         dreamDispatch({ 
-            type: "GET_DREAM_BY_ID",
+            type: "GET_DREAM",
             payload:  {id:id}
         });
     }, [id]);

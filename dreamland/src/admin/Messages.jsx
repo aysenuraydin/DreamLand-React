@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { DreamContext } from '../contexts/DreamContext';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faEnvelope, faBoxArchive, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -8,7 +9,11 @@ import { Pagination } from '../components/Pagination';
 import { MessageForm } from '../components/messageForm';
 import { MessageList } from '../components/messageList';
 
-export const Messages = ({ messages, message, messageDispatch}) => {
+export const Messages = () => {
+  const { messageState , messageDispatch } = useContext(DreamContext);
+  const message = messageState.message;
+  const messages = messageState.messages;
+
   const items = useLoaderData();
   const [visible, setVisible] = useState(false);
   const [isArchive, setArchive] = useState(false);
@@ -25,9 +30,10 @@ export const Messages = ({ messages, message, messageDispatch}) => {
     setArchive(!isArchive);
     setVisible(false);
   }
+
+
   const get = (message) => {
     setVisible(true);
-    console.log(message);
     messageDispatch({ 
       type: "GET_MESSAGE",
       payload:  {...message}
