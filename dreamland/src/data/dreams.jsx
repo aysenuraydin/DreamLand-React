@@ -61,14 +61,14 @@ export const DreamsData = [
 }
 ];
 
-export const AboutValue = "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium quidem repellendus autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio id est eius laboriosam. Quas debitis quasi iusto, architecto similique ipsum repellat cumque nisi rerum cum hic ipsam consequuntur a! ipsum dolor sit amet consectetur, adipisicing elit. Praesentium quidem repellendus autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio id est eius laboriosam. Quas debitis quasi iusto, architecto similique ipsum repellat cumque nisi rerum cum hic ipsam consequuntur a!"
+export const AboutData = "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium quidem repellendus autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio id est eius laboriosam. Quas debitis quasi iusto, architecto similique ipsum repellat cumque nisi rerum cum hic ipsam consequuntur a! ipsum dolor sit amet consectetur, adipisicing elit. Praesentium quidem repellendus autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio id est eius laboriosam. Quas debitis quasi iusto, architecto similique ipsum repellat cumque nisi rerum cum hic ipsam consequuntur a!"
 
-export const ContactValue = {
+export const ContactData = {
 email:"aysenuraydinyazilim@gmail.com",
 phone:"+09 987 654 32 21",
 address:"architecto similique ipsum repellat cumque nisi rerum cum hic ipsam",
 };
-export const FaqsValue = [
+export const FaqsData = [
     {
         id:1,
         question:"1-stinctio ullam, laborum saepe blanditiis, sim",
@@ -90,13 +90,13 @@ export const FaqsValue = [
         answer:"stinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio id est eius laboriosam. Quas debitis quasi iusto, architecto sim",
     }
 ];
-export const SocialMedias = {
+export const SocialMediasData = {
     instagram:"aysnrayd",
     facebook:"aysenuraydinfacebook",
     twitter:"aysenuraydintwitter",
     github:"aysenuraydin",
 };
-export const Revievs = [
+export const ReviewsData = [
     {
         id:1,
         date: new Date().toISOString().replace("T", " ").substring(0, 19),
@@ -152,7 +152,7 @@ export const Revievs = [
         comment:"6- autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio",
     },
 ];
-export const Messages = [
+export const MessagesData = [
     {
         id: 1,
         date: new Date().toISOString().replace("T", " ").substring(0, 19),
@@ -190,7 +190,7 @@ export const Messages = [
         content: "Suda olmak beni rahatlatıyor. Keşke her gün yüzme fırsatım olsa!"
     },
 ];
-export const Headers = [
+export const HeadersData = [
     {
         id: 1,
         date: new Date().toISOString().replace("T", " ").substring(0, 19),

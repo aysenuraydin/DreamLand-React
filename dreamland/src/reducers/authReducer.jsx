@@ -34,6 +34,3 @@ export const authReducer = (state, action) => {
             return state;
     }
 };
-const Auth = () => {
-    
-}

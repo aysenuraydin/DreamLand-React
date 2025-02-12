@@ -34,6 +34,3 @@ export const ImgReducer = (state, action) => {
             return state;
     }
 };
-const Img = () => {
-
-}

@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Form , Link} from "react-router-dom";
+import React, { useState, useRef, useContext, useEffect } from 'react';
+import { DreamContext } from '../contexts/DreamContext';
+import { Form } from "react-router-dom";
 import { CommentCard } from './commentCard';
 
-export const Comment = ({dreamId, dreamTitle, reviewsByDreamId, reviewDispatch }) => {
+export const Comment = ({dreamId, dreamTitle}) => {
     const [comment, setComment] = useState([]);
     const formRef = useRef(null); 
+
+    const { reviewState , reviewDispatch } = useContext(DreamContext);
+    const reviewsByDreamId = reviewState.reviewsByDreamId;
 
     useEffect(() => {
         reviewDispatch({ 

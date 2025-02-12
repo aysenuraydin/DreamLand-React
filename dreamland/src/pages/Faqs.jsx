@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState, useRef, useContext, useEffect } from 'react';
+import { DreamContext } from '../contexts/DreamContext';
 import { useLoaderData} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestion} from "@fortawesome/free-solid-svg-icons";
 
-export const Faqs = ({faqs}) => {
+export const Faqs = () => {
     const items = useLoaderData();
+
+    const { faqState } = useContext(DreamContext);
+    const faqs = faqState.faqs;
     return(
       <div className="p-10">
       <div className="min-h-[80vh] max-w-6xl mx-auto">

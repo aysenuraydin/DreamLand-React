@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React  from 'react';
 export const Letters = () => {
     const letters = ["A", "B", "C", "Ç", "D", "E", "F", "G", "H", "I", "İ", "J", "K", "L", "M", "N", "O", "Ö", "P", "R", "S", "Ş", "T", "U", "Ü", "V", "Y", "Z"];
 

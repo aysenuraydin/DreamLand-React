@@ -1,10 +1,13 @@
-import React from "react"
+import React, { useContext } from 'react';
 import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { DreamContext } from "../contexts/DreamContext";
 
-export const ContactForm = ({contact, infoDispatch}) => {
-
+export const ContactForm = () => {
+    const { infoState, infoDispatch} = useContext(DreamContext); 
+    const contact = infoState.contact;
+    
     const setContact = (event) => {
         event.preventDefault();
         const email = event.target.elements.email.value;

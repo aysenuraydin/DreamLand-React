@@ -85,12 +85,8 @@ export const DreamReducer = (state, action) => {
                 dream:  state.dreams.find(dream => dream.id == action.payload.id) ?? 
                     {...action.payload}
             }   
-        case "GET_DREAM_BY_ID":
-            return {
-                ...state,
-                dream: state.dreams.find(f => f.id === action.payload.id)?? 
-                    {...action.payload}
-            };
+        case "GET_DREAM_BY_LETTER":
+            return {  ...state  };
         case "CLEAR_DREAM":
             return {
                 ...state,
@@ -100,56 +96,3 @@ export const DreamReducer = (state, action) => {
             return state;
     }
 }; 
-const Dream = () => {
-    const [dreams,setDreams]= useState(DreamsData);
-    const [dream,setDream]= useState({});
-    const cardDreams = useMemo(() => 
-        dreams.reverse()?.slice(0,9).map(d => ({
-        ...d,
-        title: d.title?.length > 20 ? `${d.title?.slice(0, 20)}...` : d.title,
-        content: d.content?.length > 50 ? `${d.content.slice(0, 40)}...` : d.content,
-        }))
-    , [dreams]);
-    const dreamsTitle = useMemo(() => 
-        dreams.map(d => ({
-        id: d.id,
-        title: d.title,
-        })), [dreams]);
-
-    const editDream = (id) => {
-        setDream(dreams.find( d => d.id == id)?? {id:0})
-    };
-    const addDream = (item) => {
-        if (dream?.id) {
-        setDreams((prev) =>
-            prev.map((f) =>
-            f.id === dream.id ? { ...item, id: dream.id } : f
-            )
-        );
-        }else{
-        setDreams((prev)=> [
-            ...prev,
-            {
-            id: prev.length > 0 ? prev[prev.length - 1].id + 1 : 1,
-            title: item?.title,
-            content: item?.content,
-            date: new Date().toISOString().replace("T", " ").substring(0, 19) 
-            }
-        ])
-        }
-        resetDream();
-    }
-    const deleteDream = (dreamId) => {
-        setDreams(dreams.filter(f=> f.id !== dreamId));
-        resetDream();
-    }
-    const getDream = (dreamId) => {
-        const item = dreams.find(dream=> dream.id== dreamId);
-        if(item){
-        setDream(item);
-        }
-    };
-    const resetDream = () => setDream({})
-
-
-}

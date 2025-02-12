@@ -7,7 +7,7 @@ export const MessageList = ({ get, filteredMessages, isArchive }) => {
     return(
         <div id="messages" className="space-y-5  h-[37rem] overflow-scroll">
             {
-                filteredMessages?.filter(i=>i.isArchive==isArchive).map((message, index)=>
+                [...filteredMessages].reverse()?.filter(i=>i.isArchive==isArchive).map((message, index)=>
                 <MessageCard get={get} message={message} index={index} key={index}/>)
             }
             {

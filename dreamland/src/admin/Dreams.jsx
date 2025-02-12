@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { Search } from "../components/Search";
 import { redirect, useActionData, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,13 +8,18 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { Pagination } from '../components/Pagination';
 import { DreamsList } from '../components/DreamsList';
 import { DreamForm } from '../components/DreamForm';
+import { DreamContext } from '../contexts/DreamContext';
 
-export const Dreams = ({dreams, dream, dreamDispatch}) => {
+export const Dreams = () => {
   const errors = useActionData();
   const items = useLoaderData();
   
   const [visible, setVisible] = useState(false);
   const formRef = useRef(null);
+
+  const { dreamState, dreamDispatch } = useContext(DreamContext);
+  const dreams = dreamState.dreams;
+  const dream = dreamState.dream;
 
   const add = (event) => {
     event.preventDefault();

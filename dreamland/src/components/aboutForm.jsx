@@ -1,13 +1,15 @@
-import React from "react"
+import React, { useContext } from 'react';
 import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk} from "@fortawesome/free-solid-svg-icons";
+import { DreamContext } from '../contexts/DreamContext';
 
-export const AboutForm = ({about, infoDispatch}) => {
+export const AboutForm = () => {
+    const { infoState, infoDispatch} = useContext(DreamContext); 
+    const about = infoState.about;
     const setAbout = (event) => {
         event.preventDefault();
         const value = event.target.elements.about.value;
-        console.log(value);
         infoDispatch({ 
             type: "EDİT_ABOUT",
             payload: value
