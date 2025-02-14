@@ -41,7 +41,7 @@
     @apply block w-full rounded-md bg-white px-3.5 py-1 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-gray-600;
     }
     .header {
-    @apply absolute top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl text-center;
+    @apply absolute top-3/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl text-center opacity-80;
     }
 }
 @layer base {
