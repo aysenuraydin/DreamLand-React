@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 export const ReviewReducer = (state, action) => {
     switch (action.type) {
         case "SET_REVİEWS_BY_DREAMID":
@@ -11,9 +12,10 @@ export const ReviewReducer = (state, action) => {
             reviews : [
               ...state.reviews,
               {
-                id: (state.reviews?.length == 0) 
-                  ? 1  
-                  : state.reviews[state.reviews?.length - 1]?.id  + 1,
+                // id: (state.reviews?.length == 0) 
+                //   ? 1  
+                //   : state.reviews[state.reviews?.length - 1]?.id  + 1,
+                id:nanoid(),
                 isConfirm:false,
                 username: `${action.payload.name} ${action.payload.surname}`,
                 date: new Date().toISOString().replace("T", " ").substring(0, 19),

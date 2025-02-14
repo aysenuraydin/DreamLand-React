@@ -94,7 +94,7 @@ export const Messages = () => {
           </div>
         </div>
           {
-            visible && ( <MessageForm message={message} del={del} edit={edit}  /> ) 
+            visible && ( <MessageForm message={message} del={del} edit={edit}/> ) 
           }
         
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">

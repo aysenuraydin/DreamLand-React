@@ -8,7 +8,7 @@ export const HeaderCard = ({header, edit, index}) => {
     return(
       <div className="flex border border-gray-300 items-center px-3 shadow rounded-md  bg-white">
         <span className="w-1/6 text-center text-sm">
-          {index+1} - {header.id}
+          {index+1}
         </span>
         <span className="w-1/3 text-center text-sm">
         <img src="https://dummyimage.com/600x500/ccc/aaa" className="object-cover"/>

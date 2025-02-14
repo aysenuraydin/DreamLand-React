@@ -1,4 +1,9 @@
+import { nanoid } from 'nanoid';
+// import { v4 as uuidv4 } from 'uuid';
 export const FaqReducer = (state, action) => {
+
+
+
   switch (action.type) {
     case "ADD_FAQ":
       return {
@@ -6,9 +11,8 @@ export const FaqReducer = (state, action) => {
         faqs: [
           ...state.faqs, 
           { 
-            id: (state.faqs?.length == 0) 
-              ? 1  
-              : state.faqs[state.faqs?.length - 1]?.id  + 1, 
+            id:  nanoid(),
+              //  id: uuidv4(),  
             ...action.payload 
           }
         ],

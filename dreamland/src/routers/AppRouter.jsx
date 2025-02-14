@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
 //? layouts
@@ -23,20 +23,8 @@ import { Headers, headersAction, headersLoader } from '../admin/Headers';
 //? error pages
 import GlobalErrors from '../errors/GlobalErrors';
 import DreamsError from '../errors/DreamsError';
-import { DreamContext } from '../contexts/DreamContext';
-
-
 
 export const AppRouter = ({}) => {
-
-  const { 
-    infoState, infoDispatch, 
-    faqState, faqDispatch, 
-    headerState , headerDispatch, 
-    reviewState , reviewDispatch, 
-    messageState , messageDispatch, 
-    dreamState , dreamDispatch 
-  } = useContext(DreamContext); 
 
   const router = createBrowserRouter([
     {

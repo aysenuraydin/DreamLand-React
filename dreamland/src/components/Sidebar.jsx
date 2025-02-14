@@ -10,7 +10,7 @@ export const Sidebar = ({titles}) => {
                         <li key={index} className="my-3">
                             <NavLink to={`/dream/${title.id}`}
                             className={({ isActive }) => isActive ? 'sidebar bg-[#92A2CD] text-white ':'sidebar'}>
-                                {title.id}-{title.title}
+                                {title.title}
                             </NavLink>
                         </li>
                     ))

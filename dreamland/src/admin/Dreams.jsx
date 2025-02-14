@@ -21,14 +21,17 @@ export const Dreams = () => {
   const dreams = dreamState.dreams;
   const dream = dreamState.dream;
 
-  const add = (event) => {
-    event.preventDefault();
-    const title = event.target.elements.title.value;
-    const interpretation = event.target.elements.interpretation.value;
+  const add = (data) => {
+  // const add = (event) => {
+    // event.preventDefault();
+    // const title = event.target.elements.title.value;
+    // const interpretation = event.target.elements.interpretation.value;
+    const title = data.title;
+    const interpretation = data.content;
     if(title && interpretation){
         if(dream?.id) {
           dreamDispatch({
-            type: "EDİT_DREAM",
+            type: "EDIT_DREAM",
             payload: {id:dream?.id, title:title, content:interpretation}
           });
         } else {
@@ -47,11 +50,11 @@ export const Dreams = () => {
     });
     formRef.current.reset();
   }
-  const edit = (id) => {
+  const edit = (dream) => {
     setVisible(true);
     dreamDispatch({
       type: "GET_DREAM",
-      payload: {id:id}
+      payload: dream
     });
   }
   const del = (id) => {

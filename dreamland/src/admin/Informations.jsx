@@ -12,16 +12,6 @@ import { FaqsList } from "../components/faqsList";
 export const Informations = () => {
   const items = useLoaderData();
 
-    // const { 
-  //   infoState, infoDispatch, 
-  //   faqState, faqDispatch, 
-  //   headerState , headerDispatch, 
-  //   reviewState , reviewDispatch, 
-  //   messageState , messageDispatch, 
-  //   dreamState , dreamDispatch 
-  // } = useContext(DreamContext);
-  // const about = infoState.about;
-  
   return(
     <div className="p-8">
       <div className="flex justify-between border-b-2 border-gray-300 text-gray-400 pb-[0.6rem] px-4">

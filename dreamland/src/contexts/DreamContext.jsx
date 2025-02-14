@@ -28,6 +28,7 @@ export function DreamProvider({ children }) {
     const headerInitialState = {
         headers: [...HeadersData],
         header: {},
+        headerActive: {},
     }
     const [headerState , headerDispatch ] = useReducer(HeaderReducer, headerInitialState)
 
@@ -47,13 +48,8 @@ export function DreamProvider({ children }) {
     const dreamInitialState = {
         dreams: [...DreamsData],
         dream: {},  
-        dreamsTitle: DreamsData.map((d)=> ({id: d.id, title: d.title} )),
-        cardDreams: DreamsData.map(d => ({
-            id: d.id,
-            title: d.title?.length > 20 ? `${d.title?.slice(0, 20)}...` : d.title,
-            content: d.content?.length > 50 ? `${d.content.slice(0, 40)}...` : d.content,
-            })
-        )
+        dreamPage: {},  
+        dreamsTitle: DreamsData.map((d)=> ({id: d.id, title: d.title} ))
     }
     const [dreamState , dreamDispatch ] = useReducer(DreamReducer, dreamInitialState)
     
