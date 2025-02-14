@@ -49,15 +49,15 @@ export const Comment = ({dreamId, dreamTitle}) => {
     return(
         <>
             <Form onSubmit={add} ref={formRef} className="w-full justify-center items-center">
-                <div className=" bg-white  rounded p-1 w-full flex">
+                <div className="rounded p-1 w-full flex">
                     <div className="flex pt-5">
                         <div className="mr-6">
                             <img src="https://dummyimage.com/100x100/ccc/aaa" className="rounded-full shadow-md w-20"/>
                         </div>
                     </div>
                     <div className='w-full'>
-                        <input type="text" name="username" id="username" className="mt-3 border border-gray-300 p-1 rounded-lg  shadow-md w-full" placeholder="username" />
-                        <textarea rows="4" id="comment" name="comment" className="mt-3 border border-gray-300 p-2 rounded-lg  shadow-md w-full" placeholder="Write something..."></textarea>
+                        <input type="text" name="username" id="username" className="mt-3 border border-gray-300 p-1 rounded-lg  shadow-md w-full bg-white" placeholder="username" />
+                        <textarea rows="4" id="comment" name="comment" className="mt-3 border border-gray-300 p-2 rounded-lg  shadow-md w-full bg-white" placeholder="Write something..."></textarea>
                     </div>
                 </div>
                 <div className="flex justify-end my-4 mr-1">

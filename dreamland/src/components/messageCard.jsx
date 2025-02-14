@@ -6,7 +6,7 @@ export const MessageCard = ({ get, message, index }) => {
     return(
         <div className="flex border border-gray-300 items-center p-1 shadow rounded-md  bg-white">
             <span className="w-1/6 text-center text-sm">
-                {index+1} - {message.id}
+                {index+1}
             </span>
             <span className="w-1/3 text-center text-sm">
                 <div

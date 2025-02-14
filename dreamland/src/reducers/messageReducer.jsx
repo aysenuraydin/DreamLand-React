@@ -1,14 +1,17 @@
+import { nanoid } from 'nanoid';
 export const MessageReducer = (state, action) => {
   switch (action.type) {
     case "ADD_MESSAGE":
+      console.log(action.payload)
       return {
         ...state,
         messages : [
           ...state.messages,
           {
-            id: (state.messages?.length == 0) 
-              ? 1  
-              : state.messages[state.messages?.length - 1]?.id  + 1,
+            id:nanoid(),
+            // id: (state.messages?.length == 0) 
+            //   ? 1  
+            //   : state.messages[state.messages?.length - 1]?.id  + 1,
             isArchive:false,
             date: new Date().toISOString().replace("T", " ").substring(0, 19),
             ...action.payload

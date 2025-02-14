@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { DreamContext } from '../contexts/DreamContext';
 import { useLoaderData} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

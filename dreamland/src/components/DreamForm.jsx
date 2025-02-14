@@ -1,18 +1,53 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import { Form } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faTrash, faAdd, faPenToSquare, } from "@fortawesome/free-solid-svg-icons";
+import { CkeditorArea } from '../components/CkeditorArea';
 
 export const DreamForm  = ({ del, dream, add, formRef, reset}) => {
+    const [formData, setFormData] = useState({
+        title: dream.title || '',
+        content: dream.content || ''
+    });
+
+    useEffect(() => {
+        if (dream) {
+            setFormData({
+                title: dream.title || '',
+                content: dream.content || ''
+            });
+        }
+    }, [dream]);
+
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [id]: value
+        }));
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        add(formData);
+    };
+    const contentChange = (data) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            content: data
+        }));
+    };
     return(
-        <Form onSubmit={add} ref={formRef} className="w-4/5 mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300">
-            <div className="mb-3 flex">
-                <label htmlFor="title" className="min-w-24 mt-3 text-sm">Title</label>
-                <input id="title" type="text" className="mt-1 p-1 w-full border border-gray-300  rounded-lg text-gray-800 outline-none" defaultValue={dream?.title}/>
+        <Form onSubmit={handleSubmit} ref={formRef} className="w-4/5 mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300">
+            <div className="mb-3 flex w-full">
+                <label htmlFor="title" className="w-1/6 mt-3 text-sm mr-3">Title</label>
+                <input id="title" type="text" className="mt-1 p-1 w-full border border-gray-300  rounded-lg text-gray-800 outline-none"  value={formData.title} onChange={handleChange}/> 
             </div>
-            <div className="mb-6 flex">
-                <label htmlFor="interpretation" className="min-w-24 mt-3 text-sm">Interpretation</label>
-                <textarea id="interpretation" rows={4} className="mt-1 p-1 w-full border border-gray-300  rounded-lg text-gray-800 outline-none" defaultValue={dream?.content}></textarea>
+            <div className="mb-6 flex w-full">
+                <label htmlFor="interpretation" className="w-1/6 mt-3 text-sm">Context</label>
+                {/* <textarea id="interpretation" rows={4} className="mt-1 p-1 w-5/6 border border-gray-300  rounded-lg text-gray-800 outline-none" value={formData.content} onChange={handleChange}></textarea>  */}
+                <div className='w-5/6 lg:max-w-xl'>
+                    <CkeditorArea value={formData.content} handleChange={contentChange}/>
+                </div> 
             </div>
             <div className="pl-[6rem] w-full flex gap-x-2">
                 {

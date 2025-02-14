@@ -27,17 +27,19 @@ export const MessageForm = ({del, edit, message}) => {
             </div>
             <div className="pl-[6rem]">
                 <div className="w-full flex">
-                    {message.isArchive && (
-                    <button className="block w-full px-4 py-2 text-sm mr-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center cursor-pointer"
-                    onClick={()=> edit(message.id)}>
-                        Archive <FontAwesomeIcon icon={faBoxArchive} className="pl-1"/> 
-                    </button>
+                    {
+                        !message.isArchive && (
+                            <button className="block w-full px-4 py-2 text-sm mr-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center cursor-pointer"
+                            onClick={()=> edit(message.id)}>
+                                Archive <FontAwesomeIcon icon={faBoxArchive} className="pl-1"/> 
+                            </button>
                     )}
-                    {!message.isArchive && (
-                    <button className="block w-full px-4 py-2 text-sm mr-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center cursor-pointer"
-                    onClick={()=> edit(message.id)}>
-                        Unarchive <FontAwesomeIcon icon={faEnvelope} className="pl-1"/> 
-                    </button>
+                    {
+                        message.isArchive && (
+                            <button className="block w-full px-4 py-2 text-sm mr-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center cursor-pointer"
+                            onClick={()=> edit(message.id)}>
+                                Unarchive <FontAwesomeIcon icon={faEnvelope} className="pl-1"/> 
+                            </button>
                     )}
                     <button className="block w-full px-4 py-2 text-sm mr-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center cursor-pointer"
                     onClick={()=> del(message.id)}>

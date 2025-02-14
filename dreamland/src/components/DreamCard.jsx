@@ -6,7 +6,7 @@ export const DreamCard  = ({ dream, index, edit }) => {
     return(
         <div className="flex border border-gray-300 items-center p-3 shadow rounded-lg  bg-white my-3">
             <span className="w-1/6 text-center text-sm">
-            {index+1} - {dream.id}
+            {index+1}
             </span>
             <span className="w-10/12 text-center text-sm">
                 <div className="inline-block rounded-md
@@ -19,7 +19,7 @@ export const DreamCard  = ({ dream, index, edit }) => {
             </span>
             <span className="w-1/6 flex items-center justify-end pr-4">
                 <button className="block mx-1 p-1 py-2 border border-gray-400 text-sm hover:text-white hover:bg-gray-700 rounded-md text-center w-12 cursor-pointer mr-2"
-                onClick={()=>edit(dream.id)}>
+                onClick={()=>edit(dream)}>
                     <FontAwesomeIcon icon={faPenToSquare} className="text-sm"/>
                 </button>
             </span>

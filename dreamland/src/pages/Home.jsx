@@ -8,7 +8,7 @@ export const Home = () => {
     const items = useLoaderData();
 
     const { dreamState } = useContext(DreamContext);
-    const dreams = dreamState.cardDreams;
+    const dreams = dreamState.dreams;
 
   return(
     <>

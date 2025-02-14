@@ -1,15 +1,18 @@
-import React, { useState, useRef, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { DreamContext } from '../contexts/DreamContext';
 import { useLoaderData } from "react-router-dom";
 import { Facebook } from "../icons/facebook";
 import { Instagram } from "../icons/instagram";
 import { Twiter } from "../icons/twiter";
 import { Github } from "../icons/github";
+import DOMPurify from 'dompurify';
 
 export const About = () => {
   const { infoState } = useContext(DreamContext);
   const about = infoState.about;
   const socialMedias = infoState.socialMedias;
+
+  const sanitizedAbout = DOMPurify.sanitize(about);
 
   const items = useLoaderData();
   return(
@@ -20,7 +23,9 @@ export const About = () => {
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-balance text-[#1f3f96a2] text-4xl font-semibold tracking-tight">About Us</h2>
             </div>
-            <p className="mt-5 text-md leading-8 mx-10 text-gray-500"> {about} </p>
+            <p  dangerouslySetInnerHTML={{ __html: sanitizedAbout }}
+            className="mt-5 text-md leading-8 mx-10 text-gray-500"> 
+            </p>
             <div className="max-w-2xl p-2 mx-10">
               <div className="mt-2 text-sm text-gray-600 grid grid-cols-4 gap-2">
                 <div className="font-semibold">Instagram :</div> 
