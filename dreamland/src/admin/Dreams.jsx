@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Search } from "../components/Search";
 import { redirect, useActionData, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,7 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { Pagination } from '../components/Pagination';
 import { DreamsList } from '../components/DreamsList';
 import { DreamForm } from '../components/DreamForm';
-import { DreamContext } from '../contexts/DreamContext';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const Dreams = () => {
   const errors = useActionData();
@@ -17,25 +17,26 @@ export const Dreams = () => {
   const [visible, setVisible] = useState(false);
   const formRef = useRef(null);
 
-  const { dreamState, dreamDispatch } = useContext(DreamContext);
-  const dreams = dreamState.dreams;
-  const dream = dreamState.dream;
+  // const { dreamState, dreamDispatch } = useContext(DreamContext);
+  // const dreams = dreamState.dreams;
+  // const dream = dreamState.dream;
+
+  const state = useSelector((state) => state.dream);
+  const dispatch = useDispatch(); 
+  const dreams = state.dreams;
+  const dream = state.dream;
 
   const add = (data) => {
-  // const add = (event) => {
-    // event.preventDefault();
-    // const title = event.target.elements.title.value;
-    // const interpretation = event.target.elements.interpretation.value;
     const title = data.title;
     const interpretation = data.content;
     if(title && interpretation){
         if(dream?.id) {
-          dreamDispatch({
+          dispatch({
             type: "EDIT_DREAM",
             payload: {id:dream?.id, title:title, content:interpretation}
           });
         } else {
-          dreamDispatch({
+          dispatch({
             type: "ADD_DREAM",
             payload: {title:title, content:interpretation}
           });
@@ -45,21 +46,21 @@ export const Dreams = () => {
   }
   const reset = () => {
     setVisible(false);
-    dreamDispatch({
+    dispatch({
       type: "CLEAR_DREAM"
     });
     formRef.current.reset();
   }
   const edit = (dream) => {
     setVisible(true);
-    dreamDispatch({
+    dispatch({
       type: "GET_DREAM",
       payload: dream
     });
   }
   const del = (id) => {
     setVisible(true);
-    dreamDispatch({
+    dispatch({
       type: "DELETE_DREAM",
       payload: {id:id}
     });

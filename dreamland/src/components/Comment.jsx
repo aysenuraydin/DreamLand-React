@@ -2,16 +2,18 @@ import React, { useState, useRef, useContext, useEffect } from 'react';
 import { DreamContext } from '../contexts/DreamContext';
 import { Form } from "react-router-dom";
 import { CommentCard } from './commentCard';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const Comment = ({dreamId, dreamTitle}) => {
     const [comment, setComment] = useState([]);
     const formRef = useRef(null); 
 
-    const { reviewState , reviewDispatch } = useContext(DreamContext);
-    const reviewsByDreamId = reviewState.reviewsByDreamId;
+    const state = useSelector((state) => state.review);
+    const dispatch = useDispatch(); 
+    const reviewsByDreamId = state.reviewsByDreamId;
 
     useEffect(() => {
-        reviewDispatch({ 
+        dispatch({ 
             type: "SET_REVİEWS_BY_DREAMID",
             payload:  { id:dreamId }
         });
@@ -23,7 +25,7 @@ export const Comment = ({dreamId, dreamTitle}) => {
         const username = event.target.elements.username.value;
         const comment = event.target.elements.comment.value;
         if(username && comment){
-            reviewDispatch({ 
+            dispatch({ 
                 type: "ADD_REVİEW",
                 payload:  {
                     username:username, 

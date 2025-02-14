@@ -2,11 +2,13 @@ import React, { useContext } from 'react';
 import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
-import { DreamContext } from "../contexts/DreamContext";
+// import { DreamContext } from "../contexts/DreamContext";
+import { useSelector, useDispatch } from 'react-redux';
 
 export const ContactForm = () => {
-    const { infoState, infoDispatch} = useContext(DreamContext); 
-    const contact = infoState.contact;
+    const state = useSelector((state) => state.info);
+    const dispatch = useDispatch(); 
+    const contact = state.contact;
     
     const setContact = (event) => {
         event.preventDefault();
@@ -14,7 +16,7 @@ export const ContactForm = () => {
         const phone = event.target.elements.phone.value;
         const address = event.target.elements.address.value;
 
-        infoDispatch({ 
+        dispatch({ 
             type: "EDİT_CONTACT",
             payload: {email:email, phone:phone,address:address}
         });

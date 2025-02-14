@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrosoft } from "@fortawesome/free-brands-svg-icons";
 
 export const Dashboard = () => {
+
     return(
         <div className="p-8">
         <div className="min-h-[80vh] max-w-6xl mx-auto">

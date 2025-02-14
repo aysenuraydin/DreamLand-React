@@ -22,3 +22,23 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
 plugins: [react(), tailwindcss()],
 })
+
+npm install redux react-redux
+npm uninstall redux-devtools-extension
+npm install @redux-devtools/extension
+
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { composeWithDevTools } from '@redux-devtools/extension';
+
+const rootReducer = combineReducers({
+    ... 
+});
+
+export const store = createStore(
+    rootReducer,
+    composeWithDevTools(
+        applyMiddleware(/* middleware'leriniz */)
+      
+    )
+);
+

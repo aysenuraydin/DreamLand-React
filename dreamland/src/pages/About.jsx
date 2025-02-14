@@ -1,16 +1,17 @@
 import React, { useContext } from 'react';
-import { DreamContext } from '../contexts/DreamContext';
+// import { DreamContext } from '../contexts/DreamContext';
 import { useLoaderData } from "react-router-dom";
 import { Facebook } from "../icons/facebook";
 import { Instagram } from "../icons/instagram";
 import { Twiter } from "../icons/twiter";
 import { Github } from "../icons/github";
 import DOMPurify from 'dompurify';
+import { useSelector } from 'react-redux';
 
 export const About = () => {
-  const { infoState } = useContext(DreamContext);
-  const about = infoState.about;
-  const socialMedias = infoState.socialMedias;
+  const state = useSelector((state) => state.info);
+  const about = state.about;
+  const socialMedias = state.socialMedias;
 
   const sanitizedAbout = DOMPurify.sanitize(about);
 

@@ -1,5 +1,13 @@
 import { nanoid } from 'nanoid';
-export const HeaderReducer = (state, action) => {
+import { HeadersData } from '../data/dreams'; 
+
+const headerInitialState = {
+    headers: [...HeadersData],
+    header: {},
+    headerActive: {},
+}
+
+export const HeaderReducer = (state=headerInitialState, action) => {
   switch (action.type) {
     case "ADD_HEADER":
       return {
@@ -10,10 +18,7 @@ export const HeaderReducer = (state, action) => {
               ), 
               {
                 id:nanoid(),
-                  // id: (state.headers?.length === 0) 
-                  //     ? 1  
-                  //     : state.headers[state.headers?.length - 1]?.id + 1,
-                  date: new Date().toISOString().replace("T", " ").substring(0, 19),
+                date: new Date().toISOString().replace("T", " ").substring(0, 19),
                   ...action.payload
               }
           ],
