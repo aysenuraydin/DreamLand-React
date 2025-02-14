@@ -1,5 +1,13 @@
 import { nanoid } from 'nanoid';
-export const ReviewReducer = (state, action) => {
+import { ReviewsData }  from '../data/dreams' 
+
+const reviewInitialState = {
+    reviews: [...ReviewsData],
+    reviewsByDreamId: [],
+    review: {},
+}
+
+export const ReviewReducer = (state = reviewInitialState, action) => {
     switch (action.type) {
         case "SET_REVİEWS_BY_DREAMID":
           return { 
@@ -11,10 +19,7 @@ export const ReviewReducer = (state, action) => {
             ...state,
             reviews : [
               ...state.reviews,
-              {
-                // id: (state.reviews?.length == 0) 
-                //   ? 1  
-                //   : state.reviews[state.reviews?.length - 1]?.id  + 1,
+              { 
                 id:nanoid(),
                 isConfirm:false,
                 username: `${action.payload.name} ${action.payload.surname}`,

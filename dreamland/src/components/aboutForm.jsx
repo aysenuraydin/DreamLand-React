@@ -2,16 +2,18 @@ import React, { useContext, useState } from 'react';
 import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk} from "@fortawesome/free-solid-svg-icons";
-import { DreamContext } from '../contexts/DreamContext';
+// import { DreamContext } from '../contexts/DreamContext';
 import { CkeditorArea } from '../components/CkeditorArea';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const AboutForm = () => {
-    const { infoState, infoDispatch} = useContext(DreamContext); 
-    const [newAbout, setNewAbout] = useState(infoState.about);
+    const state = useSelector((state) => state.info);
+    const [newAbout, setNewAbout] = useState(state.about);
+    const dispatch = useDispatch(); 
 
     const setAbout = (event) => {
         event.preventDefault();
-        infoDispatch({ 
+        dispatch({ 
             type: "EDİT_ABOUT",
             payload: newAbout
         });
@@ -26,7 +28,7 @@ export const AboutForm = () => {
             {/* <textarea name="about" id="about" className="border border-gray-300 w-full p-2 rounded-lg" 
             defaultValue={newAbout} rows={5}></textarea> */}
             <div className='w-full lg:max-w-xl'>
-            <CkeditorArea value={newAbout}  handleChange={aboutChange}/>
+                <CkeditorArea value={newAbout}  handleChange={aboutChange}/>
             </div>
             <button type="submit" className="block px-4 py-2 mt-3 text-sm bg-gray-200 rounded-md text-center w-full cursor-pointer hover:text-white hover:bg-gray-700"> 
             Save 

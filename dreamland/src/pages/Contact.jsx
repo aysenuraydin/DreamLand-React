@@ -1,15 +1,17 @@
 import React, { useRef, useContext } from 'react';
-import { DreamContext } from '../contexts/DreamContext';
+// import { DreamContext } from '../contexts/DreamContext';
 import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEnvelope, faPhone} from "@fortawesome/free-solid-svg-icons";
+import { useSelector, useDispatch } from 'react-redux';
 
 export const Contact = () => {
-  const { infoState, messageDispatch } = useContext(DreamContext);
-  const contact = infoState.contact;
-
   const items = useLoaderData();
   const errors = useActionData();
+  
+  const state = useSelector((state) => state.info);
+  const dispatch = useDispatch(); 
+  const contact = state.contact;
   const formRef = useRef(null); 
 
   const add = (event) => {
@@ -22,7 +24,7 @@ export const Contact = () => {
     const content = event.target.elements.content.value;
 
     if(name && surname && email && phone && content){
-        messageDispatch({ 
+        dispatch({ 
           type: "ADD_MESSAGE",
           payload:  {
               fullname:  name+' '+surname,

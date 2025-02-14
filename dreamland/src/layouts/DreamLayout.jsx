@@ -5,10 +5,12 @@ import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
 import { Search } from "../components/Search";
 import { Letters } from '../components/letters';
+import { useSelector } from 'react-redux';
 
 export const DreamLayout = () => {
-    const {  dreamState , dreamDispatch } = useContext(DreamContext);
-    const titles = dreamState.dreamsTitle;
+
+    const state = useSelector((state) => state.dream);
+    const titles = state.dreamsTitle;
 
     return (
         <div className="-mt-20">

@@ -1,11 +1,13 @@
 import React,  { useRef, useContext } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare ,faAdd ,faCancel} from "@fortawesome/free-solid-svg-icons";
-import { DreamContext } from "../contexts/DreamContext";
+// import { DreamContext } from "../contexts/DreamContext";
+import { useSelector, useDispatch } from 'react-redux';
 
 export const FaqsForm = () => {
-    const { faqState, faqDispatch } = useContext(DreamContext); 
-    const faq = faqState.faq;
+    const state = useSelector((state) => state.faq);
+    const dispatch = useDispatch(); 
+    const faq = state.faq;
 
     const formRef = useRef(null); 
     const add = (event) => {
@@ -14,12 +16,12 @@ export const FaqsForm = () => {
         const answer = event.target.elements.answer.value;
         if(question && answer){
             if(faq?.id){
-                faqDispatch({ 
+                dispatch({ 
                     type: "EDIT_FAQ",
                     payload: {id: faq?.id, question:question, answer:answer} 
                 });
             } else {
-                faqDispatch({ 
+                dispatch({ 
                     type: "ADD_FAQ",
                     payload: {question:question, answer:answer}
                 });
@@ -29,7 +31,7 @@ export const FaqsForm = () => {
     }
     const reset = () => {
         formRef.current.reset();
-        faqDispatch({ 
+        dispatch({ 
             type: "CLEAR_FAQ",
         });
     }

@@ -3,19 +3,21 @@ import { DreamContext } from '../contexts/DreamContext';
 import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash, faXmark} from "@fortawesome/free-solid-svg-icons";
+import { useSelector, useDispatch } from 'react-redux';
 
 export const FaqsList = () => {
-    const { faqState, faqDispatch } = useContext(DreamContext);
-    const faqs = faqState.faqs;
+    const state = useSelector((state) => state.faq);
+    const dispatch = useDispatch(); 
+    const faqs = state.faqs;
 
     const get = (faq) => {
-        faqDispatch({ 
+        dispatch({ 
             type: "GET_FAQ",
             payload: {...faq}
         });
     }
     const del = (faq) => {
-        faqDispatch({ 
+        dispatch({ 
             type: "DELETE_FAQ",
             payload: {...faq}
         });

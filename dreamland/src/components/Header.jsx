@@ -1,19 +1,19 @@
 import React, { useContext, useEffect } from 'react';
-import { DreamContext } from '../contexts/DreamContext';
+// import { DreamContext } from '../contexts/DreamContext';
 import headerImage from "../assets/deneme10.png";
+import { useSelector, useDispatch } from 'react-redux';
 
 export const Header = () => {
-    
-    const { headerState , headerDispatch } = useContext(DreamContext);
-    const header = headerState.headerActive;
+    const state = useSelector((state) => state.header);
+    const dispatch = useDispatch(); 
+    const header = state.headerActive;
 
     useEffect(() => {
-        headerDispatch({ 
+        dispatch({ 
             type: "GET_ACTİVE_HEADER"
         });
     }, []);  
     
-
   return(
     <>
       <div className="overflow-hidden my-8 rounded-2xl relative">

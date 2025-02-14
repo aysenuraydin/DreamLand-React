@@ -3,12 +3,13 @@ import { DreamContext } from '../contexts/DreamContext';
 import { Card } from "../components/Card";
 import { useLoaderData} from "react-router-dom";
 import { Pagination } from "../components/Pagination";
+import { useSelector } from 'react-redux';
 
 export const Home = () => {
     const items = useLoaderData();
 
-    const { dreamState } = useContext(DreamContext);
-    const dreams = dreamState.dreams;
+    const state = useSelector((state) => state.dream);
+    const dreams = state.dreams;
 
   return(
     <>

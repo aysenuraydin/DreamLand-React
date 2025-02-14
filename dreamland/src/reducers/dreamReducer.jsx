@@ -1,5 +1,14 @@
 import { nanoid } from 'nanoid';
-export const DreamReducer = (state, action) => {
+import { DreamsData } from '../data/dreams';
+
+const dreamInitialState = {
+    dreams: [...DreamsData],
+    dream: {},  
+    dreamPage: {},  
+    dreamsTitle: DreamsData.map((d)=> ({id: d.id, title: d.title} ))
+}
+
+export const DreamReducer = (state=dreamInitialState, action) => {
     switch (action.type) {
         case "ADD_DREAM":
             const newId = nanoid();
@@ -9,9 +18,6 @@ export const DreamReducer = (state, action) => {
                 ...state.dreams,
                 {
                     id:newId,
-                    // id: (state.dreams?.length == 0) 
-                    // ? 1  
-                    // : state.dreams[state.dreams?.length - 1]?.id  + 1,
                     date: new Date().toISOString().replace("T", " ").substring(0, 19),
                     ...action.payload
                 }
@@ -20,9 +26,6 @@ export const DreamReducer = (state, action) => {
                 ...state.dreamsTitle, 
                 {
                     id:newId,
-                    // id: (state.dreamsTitle.length == 0) 
-                    //     ? 1  
-                    //     : state.dreamsTitle[state.dreamsTitle?.length - 1]?.id  + 1,
                     title: action.payload.title
                 }
             ],

@@ -1,6 +1,5 @@
 import React, { useReducer, createContext } from "react";
-import {   DreamsData, AboutData, ContactData, FaqsData, SocialMediasData, MessagesData, HeadersData, ReviewsData } 
-    from '../data/dreams'
+import {   DreamsData, AboutData, ContactData, FaqsData, SocialMediasData, MessagesData, HeadersData, ReviewsData }  from '../data/dreams'
 //Reducers
 import { FaqReducer } from '../reducers/faqReducer';
 import { MessageReducer } from '../reducers/messageReducer';
@@ -68,5 +67,4 @@ export function DreamProvider({ children }) {
     )
 
 }
-
 

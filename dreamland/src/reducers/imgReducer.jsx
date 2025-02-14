@@ -1,4 +1,4 @@
-export const ImgReducer = (state, action) => {
+export const ImgReducer = (state="", action) => {
     switch (action.type) {
         case "CLEAR_NOTES":
             return { ...state };

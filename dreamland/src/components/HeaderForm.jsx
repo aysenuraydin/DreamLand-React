@@ -43,12 +43,12 @@ export const HeaderForm = ({add, formRef, header, del, reset, changeActive, isAc
         </div>
         <div className="w-2/3 py-4 ml-12">
         <div className="w-full flex">
-            <label htmlFor="name" className="w-15 mt-2">{header?.id}Name</label>
+            <label htmlFor="name" className="w-15 mt-2">Name</label>
             <div className="flex w-full gap-x-2">
             <input type="text" id="name" name="name" className="mt-1 h-8 w-full border rounded-lg text-gray-800 outline-none px-3" value={formData.name} onChange={handleChange}/>
-            <div className='pt-1 cursor-pointer' onClick={changeActive}>
-                {isActive ? <Confirm/> : <Reject/> }
-            </div>
+                <div className='pt-1 cursor-pointer' onClick={changeActive}>
+                    {isActive ? <Confirm/> : <Reject/> }
+                </div>
             </div>
         </div>
         <div className="w-full flex mt-1">
@@ -61,7 +61,7 @@ export const HeaderForm = ({add, formRef, header, del, reset, changeActive, isAc
         </div>
         <div className="w-full flex mt-1"> 
             <label htmlFor="titleColor" className="mt-2 w-15">Color</label>
-            <input type="color" id="titleColor" name="titleColor" className="mt-1 h-8 w-full border rounded-lg text-gray-800 outline-none px-3"  value={formData.titleColor} onChange={handleChange}></input>
+            <input type="color" id="titleColor" name="titleColor" className="mt-1 h-8 w-full border rounded-lg text-gray-800 px-3"  value={formData.titleColor} onChange={handleChange}></input>
         </div>
         <div className="w-full flex gap-x-2 mt-4">
             {

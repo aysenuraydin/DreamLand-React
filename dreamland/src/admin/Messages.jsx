@@ -8,13 +8,16 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { Pagination } from '../components/Pagination';
 import { MessageForm } from '../components/messageForm';
 import { MessageList } from '../components/messageList';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const Messages = () => {
-  const { messageState , messageDispatch } = useContext(DreamContext);
-  const message = messageState.message;
-  const messages = messageState.messages;
-
   const items = useLoaderData();
+  
+  const state = useSelector((state) => state.message);
+  const dispatch = useDispatch(); 
+  const message = state.message;
+  const messages = state.messages;
+
   const [visible, setVisible] = useState(false);
   const [isArchive, setArchive] = useState(false);
   const [filteredMessages, setFilteredMessages] = useState(
@@ -26,7 +29,7 @@ export const Messages = () => {
     );
   }, [messages,isArchive,visible]); 
 
-  const ArchiveOrMessages = () => {
+  const ArchiveOrMessages = () => { 
     setArchive(!isArchive);
     setVisible(false);
   }
@@ -34,21 +37,21 @@ export const Messages = () => {
 
   const get = (message) => {
     setVisible(true);
-    messageDispatch({ 
+    dispatch({ 
       type: "GET_MESSAGE",
       payload:  {...message}
     });
   }
   const del = (id) => {
     setVisible(false);
-    messageDispatch({ 
+    dispatch({ 
       type: "DELETE_MESSAGE",
       payload:  {id:id}
     });
   }
   const edit = (id) => {
     setVisible(false);
-    messageDispatch({ 
+    dispatch({ 
       type: "EDİT_MESSAGE",
       payload:  {id:id}
     });

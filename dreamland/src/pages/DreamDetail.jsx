@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { DreamContext } from '../contexts/DreamContext';
+// import { DreamContext } from '../contexts/DreamContext';
 import { useParams} from "react-router-dom";
 import { Logo } from "../icons/logo";
 import { useLoaderData } from "react-router-dom";
@@ -7,17 +7,20 @@ import { Return } from "../icons/return";
 import { Link } from "react-router-dom";
 import { Comment } from "../components/Comment";
 import DOMPurify from 'dompurify';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const DreamDetail = () => {
     const dreams = useLoaderData();
 
-    const { dreamState, dreamDispatch } = useContext(DreamContext);
-    const dream = dreamState.dreamPage;
+    const state = useSelector((state) => state.dream);
+    const dispatch = useDispatch(); 
+    const dream = state.dreamPage;
+        
     const sanitizedContent = DOMPurify.sanitize(dream?.content);
 
     const { id } = useParams();
     useEffect(() => {
-        dreamDispatch({ 
+        dispatch({ 
             type: "GET_PAGE_DREAM",
             payload:  {id:id}
         });

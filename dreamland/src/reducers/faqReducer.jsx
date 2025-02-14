@@ -1,8 +1,13 @@
 import { nanoid } from 'nanoid';
 // import { v4 as uuidv4 } from 'uuid';
-export const FaqReducer = (state, action) => {
+import { FaqsData } from '../data/dreams';
 
+const FaqInitialState = { 
+    faqs: [...FaqsData],
+    faq: {},
+};
 
+export const FaqReducer = (state=FaqInitialState, action) => {
 
   switch (action.type) {
     case "ADD_FAQ":

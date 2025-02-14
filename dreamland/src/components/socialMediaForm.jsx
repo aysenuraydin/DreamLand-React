@@ -2,11 +2,13 @@ import React, { useContext } from 'react';
 import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
-import { DreamContext } from "../contexts/DreamContext";
+// import { DreamContext } from "../contexts/DreamContext";
+import { useSelector, useDispatch } from 'react-redux';
 
 export const SocialMediaForm = () => {
-    const { infoState, infoDispatch} = useContext(DreamContext); 
-    const socialMedias = infoState.socialMedias;
+    const state = useSelector((state) => state.info);
+    const dispatch = useDispatch(); 
+    const socialMedias = state.socialMedias;
 
     const setSocialMedias = (event) => {
         event.preventDefault();
@@ -15,9 +17,14 @@ export const SocialMediaForm = () => {
         const twitter = event.target.elements.twitter.value;
         const github = event.target.elements.github.value;
         
-        infoDispatch({ 
+        dispatch({ 
             type: "EDİT_SOCİALMEDİA",
-            payload: {instagram:instagram,facebook:facebook,twitter:twitter,github:github}
+            payload: {
+                instagram:instagram,
+                facebook:facebook,
+                twitter:twitter,
+                github:github
+            }
         });
     }
     return(

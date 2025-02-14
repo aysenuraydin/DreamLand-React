@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { DreamContext } from '../contexts/DreamContext';
+// import { DreamContext } from '../contexts/DreamContext';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faComment} from "@fortawesome/free-solid-svg-icons";
@@ -8,32 +8,34 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { Pagination } from '../components/Pagination';
 import { ReviewList } from '../components/reviewList';
 import { ReviewForm } from '../components/reviewForm';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const Reviews = () => {
   const items = useLoaderData();
   const [visible, setVisible] = useState(false);
 
-  const { reviewState , reviewDispatch } = useContext(DreamContext);
-  const review = reviewState.review;
-  const reviews = reviewState.reviews;
+  const state = useSelector((state) => state.review);
+  const dispatch = useDispatch(); 
+  const review = state.review;
+  const reviews = state.reviews;
 
   const get = (review) => {
     setVisible(true);
-    reviewDispatch({ 
+    dispatch({ 
       type: "GET_REVİEW",
       payload: {...review}
     });
   }
   const del = (id) => {
     setVisible(false);
-    reviewDispatch({ 
+    dispatch({ 
       type: "DELETE_REVİEW",
       payload: {id:id}
     });
   }
   const edit = (id) => {
     setVisible(false);
-    reviewDispatch({ 
+    dispatch({ 
       type: "EDİT_REVİEW",
       payload: {id:id}
     });
