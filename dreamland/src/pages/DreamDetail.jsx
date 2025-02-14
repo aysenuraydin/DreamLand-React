@@ -13,6 +13,7 @@ export const DreamDetail = () => {
 
     const { dreamState, dreamDispatch } = useContext(DreamContext);
     const dream = dreamState.dreamPage;
+    const sanitizedContent = DOMPurify.sanitize(dream?.content);
 
     const { id } = useParams();
     useEffect(() => {
@@ -22,16 +23,15 @@ export const DreamDetail = () => {
         });
     }, [id]);
 
-
-
-    const sanitizedContent = DOMPurify.sanitize(dream?.content);
-
   return(
       <>
         <div className="my-10 mx-5 rounded-3xl shadow-lg border border-gray-300 bg-white relative">
-        <div className='bg-gradient-to-b from-[#1f3f9682] from-0% via-white via-40% to-white to-100% h-[35rem] w-full rounded-3xl absolute'></div>
+          <div className='bg-gradient-to-b from-[#1f3f9682] from-0% via-white via-40% to-white to-100% h-[35rem] w-full rounded-3xl absolute'></div>
           <div className="relative p-10 pb-18 h-3/4">
-            <Link to="/" className="inline-block w-12 absolute bottom-5 right-5 cursor-pointer hover:scale-125"><Return /></Link>
+            <Link to="/" className='flex w-32 absolute bottom-5 right-5 cursor-pointer hover:scale-125 items-center text-sm'>
+              <div className='text-[#92A2CD]'>Go To List</div>
+              <div><Return /> </div>
+            </Link> 
             <div className="flex justify-center pt-10">
               <h1 className="text-2xl text-white px-5 -mt-2 text-shadow">{dream?.title}</h1>
             </div>
@@ -41,10 +41,10 @@ export const DreamDetail = () => {
               className="indent-6 pb-3 text-gray-600"></p>
             </div>
           </div>
-      </div>
-      <div className="p-6 py-12">
-        <Comment dreamId={dream?.id} dreamTitle={dream?.title}/>
-      </div>
+        </div>
+        <div className="p-6 py-12">
+          <Comment dreamId={dream?.id} dreamTitle={dream?.title}/>
+        </div>
       </>
   )
 }

@@ -62,6 +62,7 @@ export const DreamReducer = (state, action) => {
                 dream:  {id:action.payload.id ,title:action.payload.title, content:action.payload.content}
             }   
         case "GET_PAGE_DREAM":
+            console.log({...action.payload})
             return {
                 ...state,
                 dreamPage:  state.dreams.find(dream => dream.id == action.payload.id) 

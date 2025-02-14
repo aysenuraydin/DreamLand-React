@@ -22,7 +22,13 @@ export const Header = () => {
             <>
               <img className="w-full object-contain my-12 rounded-2xl" src={headerImage} alt="Header" />
               { 
-                header?.title && ( <span className="header" style={{ color: header?.titleColor }}> {header?.title} </span> )
+                header?.title && ( <span className="header" style={{ color: header?.titleColor }}>
+                {
+                  header?.title.split(".").map((h,i)=> ( 
+                    <div key={i}> {h} <br/> </div>
+                  ))
+                }
+                </span> )
               }
             </>
           )
