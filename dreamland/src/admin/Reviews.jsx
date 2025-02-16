@@ -9,9 +9,10 @@ import { Pagination } from '../components/Pagination';
 import { ReviewList } from '../components/reviewList';
 import { ReviewForm } from '../components/reviewForm';
 import { useSelector, useDispatch } from 'react-redux';
+import { deleteReviewFromDatabase, editReviewFromDatabase } from '../actions/reviewAction';
 
 export const Reviews = () => {
-  const items = useLoaderData();
+  // const items = useLoaderData();
   const [visible, setVisible] = useState(false);
 
   const state = useSelector((state) => state.review);
@@ -28,17 +29,19 @@ export const Reviews = () => {
   }
   const del = (id) => {
     setVisible(false);
-    dispatch({ 
-      type: "DELETE_REVİEW",
-      payload: {id:id}
-    });
+    // dispatch({ 
+    //   type: "DELETE_REVİEW",
+    //   payload: {id:id}
+    // });
+    dispatch(deleteReviewFromDatabase( {id:id} ));
   }
   const edit = (id) => {
     setVisible(false);
-    dispatch({ 
-      type: "EDİT_REVİEW",
-      payload: {id:id}
-    });
+    // dispatch({ 
+    //   type: "EDIT_REVİEW",
+    //   payload: {id:id}
+    // });
+    dispatch(editReviewFromDatabase({id:id}));
   }
   return(
     <div className="p-8">
@@ -90,6 +93,6 @@ export const Reviews = () => {
     </div>
   )
 }
-export const reviewsLoader = async () => {
-  return;
-}
+// export const reviewsLoader = async () => {
+//   return;
+// }

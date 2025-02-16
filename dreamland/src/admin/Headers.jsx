@@ -10,10 +10,11 @@ import { Pagination } from '../components/Pagination';
 import { HeaderList } from '../components/HeaderList';
 import { HeaderForm } from '../components/HeaderForm';
 import { useSelector, useDispatch } from 'react-redux';
+import { addHeaderToDatabase, deleteHeaderFromDatabase, editHeaderFromDatabase } from '../actions/headerAction';
 
 export const Headers = () => {
-  const items = useLoaderData();
-  const errors = useActionData();
+  // const items = useLoaderData();
+  // const errors = useActionData();
   
   const [visible, setVisible] = useState(false);
   const [isActive, setActive] = useState(false);
@@ -38,15 +39,24 @@ export const Headers = () => {
 
     if(name && url){
         if(header?.id){
-          dispatch({ 
-            type: "EDIT_HEADER",
-            payload: {id:header?.id, name:name, isActive:isActive, url:url, title:title, titleColor:titleColor}
-          });
+          // dispatch({ 
+          //   type: "EDIT_HEADER",
+          //   payload: {id:header?.id, name:name, isActive:isActive, url:url, title:title, titleColor:titleColor}
+          // });
+          dispatch(editHeaderFromDatabase(
+            {id:header?.id, name:name, isActive:!!isActive, url:url, title:title, titleColor:titleColor}
+          ));
         } else {
-          dispatch({ 
-            type: "ADD_HEADER",
-            payload: {name:name, isActive:isActive, url:url, title:title, titleColor:titleColor}
-          });
+          // dispatch({ 
+          //   type: "ADD_HEADER",
+          //   payload: {name:name, isActive:isActive, url:url, title:title, titleColor:titleColor}
+          // });
+          dispatch(addHeaderToDatabase({
+            name:name, 
+            isActive:!!isActive, 
+            url:url, title:title, 
+            titleColor:titleColor
+          }));
         }
         setActive(false);
         formRef.current.reset();
@@ -67,12 +77,13 @@ export const Headers = () => {
       payload: header
     });
   }
-  const del = (header) => {
+  const del = (id) => {
     setVisible(true);
-    dispatch({ 
-      type: "DELETE_HEADER",
-      payload: header
-    });
+    // dispatch({ 
+    //   type: "DELETE_HEADER",
+    //   payload: header
+    // });
+    dispatch(deleteHeaderFromDatabase( {id:id} ));
   }
   const changeActive = () => {
     setActive(prev => !prev)
@@ -144,9 +155,9 @@ export const Headers = () => {
     </div>
   )
 }
-export const headersAction = async ({ request }) => {
-  return redirect("/");
-}
-export const headersLoader = async () => {
-  return;
-}
+// export const headersAction = async ({ request }) => {
+//   return redirect("/");
+// }
+// export const headersLoader = async () => {
+//   return;
+// }

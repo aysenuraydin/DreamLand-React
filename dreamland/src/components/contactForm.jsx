@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 // import { DreamContext } from "../contexts/DreamContext";
 import { useSelector, useDispatch } from 'react-redux';
+import { editContactFromDatabase } from '../actions/infoAction';
 
 export const ContactForm = () => {
     const state = useSelector((state) => state.info);
@@ -16,10 +17,15 @@ export const ContactForm = () => {
         const phone = event.target.elements.phone.value;
         const address = event.target.elements.address.value;
 
-        dispatch({ 
-            type: "EDİT_CONTACT",
-            payload: {email:email, phone:phone,address:address}
-        });
+        // dispatch({ 
+        //     type: "EDIT_CONTACT",
+        //     payload: {email:email, phone:phone,address:address}
+        // });
+        dispatch(editContactFromDatabase({
+            email:email, 
+            phone:phone,
+            address:address
+        }))
     }
     return(
         <form  onSubmit={setContact} className="bg-white p-10 rounded-2xl border border-gray-300 shadow-lg mx-10 px-10  pt-10">

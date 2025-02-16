@@ -9,13 +9,13 @@ import DOMPurify from 'dompurify';
 import { useSelector } from 'react-redux';
 
 export const About = () => {
+  // const items = useLoaderData();
+
   const state = useSelector((state) => state.info);
   const about = state.about;
   const socialMedias = state.socialMedias;
 
   const sanitizedAbout = DOMPurify.sanitize(about);
-
-  const items = useLoaderData();
   return(
     <div className="p-10">
       <div className="min-h-[80vh] mx-auto">
@@ -57,6 +57,6 @@ export const About = () => {
     </div>
   )
 }
-export const aboutLoader = async () => {
-  return;
-}
+// export const aboutLoader = async () => {
+//   return;
+// }

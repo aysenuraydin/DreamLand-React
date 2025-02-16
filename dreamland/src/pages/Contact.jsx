@@ -4,10 +4,11 @@ import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEnvelope, faPhone} from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from 'react-redux';
+import { addMessageToDatabase } from '../actions/messageAction';
 
 export const Contact = () => {
-  const items = useLoaderData();
-  const errors = useActionData();
+  // const items = useLoaderData();
+  // const errors = useActionData();
   
   const state = useSelector((state) => state.info);
   const dispatch = useDispatch(); 
@@ -24,15 +25,21 @@ export const Contact = () => {
     const content = event.target.elements.content.value;
 
     if(name && surname && email && phone && content){
-        dispatch({ 
-          type: "ADD_MESSAGE",
-          payload:  {
-              fullname:  name+' '+surname,
-              email:email,
-              phone:phone,
-              content:content
-          }
-        });
+        // dispatch({ 
+        //   type: "ADD_MESSAGE",
+        //   payload:  {
+        //       fullname:  name+' '+surname,
+        //       email:email,
+        //       phone:phone,
+        //       content:content
+        //   }
+        // });
+        dispatch(addMessageToDatabase({
+            fullname:name+' '+surname,
+            email:email,
+            phone:phone,
+            content:content
+        }));
     }
     formRef.current.reset();
 }
@@ -123,7 +130,7 @@ export const Contact = () => {
   )
 }
 // Eğer <Contact/> bileşeninde bir form varsa ve bu form submit edildiğinde, contactAction fonksiyonu çağrılır.
-export const contactAction = async ({ request }) => {
+// export const contactAction = async ({ request }) => {
   // const data = await request.formData();
   // const email = data.get("email");
   // const message = data.get("message");
@@ -139,8 +146,8 @@ export const contactAction = async ({ request }) => {
   // }
   // await sendMessage(email, message);
 
-  return redirect("/");
-}
-export const contactLoader = async () => {
-  return;
-}
+//   return redirect("/");
+// }
+// export const contactLoader = async () => {
+//   return;
+// }

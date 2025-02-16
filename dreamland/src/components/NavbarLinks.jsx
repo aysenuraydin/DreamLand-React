@@ -1,11 +1,32 @@
 
-import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import React, {useEffect} from "react";
+import { NavLink,useNavigate , Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket} from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { startGoogleLogin, startLogout } from "../actions/authAction";
+
 export const NavbarLinks = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!user?.uid) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
+  const logout = () => {
+    dispatch(startLogout())
+  }
+
   return (
     <ul className="gap-x-3 pt-2 md:flex md:flex-row flex-col">
+      { user.uid && (
+          <li className="text-[#92A2CD]"> {user.displayName}</li>
+        ) 
+      }
       <li className="navbar-links">
         <NavLink to="/admin" className={({ isActive }) => isActive?'navbar min-w-32 bg-[#92A2CD] text-white border-[#b4c2ea]':'navbar min-w-32'}>
           Admin Panel
@@ -35,12 +56,22 @@ export const NavbarLinks = () => {
           Faqs
         </NavLink>
       </li>
-      <li className="navbar-links md:max-w-14">
-        <NavLink to="/login" className={({ isActive }) => isActive?'navbar-auth bg-[#92A2CD] text-white border-[#b4c2ea]':'navbar-auth'}>
-          {/* <FontAwesomeIcon icon={faRightToBracket}/> */}
-          <div className="rotate-180 inline-block"><FontAwesomeIcon icon={faRightToBracket}/></div>
-        </NavLink>
-      </li>
+      { user.uid ? (
+        <li className="navbar-links md:max-w-14">
+          <NavLink to="/" className={({ isActive }) => isActive?'navbar-auth bg-[#92A2CD] text-white border-[#b4c2ea]':'navbar-auth'}
+          onClick={logout}>
+              <FontAwesomeIcon icon={faRightToBracket}/>
+          </NavLink>
+        </li>
+      ):(
+        <li className="navbar-links md:max-w-14">
+          <NavLink to="/login" className={({ isActive }) => isActive?'navbar-auth bg-[#92A2CD] text-white border-[#b4c2ea]':'navbar-auth'}>
+            <div className="rotate-180 inline-block"><FontAwesomeIcon icon={faRightToBracket}/></div>
+          </NavLink>
+        </li>
+      )}
+      
+    
     </ul>
   );
 };

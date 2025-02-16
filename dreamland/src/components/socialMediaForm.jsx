@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 // import { DreamContext } from "../contexts/DreamContext";
 import { useSelector, useDispatch } from 'react-redux';
+import { editSocialMediaFromDatabase } from '../actions/infoAction';
 
 export const SocialMediaForm = () => {
     const state = useSelector((state) => state.info);
@@ -17,15 +18,21 @@ export const SocialMediaForm = () => {
         const twitter = event.target.elements.twitter.value;
         const github = event.target.elements.github.value;
         
-        dispatch({ 
-            type: "EDİT_SOCİALMEDİA",
-            payload: {
-                instagram:instagram,
-                facebook:facebook,
-                twitter:twitter,
-                github:github
-            }
-        });
+        // dispatch({ 
+        //     type: "EDIT_SOCİALMEDİA",
+        //     payload: {
+        //         instagram:instagram,
+        //         facebook:facebook,
+        //         twitter:twitter,
+        //         github:github
+        //     }
+        // });
+        dispatch(editSocialMediaFromDatabase({
+            instagram:instagram,
+            facebook:facebook,
+            twitter:twitter,
+            github:github
+        }))
     }
     return(
         <form  onSubmit={setSocialMedias} className="bg-white p-10 rounded-2xl border border-gray-300 shadow-lg mx-10 px-10 pt-10">

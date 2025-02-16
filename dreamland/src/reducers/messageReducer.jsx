@@ -1,21 +1,19 @@
 import { nanoid } from 'nanoid';
-import { MessagesData }  from '../data/dreams' 
 
 const messageInitialState = {
-    messages: [...MessagesData],
+    messages: [ ],
     message: {},
 }
 
 export const MessageReducer = (state= messageInitialState, action) => {
   switch (action.type) {
     case "ADD_MESSAGE":
-      console.log(action.payload)
       return {
         ...state,
         messages : [
           ...state.messages,
           {
-            id:nanoid(), 
+            // id:nanoid(), 
             isArchive:false,
             date: new Date().toISOString().replace("T", " ").substring(0, 19),
             ...action.payload
@@ -24,7 +22,7 @@ export const MessageReducer = (state= messageInitialState, action) => {
         message: {}
       }
 
-      case "EDİT_MESSAGE":
+      case "EDIT_MESSAGE":
         return {
           ...state,
           messages: [
@@ -49,6 +47,11 @@ export const MessageReducer = (state= messageInitialState, action) => {
         return {
           ...state,
           message: {...action.payload}
+        }
+      case "SET_MESSAGES":
+        return {
+            ...state,
+            messages: action.payload
         }
       case "CLEAR_MESSAGE":
         return {

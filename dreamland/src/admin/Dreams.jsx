@@ -9,10 +9,11 @@ import { Pagination } from '../components/Pagination';
 import { DreamsList } from '../components/DreamsList';
 import { DreamForm } from '../components/DreamForm';
 import { useSelector, useDispatch } from 'react-redux';
+import { addDreamToDatabase, deleteDreamFromDatabase, editDreamFromDatabase } from '../actions/dreamAction';
 
 export const Dreams = () => {
-  const errors = useActionData();
-  const items = useLoaderData();
+  // const errors = useActionData();
+  // const items = useLoaderData();
   
   const [visible, setVisible] = useState(false);
   const formRef = useRef(null);
@@ -27,19 +28,24 @@ export const Dreams = () => {
   const dream = state.dream;
 
   const add = (data) => {
+    console.log("add");
     const title = data.title;
     const interpretation = data.content;
     if(title && interpretation){
         if(dream?.id) {
-          dispatch({
-            type: "EDIT_DREAM",
-            payload: {id:dream?.id, title:title, content:interpretation}
-          });
+          // dispatch({
+          //   type: "EDIT_DREAM",
+          //   payload: {id:dream?.id, title:title, content:interpretation}
+          // });
+          dispatch(editDreamFromDatabase(
+            {id:dream?.id, title:title, content:interpretation}
+          ));
         } else {
-          dispatch({
-            type: "ADD_DREAM",
-            payload: {title:title, content:interpretation}
-          });
+          // dispatch({
+          //   type: "ADD_DREAM",
+          //   payload: {title:title, content:interpretation}
+          // });
+          dispatch(addDreamToDatabase({title:title, content:interpretation}));
         }
         formRef.current.reset();
     }
@@ -60,10 +66,12 @@ export const Dreams = () => {
   }
   const del = (id) => {
     setVisible(true);
-    dispatch({
-      type: "DELETE_DREAM",
-      payload: {id:id}
-    });
+    // dispatch({
+    //   type: "DELETE_DREAM",
+    //   payload: {id:id}
+    // });
+
+    dispatch(deleteDreamFromDatabase( {id:id} ));
   }
   return(
     <div className="p-8">
@@ -119,9 +127,9 @@ export const Dreams = () => {
     </div>
   )
 }
-export const dreamsAction = async ({ request }) => {
-  return redirect("/");
-}
-export const dreamsLoader = async () => {
-  return;
-}
+// export const dreamsAction = async ({ request }) => {
+//   return redirect("/");
+// }
+// export const dreamsLoader = async () => {
+//   return;
+// }

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { DreamContext } from '../contexts/DreamContext';
+// import { DreamContext } from '../contexts/DreamContext';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faEnvelope, faBoxArchive, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -9,9 +9,10 @@ import { Pagination } from '../components/Pagination';
 import { MessageForm } from '../components/messageForm';
 import { MessageList } from '../components/messageList';
 import { useSelector, useDispatch } from 'react-redux';
+import { deleteMessageFromDatabase, editMessageFromDatabase } from '../actions/messageAction';
 
 export const Messages = () => {
-  const items = useLoaderData();
+  // const items = useLoaderData();
   
   const state = useSelector((state) => state.message);
   const dispatch = useDispatch(); 
@@ -44,17 +45,19 @@ export const Messages = () => {
   }
   const del = (id) => {
     setVisible(false);
-    dispatch({ 
-      type: "DELETE_MESSAGE",
-      payload:  {id:id}
-    });
+    // dispatch({ 
+    //   type: "DELETE_MESSAGE",
+    //   payload:  {id:id}
+    // });
+    dispatch(deleteMessageFromDatabase( {id:id} ));
   }
   const edit = (id) => {
     setVisible(false);
-    dispatch({ 
-      type: "EDİT_MESSAGE",
-      payload:  {id:id}
-    });
+    // dispatch({ 
+    //   type: "EDIT_MESSAGE",
+    //   payload:  {id:id}
+    // });
+    dispatch(editMessageFromDatabase({id:id}));
   }
   return(
     <div className="p-8">
@@ -122,6 +125,6 @@ export const Messages = () => {
     </div>
   )
 }
-export const messagesLoader = async () => {
-  return;
-}
+// export const messagesLoader = async () => {
+//   return;
+// }
