@@ -1,12 +1,19 @@
 
 import React, { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Logo } from "../icons/logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars} from "@fortawesome/free-solid-svg-icons";
 import { NavbarLinks } from "./NavbarLinks";
+import { useDispatch, useSelector } from "react-redux";
+
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth);
+
+
   const [bar, setBar] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -24,11 +31,15 @@ export const Navbar = () => {
           <span className="text-2xl mr-1 sm:text-3xl tracking-widest text-[#1f3f96]">Dream Land</span>
           <Logo />
         </Link>
-        <div className="hidden lg:block"> <NavbarLinks/> </div>
-        <div className="lg:hidden inline hover:border text-[#1f3f96] text-xl p-2 py-1 rounded-md cursor-pointer" onClick={()=>{setBar(!bar)}}>
-          <FontAwesomeIcon icon={faBars}/>
+        <div className="flex">
+          <div className="hidden lg:block"> <NavbarLinks/> </div>
+          { user.uid && ( <div className="text-[#92A2CD] lg:hidden block pt-1 pr-4"> {user.displayName}</div> ) }
+          <div className="lg:hidden inline hover:border text-[#1f3f96] text-xl p-2 py-1 rounded-md cursor-pointer" onClick={()=>{setBar(!bar)}}>
+            <FontAwesomeIcon icon={faBars}/>
+          </div>
         </div>
       </div>
+
       { bar && <div className="lg:hidden block mx-auto pb-3 px-6"> <NavbarLinks/> </div> }
     </nav>
   );

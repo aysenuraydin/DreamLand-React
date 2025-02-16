@@ -1,5 +1,4 @@
 import React, { useRef, useContext } from 'react';
-// import { DreamContext } from '../contexts/DreamContext';
 import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEnvelope, faPhone} from "@fortawesome/free-solid-svg-icons";
@@ -7,9 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addMessageToDatabase } from '../actions/messageAction';
 
 export const Contact = () => {
-  // const items = useLoaderData();
-  // const errors = useActionData();
-  
   const state = useSelector((state) => state.info);
   const dispatch = useDispatch(); 
   const contact = state.contact;
@@ -25,15 +21,6 @@ export const Contact = () => {
     const content = event.target.elements.content.value;
 
     if(name && surname && email && phone && content){
-        // dispatch({ 
-        //   type: "ADD_MESSAGE",
-        //   payload:  {
-        //       fullname:  name+' '+surname,
-        //       email:email,
-        //       phone:phone,
-        //       content:content
-        //   }
-        // });
         dispatch(addMessageToDatabase({
             fullname:name+' '+surname,
             email:email,
@@ -120,7 +107,7 @@ export const Contact = () => {
               </div>
               <div className="mt-5">
                 <button type="submit"
-                className="block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 cursor-pointer" >Let's talk</button>
+                className="block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-gray-600 cursor-pointer" >Let's talk</button>
               </div>
             </Form>
           </div>
@@ -129,25 +116,3 @@ export const Contact = () => {
     </div>
   )
 }
-// Eğer <Contact/> bileşeninde bir form varsa ve bu form submit edildiğinde, contactAction fonksiyonu çağrılır.
-// export const contactAction = async ({ request }) => {
-  // const data = await request.formData();
-  // const email = data.get("email");
-  // const message = data.get("message");
-  // const errors = {};
-  // if (typeof email !== "string" || !email.includes("@")) {
-  //     errors.email = "email girmelisiniz";
-  // }
-  // if (typeof message!== "string" || message.length < 10) {
-  //     errors.message = "mesaj için en az 10 karakter girmelisiniz";
-  // }
-  // if(Object.keys(errors).length) {
-  //     return errors;
-  // }
-  // await sendMessage(email, message);
-
-//   return redirect("/");
-// }
-// export const contactLoader = async () => {
-//   return;
-// }

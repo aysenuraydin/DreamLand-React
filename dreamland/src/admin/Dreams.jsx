@@ -127,9 +127,3 @@ export const Dreams = () => {
     </div>
   )
 }
-// export const dreamsAction = async ({ request }) => {
-//   return redirect("/");
-// }
-// export const dreamsLoader = async () => {
-//   return;
-// }

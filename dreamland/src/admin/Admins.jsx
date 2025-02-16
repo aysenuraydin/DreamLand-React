@@ -1,88 +1,74 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
-// import { DreamContext } from '../contexts/DreamContext';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCancel, faImage,  faPlus} from "@fortawesome/free-solid-svg-icons";
-import { redirect, useActionData, useLoaderData } from "react-router-dom";
-import { Header } from "../components/Header";
+import { NavLink,useNavigate } from "react-router-dom";
+import { faCancel, faUser,  faPlus} from "@fortawesome/free-solid-svg-icons";
 import SyncLoader from "react-spinners/SyncLoader";
 import { Pagination } from '../components/Pagination';
-import { HeaderList } from '../components/HeaderList';
-import { HeaderForm } from '../components/HeaderForm';
 import { useSelector, useDispatch } from 'react-redux';
-import { addHeaderToDatabase, deleteHeaderFromDatabase, editHeaderFromDatabase } from '../actions/headerAction';
+import { addUserToDatabase, deleteUserFromDatabase } from '../actions/userAction';
+import { UserForm } from '../components/UserForm';
+import { UserList } from '../components/UserList';
 
-export const Headers = () => {
-  // const items = useLoaderData();
-  // const errors = useActionData();
-  
+export const Admins = () => {
   const [visible, setVisible] = useState(false);
-  const [isActive, setActive] = useState(false);
   const formRef = useRef(null); 
 
-  const state = useSelector((state) => state.header);
+  const state = useSelector((state) => state.user);
+  const auth = useSelector((state) => state.auth);
+   const navigate = useNavigate();
   const dispatch = useDispatch(); 
-  const headers = state.headers;
-  const header = state.header;
+  const users = state.users;
+  const user = state.user;
+
+  const envEmail = import.meta.env.VITE_FIREBASE_ADMIN_EMAIL;
 
   useEffect(()=> {
-    setActive(header.isActive)
-  },[header])
+    if( auth.email!=envEmail ){
+      navigate("/admin");
+    }
+  },[navigate])
 
   const add = (event) => {
     event.preventDefault(); 
 
-    const name = event.target.elements.name.value;
-    const url = event.target.elements.url.value;
-    const title = event.target.elements.title.value;
-    const titleColor = event.target.elements.titleColor.value;
-
-    if(name && url){
-        if(header?.id){
-          dispatch(editHeaderFromDatabase(
-            {id:header?.id, name:name, isActive:!!isActive, url:url, title:title, titleColor:titleColor}
-          ));
-        } else {
-          dispatch(addHeaderToDatabase({
-            name:name, 
-            isActive:!!isActive, 
-            url:url, title:title, 
-            titleColor:titleColor
+    const email = event.target.elements.email.value;
+    console.log(email);
+    if(email){
+        if(!user?.id){
+          dispatch(addUserToDatabase({
+            email:email
           }));
-        }
-        setActive(false);
+        } 
         formRef.current.reset();
     }
   }
   const reset = () => {
-    setActive(false);
     setVisible(false);
     dispatch({ 
-      type: "CLEAR_HEADER",
+      type: "CLEAR_USER",
     });
     formRef.current.reset();
   }
-  const edit = (header) => {
+  const edit = (user) => {
     setVisible(true);
     dispatch({ 
-      type: "GET_HEADER",
-      payload: header
+      type: "GET_USER",
+      payload: user
     });
   }
-  const del = (id) => {
+  const del = (user) => {
     setVisible(true);
-    dispatch(deleteHeaderFromDatabase( {id:id} ));
-  }
-  const changeActive = () => {
-    setActive(prev => !prev)
-  }
+    formRef.current.reset();
+    dispatch(deleteUserFromDatabase({ id: user?.id, email: user?.email }));
+};
 
   return(    
     <div className="p-8">
       <div className="min-h-[80vh] max-w-6xl mx-auto">
         <div className="flex justify-between border-b-2 text-gray-400 border-gray-300 pb-[0.6rem] px-4">
-          <h1 className="text-3xl">Headers
-              <FontAwesomeIcon icon={faImage} className={'admin-icons ml-4 text-2xl'}/>
+          <h1 className="text-3xl">Users
+              <FontAwesomeIcon icon={faUser} className="admin-icons ml-4 text-2xl"/>
           </h1>
           <div className="flex gap-x-3">
             <div className="flex items-center relative">
@@ -91,7 +77,7 @@ export const Headers = () => {
             {
               !visible && (
                 <div className="admin-button" onClick={()=> setVisible(!visible)}> 
-                  <span> Add Header 
+                  <span> Add Admin
                     <FontAwesomeIcon icon={faPlus} className="text-sm pl-1"/>
                   </span>
                 </div>
@@ -111,13 +97,9 @@ export const Headers = () => {
         </div>
         {
           visible && ( 
-              <HeaderForm del={del} header={header} add={add} reset={reset} formRef={formRef} changeActive={changeActive} isActive={isActive} /> 
+              <UserForm del={del} user={user} add={add} reset={reset} formRef={formRef}/> 
             ) 
         }
-        { !visible && (
-          <div className='-my-9 -mb-16'> <Header/> </div>
-          
-        )}
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">
           <span className="w-1/6 text-center text-sm border border-[#1f3f96a2] p-1 rounded-full bg-white">
             <span className="font-bold text-[#1f3f96a2]">Number</span>
@@ -137,7 +119,7 @@ export const Headers = () => {
           <span className="w-1/4"></span>
         </div>
         <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-5'/> 
-        <HeaderList headers={headers} edit={edit} />
+        <UserList users={users} edit={edit} />
         <Pagination/>
       </div>
     </div>
