@@ -3,8 +3,10 @@ import './App.css';
 import { AppRouter } from './routers/AppRouter';
 import store from './redux/redux';
 import { Provider } from 'react-redux';
+import { useAuth } from "./hooks/useAuth";  
 
 function App() {
+
   useEffect(() => {
     console.log("Uygulama Çalıştı!");
   }, []);

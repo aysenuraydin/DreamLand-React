@@ -10,9 +10,10 @@ import { DreamReducer } from '../reducers/dreamReducer';
 import { InfoReducer } from '../reducers/infoReducer';
 import { authReducer } from '../reducers/authReducer';
 import { ImgReducer } from '../reducers/imgReducer';
+import { UserReducer } from '../reducers/userReducer';
 
 // const store = createStore(counterReducer);
-
+const middleware = [thunk];
 const store = createStore(
     combineReducers({
         auth: authReducer,
@@ -23,9 +24,10 @@ const store = createStore(
         faq: FaqReducer,
         message: MessageReducer,
         review: ReviewReducer,
+        user: UserReducer,
     }),
-    applyMiddleware(thunk)
-    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeWithDevTools(applyMiddleware(...middleware))
+    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 export default store;
 

@@ -1,11 +1,16 @@
 import React from "react"
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage,faComment ,faEnvelope,faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { faImage,faComment ,faEnvelope,faCircleInfo,faUser,faGear } from "@fortawesome/free-solid-svg-icons";
 import { faMicrosoft } from "@fortawesome/free-brands-svg-icons";
 import { Logo } from "../icons/logo";
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from '../hooks/useAuth';
 
 export const AdminSidebar = () => {
+    const user = useAuth(); 
+
+    const email = import.meta.env.VITE_FIREBASE_ADMIN_EMAIL;
     return(
         <div className="px-3 lg:max-h-full sm:mt-0 max-h-44 overflow-scroll">
             <ul>
@@ -50,6 +55,24 @@ export const AdminSidebar = () => {
                     className={({ isActive }) => isActive ? 'admin-active admin-sidebar':'admin-sidebar'}>
                         <FontAwesomeIcon icon={faImage} className="admin-icons"/>
                         Headers
+                    </NavLink>
+                </li>
+                {
+                    user.email == email? (
+                        <li>
+                            <NavLink to="/admin/admins" 
+                            className={({ isActive }) => isActive ? 'admin-active admin-sidebar':'admin-sidebar'}>
+                                <FontAwesomeIcon icon={faUser} className="admin-icons"/>
+                                Admins
+                            </NavLink>
+                        </li>
+                    ):(<></>)
+                }
+                <li>
+                    <NavLink to="/admin/settings" 
+                    className={({ isActive }) => isActive ? 'admin-active admin-sidebar':'admin-sidebar'}>
+                        <FontAwesomeIcon icon={faGear} className="admin-icons"/>
+                        Settings
                     </NavLink>
                 </li>
             </ul>

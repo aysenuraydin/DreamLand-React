@@ -49,7 +49,9 @@ export const HeaderReducer = (state=headerInitialState, action) => {
     case "SET_HEADERS":
       return {
           ...state,
-          headers: action.payload
+          headers: action.payload,
+          headerActive : action.payload.find(header => header.isActive)  
+                          ?? {}
       }
     case "GET_ACTİVE_HEADER":
       return {

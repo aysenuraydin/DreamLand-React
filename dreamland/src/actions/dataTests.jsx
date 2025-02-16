@@ -9,7 +9,7 @@ import { addMessageToDatabase } from '../actions/messageAction';
 import { addReviewToDatabase } from '../actions/reviewAction';
 import { addFaqToDatabase } from '../actions/faqAction';
 import { editAboutFromDatabase, editContactFromDatabase, editSocialMediaFromDatabase } from '../actions/infoAction';
-import { startRegisterWithEmailPassword } from './authAction';
+import { addUserToDatabase } from './userAction';
 
 const addTestHeaders = async (dispatch) => {
     await Promise.all(HeadersData.map(data => dispatch(addHeaderToDatabase(data))));
@@ -36,9 +36,7 @@ const addTestContact = async (dispatch) => {
     await dispatch(editContactFromDatabase({...ContactData}));
 };
 const addTestAdmin = async (dispatch) => {
-    await dispatch(startRegisterWithEmailPassword(
-        import.meta.env.VITE_FIREBASE_ADMIN_EMAIL,
-        import.meta.env.VITE_FIREBASE_ADMIN_PASSWORD));
+    await dispatch(addUserToDatabase({ email:import.meta.env.VITE_FIREBASE_ADMIN_EMAIL }))
 };
 
 export const addTests = () => {

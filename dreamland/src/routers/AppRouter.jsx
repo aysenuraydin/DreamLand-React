@@ -20,11 +20,13 @@ import { Informations } from '../admin/Informations';
 import { Reviews } from '../admin/Reviews';
 import { Messages } from '../admin/Messages';
 import { Headers } from '../admin/Headers';
+import { ForgotPassword } from "../pages/forgotPassword";
+import { Admins } from "../admin/Admins";
+import { Settings } from "../admin/Settings";
 //? error pages
 import GlobalErrors from '../errors/GlobalErrors';
 import DreamsError from '../errors/DreamsError';
-
-import { Provider, useDispatch } from "react-redux";
+//? actions
 import { addTests } from "../actions/dataTests";
 import { getDreamsFromDatabase } from "../actions/dreamAction";
 import { getInfosFromDatabase } from "../actions/infoAction";
@@ -32,15 +34,19 @@ import { getReviewsFromDatabase } from "../actions/reviewAction";
 import { getMessagesFromDatabase } from "../actions/messageAction";
 import { getHeadersFromDatabase } from "../actions/headerAction";
 import { getFaqsFromDatabase } from "../actions/faqAction";
+import { getUsersFromDatabase, listenForAuthChanges } from "../actions/userAction";
+import { useDispatch } from "react-redux";
+import ProtectedRoute from "./ProtectedRoute";
+
 
 export const AppRouter = () => {
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(addTests()); 
   }, [dispatch]);
 
   useEffect(() => {
+    dispatch(listenForAuthChanges());
     dispatch(getDreamsFromDatabase());
 
     //EĞER ADMİN İSE
@@ -49,11 +55,12 @@ export const AppRouter = () => {
     dispatch(getMessagesFromDatabase());
     dispatch(getHeadersFromDatabase());
     dispatch(getFaqsFromDatabase());
+    dispatch(getUsersFromDatabase());
 }, []);
   const router = createBrowserRouter([
     {
       path: "/admin",
-      element: <AdminLayout />,
+      element: (<ProtectedRoute><AdminLayout /></ProtectedRoute>),
       errorElement: <GlobalErrors/>,
       children: [
         { index: true,  element: <Dashboard/>  },
@@ -62,6 +69,8 @@ export const AppRouter = () => {
         { path: "reviews", element: <Reviews /> },
         { path: "messages", element: <Messages /> },
         { path: "headers",  element: <Headers /> },
+        { path: "admins",  element: <Admins /> },
+        { path: "settings",  element: <Settings /> },
       ]
     },
     {
@@ -82,6 +91,7 @@ export const AppRouter = () => {
         { path: "/contact", element: <Contact /> },
         { path: "/faqs", element: <Faqs /> },
         { path: "/login",  element: <Login /> },
+        { path: "/forgotPassword",  element: <ForgotPassword /> },
         { path: "*",  element: <NotFound />  },
       ]
     }
@@ -116,6 +126,8 @@ import { Headers, headersAction, headersLoader } from '../admin/Headers';
 //? error pages
 import GlobalErrors from '../errors/GlobalErrors';
 import DreamsError from '../errors/DreamsError';
+import { Settings } from '../admin/Settings';
+import { forgotPassword } from '../pages/forgotPassword';
 
 export const AppRouter = ({}) => {
 

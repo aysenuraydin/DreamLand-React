@@ -3,6 +3,8 @@ const initialState = {
     displayName: null,
     email: null,
     isAuthenticated: false,
+    passwordUpdateStatus: null,
+    error: null,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -18,16 +20,20 @@ switch (action.type) {
     case "REGISTER":
         return {
             ...state,
-            // uid: action.payload.uid,
-            // displayName: action.payload.displayName.split("@")[0] ??"...",
-            // email: action.payload.email,
         };
 
     case "LOGOUT":
         return {
             ...initialState, 
         };
-
+    case "UPDATE_PASSWORD_SUCCESS":
+        return { ...state, passwordUpdateStatus: action.payload, error: null };
+    case "UPDATE_PASSWORD_ERROR":
+        return { ...state, error: action.payload, passwordUpdateStatus: null };
+    case "FORGOT_PASSWORD_SUCCESS":
+        return { ...state, passwordResetMessage: action.payload, error: null };
+    case "FORGOT_PASSWORD_ERROR":
+        return { ...state, error: action.payload, passwordResetMessage: null };
     default:
     return state;
 }

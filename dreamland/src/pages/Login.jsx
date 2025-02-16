@@ -1,22 +1,27 @@
 import React, {useEffect, useRef} from "react";
-import { Form, useNavigate, redirect, useActionData } from "react-router-dom";
+import { Form, useNavigate,Link,useLocation, redirect, useActionData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket, faArrowRight, faLock} from "@fortawesome/free-solid-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { startEmailPasswordLogin, startGoogleLogin, startLogout } from "../actions/authAction";
+
 export const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth);
+  const location = useLocation(); 
+  const userAuth = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.user);
+  const from = location.state?.from?.pathname || "/";
   const formRef = useRef(null);
-  // const errors = useActionData();
+
 
   useEffect(() => {
-    if (user?.uid) {
-      navigate("/");
+    if (userAuth?.uid) {
+      navigate(from, { replace: true }); 
     }
-  }, [user, navigate]);
+  }, [userAuth, navigate, from]);
+
 
   const googleLogin = () => {
     dispatch(startGoogleLogin());
@@ -49,10 +54,10 @@ export const Login = () => {
               <input type="password" id="password" name="password" className="mt-1 p-2 w-full border border-gray-300 rounded-xl text-gray-800 outline-none bg-white" placeholder="Password"/>
             </div>
             <div className="mb-3">
-              <a className="text-end block w-full text-gray-600 rounded-sm pr-5">
+              <Link to="/forgotPassword" className="text-end block w-full text-gray-600 rounded-sm pr-5">
                 Forgot My Password!
                 <FontAwesomeIcon icon={faArrowRight} className="ml-1"/>
-              </a>
+              </Link>
             </div>
 
             <button type="submit" className="w-full rounded-full p-2 bg-gray-800 text-white hover:bg-gray-600 cursor-pointer">

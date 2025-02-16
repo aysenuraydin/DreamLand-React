@@ -71,7 +71,8 @@ export const DreamReducer = (state=dreamInitialState, action) => {
         case "SET_DREAMS":
             return {
                 ...state,
-                dreams: action.payload
+                dreams: action.payload,
+                dreamsTitle: action.payload.map(i => ({ title: i.title, id: i.id })), 
             }   
         case "GET_PAGE_DREAM":
             return {
