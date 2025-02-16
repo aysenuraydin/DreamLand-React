@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 
-const useFetch = (url) => {
+export const useGetFetch = (url) => {
+    const databaseURL = "https://react-dreams-70fcc-default-rtdb.firebaseio.com/";
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -9,7 +10,7 @@ const useFetch = (url) => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                const res = await fetch('https://react-dreams-70fcc-default-rtdb.firebaseio.com/'+ url );
+                const res = await fetch(databaseURL + url );
                 if(!res.ok) {
                     throw new Error(res.statusText);
                 }
@@ -29,4 +30,3 @@ const useFetch = (url) => {
         data, isLoading, error
     }
 }
-export default useFetch;

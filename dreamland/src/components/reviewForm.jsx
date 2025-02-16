@@ -41,9 +41,9 @@ export const ReviewForm = ({review, edit,  del}) => {
                             </button>
                         )
                     }
-                    <button className="block w-full text-sm mr-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center cursor-pointer" onClick={()=> del(review.id)}>
+                    <div className="block w-full text-sm mr-2 pt-3 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center cursor-pointer" onClick={()=> del(review.id)}>
                     Delete <FontAwesomeIcon icon={faTrash}/>
-                    </button>
+                    </div>
                 </div>
             </div>
         </div>

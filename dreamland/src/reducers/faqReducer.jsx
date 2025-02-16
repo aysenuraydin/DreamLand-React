@@ -1,9 +1,7 @@
 import { nanoid } from 'nanoid';
-// import { v4 as uuidv4 } from 'uuid';
-import { FaqsData } from '../data/dreams';
 
 const FaqInitialState = { 
-    faqs: [...FaqsData],
+    faqs: [ ],
     faq: {},
 };
 
@@ -16,8 +14,7 @@ export const FaqReducer = (state=FaqInitialState, action) => {
         faqs: [
           ...state.faqs, 
           { 
-            id:  nanoid(),
-              //  id: uuidv4(),  
+            // id:  nanoid(),
             ...action.payload 
           }
         ],
@@ -48,6 +45,11 @@ export const FaqReducer = (state=FaqInitialState, action) => {
         ...state, 
         faq: { ...action.payload } 
       };
+    case "SET_FAQS":
+      return {
+          ...state,
+          faqs: action.payload
+      }  
     default:
         return state;
   }

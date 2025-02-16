@@ -1,8 +1,7 @@
 import { nanoid } from 'nanoid';
-import { ReviewsData }  from '../data/dreams' 
 
 const reviewInitialState = {
-    reviews: [...ReviewsData],
+    reviews: [ ],
     reviewsByDreamId: [],
     review: {},
 }
@@ -20,7 +19,7 @@ export const ReviewReducer = (state = reviewInitialState, action) => {
             reviews : [
               ...state.reviews,
               { 
-                id:nanoid(),
+                // id:nanoid(),
                 isConfirm:false,
                 username: `${action.payload.name} ${action.payload.surname}`,
                 date: new Date().toISOString().replace("T", " ").substring(0, 19),
@@ -29,7 +28,7 @@ export const ReviewReducer = (state = reviewInitialState, action) => {
             ],
             review: {}
           }
-        case "EDİT_REVİEW":
+        case "EDIT_REVİEW":
           return {
             ...state,
             reviews: [
@@ -51,6 +50,11 @@ export const ReviewReducer = (state = reviewInitialState, action) => {
           return {
             ...state,
             review: {...action.payload}
+          }
+        case "SET_REVİEWS":
+          return {
+              ...state,
+              reviews: action.payload
           }
         case "CLEAR_REVİEW":
           return {

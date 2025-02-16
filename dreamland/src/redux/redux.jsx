@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
+import {thunk} from "redux-thunk";
 //Reducers
 import { FaqReducer } from '../reducers/faqReducer';
 import { MessageReducer } from '../reducers/messageReducer';
@@ -23,8 +24,10 @@ const store = createStore(
         message: MessageReducer,
         review: ReviewReducer,
     }),
-    composeWithDevTools(
-        applyMiddleware()
-    )
+    applyMiddleware(thunk)
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 export default store;
+
+
+

@@ -3,6 +3,7 @@ import { DreamContext } from '../contexts/DreamContext';
 import { Form } from "react-router-dom";
 import { CommentCard } from './commentCard';
 import { useSelector, useDispatch } from 'react-redux';
+import { addReviewToDatabase } from '../actions/reviewAction';
 
 export const Comment = ({dreamId, dreamTitle}) => {
     const [comment, setComment] = useState([]);
@@ -25,15 +26,21 @@ export const Comment = ({dreamId, dreamTitle}) => {
         const username = event.target.elements.username.value;
         const comment = event.target.elements.comment.value;
         if(username && comment){
-            dispatch({ 
-                type: "ADD_REVİEW",
-                payload:  {
-                    username:username, 
-                    comment:comment, 
-                    dreamId:dreamId, 
-                    dreamTitle:dreamTitle
-                }
-            });
+            // dispatch({ 
+            //     type: "ADD_REVİEW",
+            //     payload:  {
+            //         username:username, 
+            //         comment:comment, 
+            //         dreamId:dreamId, 
+            //         dreamTitle:dreamTitle
+            //     }
+            // });
+            dispatch(addReviewToDatabase({
+                username:username, 
+                comment:comment, 
+                dreamId:dreamId, 
+                dreamTitle:dreamTitle
+            }));
             setComment((prev)=>[
                 ...prev, 
                 {

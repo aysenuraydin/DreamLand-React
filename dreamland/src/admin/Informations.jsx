@@ -8,9 +8,10 @@ import { ContactForm } from "../components/contactForm";
 import { FaqsForm } from '../components/faqsForm';
 import { SocialMediaForm } from "../components/socialMediaForm";
 import { FaqsList } from "../components/faqsList";
+// import { DreamContext } from '../contexts/DreamContext';
 
 export const Informations = () => {
-  const items = useLoaderData();
+  // const items = useLoaderData();
 
   return(
     <div className="p-8">
@@ -42,6 +43,6 @@ export const Informations = () => {
     </div>
   )
 }
-export const informationsLoader = async () => {
-  return;
-}
+// export const informationsLoader = async () => {
+//   return;
+// }

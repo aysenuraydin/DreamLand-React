@@ -8,15 +8,12 @@ import { Link } from "react-router-dom";
 import { Comment } from "../components/Comment";
 import DOMPurify from 'dompurify';
 import { useSelector, useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark} from "@fortawesome/free-solid-svg-icons";
+import {useGetFetch} from '../hooks/useGetFetch';
 
 export const DreamDetail = () => {
-    const dreams = useLoaderData();
-
-    const state = useSelector((state) => state.dream);
-    const dispatch = useDispatch(); 
-    const dream = state.dreamPage;
-        
-    const sanitizedContent = DOMPurify.sanitize(dream?.content);
+  // const dream = useLoaderData();
 
     const { id } = useParams();
     useEffect(() => {
@@ -25,6 +22,20 @@ export const DreamDetail = () => {
             payload:  {id:id}
         });
     }, [id]);
+
+    const state = useSelector((state) => state.dream);
+    const dispatch = useDispatch(); 
+    const dream = state.dreamPage;
+
+    if (!dream) {
+      return(
+        <div className="bg-white text-center mt-4 p-7 rounded-md shadow-md border border-gray-300">
+            <FontAwesomeIcon icon={faXmark} className="text-sm mr-2"/>
+            Dreams not found.
+        </div>
+      )
+    }
+    const sanitizedContent = DOMPurify.sanitize(dream?.content);
 
   return(
       <>
@@ -51,11 +62,5 @@ export const DreamDetail = () => {
       </>
   )
 }
-export const dreamLoader = async () => {
-  // const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  // if(res.status === 404) {
-  //     throw new Response("Kaynak bulunamadı", { status: 404 });
-  // }
-  // return res.json();
-  return;
-}
+// export const dreamLoader = async ({ params }) => {
+// }

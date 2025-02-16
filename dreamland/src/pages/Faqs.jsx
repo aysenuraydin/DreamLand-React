@@ -6,7 +6,7 @@ import { faQuestion} from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from 'react-redux';
 
 export const Faqs = () => {
-    const items = useLoaderData(); 
+    // const items = useLoaderData(); 
 
     const state = useSelector((state) => state.faq);
     const faqs = state.faqs;
@@ -40,9 +40,9 @@ export const Faqs = () => {
     </div>
     )
   }
-  export const faqsLoader = async () => {
-    return;
-  }
+  // export const faqsLoader = async () => {
+  //   return;
+  // }
 
 
 

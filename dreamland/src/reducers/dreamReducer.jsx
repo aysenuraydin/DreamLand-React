@@ -2,10 +2,10 @@ import { nanoid } from 'nanoid';
 import { DreamsData } from '../data/dreams';
 
 const dreamInitialState = {
-    dreams: [...DreamsData],
+    dreams: [ ],
     dream: {},  
     dreamPage: {},  
-    dreamsTitle: DreamsData.map((d)=> ({id: d.id, title: d.title} ))
+    dreamsTitle: [ ]
 }
 
 export const DreamReducer = (state=dreamInitialState, action) => {
@@ -17,7 +17,7 @@ export const DreamReducer = (state=dreamInitialState, action) => {
             dreams : [
                 ...state.dreams,
                 {
-                    id:newId,
+                    // id:newId,
                     date: new Date().toISOString().replace("T", " ").substring(0, 19),
                     ...action.payload
                 }
@@ -25,7 +25,8 @@ export const DreamReducer = (state=dreamInitialState, action) => {
             dreamsTitle: [
                 ...state.dreamsTitle, 
                 {
-                    id:newId,
+                    // id:newId,
+                    id:action.payload.id,
                     title: action.payload.title
                 }
             ],
@@ -59,13 +60,20 @@ export const DreamReducer = (state=dreamInitialState, action) => {
                 dream: {}
             }
         case "GET_DREAM":
-            // console.log(action.payload.id ,action.payload.title, action.payload.content);
             return {
                 ...state,
-                dream:  {id:action.payload.id ,title:action.payload.title, content:action.payload.content}
+                dream: {
+                    id:action.payload.id,
+                    title:action.payload.title, 
+                    content:action.payload.content
+                }
+            }   
+        case "SET_DREAMS":
+            return {
+                ...state,
+                dreams: action.payload
             }   
         case "GET_PAGE_DREAM":
-            console.log({...action.payload})
             return {
                 ...state,
                 dreamPage:  state.dreams.find(dream => dream.id == action.payload.id) 

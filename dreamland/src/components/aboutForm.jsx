@@ -5,6 +5,7 @@ import { faFloppyDisk} from "@fortawesome/free-solid-svg-icons";
 // import { DreamContext } from '../contexts/DreamContext';
 import { CkeditorArea } from '../components/CkeditorArea';
 import { useSelector, useDispatch } from 'react-redux';
+import { editAboutFromDatabase } from '../actions/infoAction';
 
 export const AboutForm = () => {
     const state = useSelector((state) => state.info);
@@ -13,10 +14,11 @@ export const AboutForm = () => {
 
     const setAbout = (event) => {
         event.preventDefault();
-        dispatch({ 
-            type: "EDİT_ABOUT",
-            payload: newAbout
-        });
+        // dispatch({ 
+        //     type: "EDIT_ABOUT",
+        //     payload: newAbout
+        // });
+        dispatch(editAboutFromDatabase({content:newAbout}))
     }
     const aboutChange = (data) => {
         setNewAbout(data);

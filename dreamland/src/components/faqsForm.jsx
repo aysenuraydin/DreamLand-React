@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare ,faAdd ,faCancel} from "@fortawesome/free-solid-svg-icons";
 // import { DreamContext } from "../contexts/DreamContext";
 import { useSelector, useDispatch } from 'react-redux';
+import { addFaqToDatabase, editFaqFromDatabase } from "../actions/faqAction";
 
 export const FaqsForm = () => {
     const state = useSelector((state) => state.faq);
@@ -16,15 +17,24 @@ export const FaqsForm = () => {
         const answer = event.target.elements.answer.value;
         if(question && answer){
             if(faq?.id){
-                dispatch({ 
-                    type: "EDIT_FAQ",
-                    payload: {id: faq?.id, question:question, answer:answer} 
-                });
+                // dispatch({ 
+                //     type: "EDIT_FAQ",
+                //     payload: {id: faq?.id, question:question, answer:answer} 
+                // });
+                dispatch(editFaqFromDatabase({
+                    id: faq?.id,
+                    question:question, 
+                    answer:answer
+                }));
             } else {
-                dispatch({ 
-                    type: "ADD_FAQ",
-                    payload: {question:question, answer:answer}
-                });
+                // dispatch({ 
+                //     type: "ADD_FAQ",
+                //     payload: {question:question, answer:answer}
+                // });
+                dispatch(addFaqToDatabase({
+                    question:question, 
+                    answer:answer
+                }));
             }
             formRef.current.reset();
         }

@@ -84,11 +84,11 @@ export const HeaderForm = ({add, formRef, header, del, reset, changeActive, isAc
             }
             {
                 header?.id && (
-                    <button className="block w-full px-3 py-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm cursor-pointer" onClick={()=>del(header)}>
+                    <div className="block w-full px-3 py-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm cursor-pointer" onClick={()=>del(header.id)}>
                         <span> Delete
                             <FontAwesomeIcon icon={faTrash} className="text-sm ml-1"/>
                         </span>
-                    </button>
+                    </div>
                 )
             }
             <button className="block w-full px-3 py-2 cursor-pointer bg-gray-200 rounded-lg text-center text-sm hover:bg-gray-500 hover:text-white" onClick={reset}> Clear 
