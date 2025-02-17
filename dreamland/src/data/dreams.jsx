@@ -180,7 +180,7 @@ export const HeadersData = [
         date: new Date().toISOString().replace("T", " ").substring(0, 19),
         isActive:true,
         name: "header1",
-        url: "header.jpg",
+        imageUrl: "https://firebasestorage.googleapis.com/v0/b/dreamland-34dfe.firebasestorage.app/o/uploads%2F-7dJ2Odqtz3HNHKmuI4O8-deneme10.png?alt=media&token=f14ec3bf-4319-469f-9bf4-4d4e0919113a",
         title: " Every dream is a riddle. Finding the keys is in your hands. ",
         titleColor:"#F7DE05"
     },
@@ -188,7 +188,7 @@ export const HeadersData = [
         date: new Date().toISOString().replace("T", " ").substring(0, 19),
         isActive:false,
         name: "header2",
-        url: "header.png",
+        imageUrl: "https://firebasestorage.googleapis.com/v0/b/dreamland-34dfe.firebasestorage.app/o/uploads%2FqWH-mcb4g4vpmg9bjrvBz-header.png?alt=media&token=bf965408-97d8-416e-8f80-2f1fbf91ccbf",
         title: "2 Lorem ipsum dolor sit amet. ",
         titleColor:"#F50529"
     },
@@ -196,7 +196,7 @@ export const HeadersData = [
         date: new Date().toISOString().replace("T", " ").substring(0, 19),
         isActive:false,
         name: "header3",
-        url: "header.png",
+        imageUrl: "https://firebasestorage.googleapis.com/v0/b/dreamland-34dfe.firebasestorage.app/o/uploads%2FseURyUcAT3YwnXiboRJoQ-deneme3.png?alt=media&token=a1acfd1a-fb70-4ca8-8a6a-c7ba677c79c1",
         title: "3 Lorem ipsum dolor sit amet. ",
         titleColor:"#040fff"
     },

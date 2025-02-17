@@ -109,7 +109,6 @@ export const getHeadersFromDatabase = () => {
                     });
                 });
             }
-
             dispatch(setHeaders(headers)); 
         } catch (error) {
             console.error("Headers verisi alınırken hata oluştu:", error);

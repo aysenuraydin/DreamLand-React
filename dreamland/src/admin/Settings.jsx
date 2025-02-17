@@ -57,23 +57,27 @@ export const Settings = () => {
             <h1 className="text-2xl p-5 pt-0 text-center">
             <FontAwesomeIcon icon={faLock} className="mr-2" />Password </h1>
             <div className="mb-3 flex w-full">
-                <label htmlFor="password" className="w-1/6 mt-3 text-sm mr-3">Password</label>
-                <input id="password" name="password" type="password" className="mt-1 p-1 w-full border border-gray-300  rounded-lg text-gray-800 outline-none"/> 
+                <label htmlFor="password" className="w-1/5 mt-3 text-sm">Password</label>
+                <input id="password" name="password" type="password" className="mt-1 p-1 
+                w-4/5 border border-gray-300  rounded-lg text-gray-800 outline-none"/> 
             </div>
             <div className="mb-3 flex w-full">
-                <label htmlFor="newPassword" className="w-1/6 text-sm mr-3">New Password</label>
-                <input id="newPassword" name="newPassword" type='password' className="mt-1 p-1 w-full border border-gray-300  rounded-lg text-gray-800 outline-none"/> 
+                <label htmlFor="newPassword" className="w-1/5 text-sm pr-5">New Password</label>
+                <input id="newPassword" name="newPassword" type='password' className="mt-1 p-1 w-4/5 border border-gray-300  rounded-lg text-gray-800 outline-none"/> 
             </div>
             <div className="mb-1 flex w-full">
-                <label htmlFor="confirmPassword" className="w-1/6 text-sm mr-3">Confirm Password</label>
-                <input id="confirmPassword" name="confirmPassword" type="password" className="mt-1 p-1 w-full border border-gray-300  rounded-lg text-gray-800 outline-none"/> 
+                <label htmlFor="confirmPassword" className="w-1/5 text-sm">Confirm Password</label>
+                <input id="confirmPassword" name="confirmPassword" type="password" className="mt-1 p-1 w-4/5 border border-gray-300  rounded-lg text-gray-800 outline-none"/> 
             </div>
-            <div className='h-4 text-sm leading-2.5'> 
-                {error && (<span className='text-red-500'>- {error}</span>)} 
-                {info && (<span className='text-emerald-500'>- {info}</span>)} 
+            <div className="flex justify-end">
+              <div className='h-4 text-sm leading-2.5 w-4/5'> 
+                  {error && (<span className='text-red-500'>- {error}</span>)} 
+                  {info && (<span className='text-emerald-500'>- {info}</span>)} 
+              </div>
             </div>
-            <div className=''>
-            <button type="submit" className="block px-4 py-2 text-sm bg-gray-200 rounded-md text-center w-full cursor-pointer hover:text-white hover:bg-gray-700"> 
+            <div className='flex'>
+            <span className="inline-block w-1/5 mt-3 text-sm"></span>
+            <button type="submit" className="block px-4 py-2 text-sm bg-gray-200 rounded-md text-center w-4/5 cursor-pointer hover:text-white hover:bg-gray-700"> 
             Save 
             <FontAwesomeIcon icon={faFloppyDisk} className="text-md ml-1"/></button>
             </div>

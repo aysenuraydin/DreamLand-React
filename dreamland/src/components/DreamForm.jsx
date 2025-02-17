@@ -65,7 +65,7 @@ export const DreamForm  = ({ del, dream, onSubmit, formRef, reset}) => {
         }));
     };
     return(
-        <Form onSubmit={add} ref={formRef} className="w-4/5 mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300">
+        <Form onSubmit={add} ref={formRef} className="md:w-4/5 w-full mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300">
             <div className="mb-3 flex w-full">
                 <label htmlFor="title" className="w-1/6 mt-3 text-sm mr-3">Title</label>
                 <input id="title" type="text" className="mt-1 p-1 w-full border border-gray-300  rounded-lg text-gray-800 outline-none"  value={formData.title} onChange={handleChange}/> 
@@ -77,43 +77,39 @@ export const DreamForm  = ({ del, dream, onSubmit, formRef, reset}) => {
                     <CkeditorArea value={formData.content} handleChange={contentChange}/>
                 </div> 
             </div>
-            <div className='h-4 text-sm leading-2.5'> 
-                {error && (<span className='text-red-500'>- {error}</span>)} 
-                {info && (<span className='text-emerald-500'>- {info}</span>)} 
-            </div>
-            <div className="w-full flex gap-x-2">
-                {
-                dream.id && (
-                    <button className="block w-full px-3 py-2 cursor-pointer hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm">
-                    <span> Edit
-                        <FontAwesomeIcon icon={faPenToSquare} className="text-sm ml-1"/>
+            <div className="w-5/6 ml-auto">
+                <div className='h-4 text-sm leading-2.5 -mt-1'> 
+                    {error && (<span className='text-red-500'>- {error}</span>)} 
+                    {info && (<span className='text-emerald-500'>- {info}</span>)} 
+                </div>
+                <div className="flex gap-x-2">
+                    {   dream.id && (
+                        <button className="block w-full px-3 py-2 cursor-pointer hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm">
+                        <span> Edit
+                            <FontAwesomeIcon icon={faPenToSquare} className="text-sm ml-1"/>
+                        </span>
+                        </button>
+                    )}
+                    {   !dream.id && (
+                        <button type="submit" className="block w-full px-3 py-2 cursor-pointer hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm">
+                        <span> Add
+                            <FontAwesomeIcon icon={faAdd} className="text-sm ml-1"/>
+                        </span>
+                        </button>
+                    )}
+                    {   dream.id && (
+                        <div className="block w-full px-3 py-2 cursor-pointer hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm" onClick={()=> del(dream.id)}>
+                        <span> Delete
+                            <FontAwesomeIcon icon={faTrash} className="text-sm ml-1"/>
+                        </span>
+                        </div>
+                    )}
+                    <button className="block w-full px-3 py-2 cursor-pointer hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm" onClick={ reset }> Clear
+                    <span>
+                        <FontAwesomeIcon icon={faCancel} className="text-sm ml-1"/>
                     </span>
                     </button>
-                )
-                }
-                {
-                !dream.id && (
-                    <button type="submit" className="block w-full px-3 py-2 cursor-pointer hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm">
-                    <span> Add
-                        <FontAwesomeIcon icon={faAdd} className="text-sm ml-1"/>
-                    </span>
-                    </button>
-                )
-                }
-                { 
-                dream.id && (
-                    <div className="block w-full px-3 py-2 cursor-pointer hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm" onClick={()=> del(dream.id)}>
-                    <span> Delete
-                        <FontAwesomeIcon icon={faTrash} className="text-sm ml-1"/>
-                    </span>
-                    </div>
-                )
-                }
-                <button className="block w-full px-3 py-2 cursor-pointer hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm" onClick={ reset }> Clear
-                <span>
-                    <FontAwesomeIcon icon={faCancel} className="text-sm ml-1"/>
-                </span>
-                </button>
+                </div>
             </div>
         </Form>
     )

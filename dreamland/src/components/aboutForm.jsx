@@ -50,7 +50,7 @@ export const AboutForm = () => {
             <div className='w-full lg:max-w-xl'>
                 <CkeditorArea value={newAbout}  handleChange={aboutChange}/>
             </div>
-            <div className='h-4 text-sm leading-2.5'> 
+            <div className='h-4 text-sm leading-2.5 mt-1'> 
                 {error && (<span className='text-red-500'>- {error}</span>)} 
                 {info && (<span className='text-emerald-500'>- {info}</span>)} 
             </div>
