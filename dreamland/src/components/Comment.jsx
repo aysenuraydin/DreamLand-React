@@ -1,63 +1,64 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
-import { DreamContext } from '../contexts/DreamContext';
+import { useParams} from "react-router-dom";
 import { Form } from "react-router-dom";
 import { CommentCard } from './commentCard';
+import SyncLoader from "react-spinners/SyncLoader";
 import { useSelector, useDispatch } from 'react-redux';
-import { addReviewToDatabase } from '../actions/reviewAction';
+import { addReviewToDatabase, getReviewsByIdFromDatabase } from '../actions/reviewAction';
 
 export const Comment = ({dreamId, dreamTitle}) => {
-    const [comment, setComment] = useState([]);
+
+    const [comments, setComments] = useState([]);
     const formRef = useRef(null); 
 
     const state = useSelector((state) => state.review);
     const dispatch = useDispatch(); 
     const reviewsByDreamId = state.reviewsByDreamId;
 
+    const [error, setError] = useState("");
+    const [info, setInfo] = useState("");
     useEffect(() => {
-        dispatch({ 
-            type: "SET_REVİEWS_BY_DREAMID",
-            payload:  { id:dreamId }
-        });
-        setComment([]);
-    }, [dreamId]); 
+    const timer = setTimeout(() => {
+        setError("");
+        setInfo("");
+    }, 3000);
+    return () => clearTimeout(timer);
+    }, [error, info])
+    const { id } = useParams();
+    useEffect(() => {
+        if (id) dispatch(getReviewsByIdFromDatabase(id));
+    }, [dreamId]);
 
-    const add = (event) => {
+    const onSubmit = (event) => {
         event.preventDefault(); 
         const username = event.target.elements.username.value;
         const comment = event.target.elements.comment.value;
+
         if(username && comment){
-            // dispatch({ 
-            //     type: "ADD_REVİEW",
-            //     payload:  {
-            //         username:username, 
-            //         comment:comment, 
-            //         dreamId:dreamId, 
-            //         dreamTitle:dreamTitle
-            //     }
-            // });
             dispatch(addReviewToDatabase({
                 username:username, 
                 comment:comment, 
                 dreamId:dreamId, 
                 dreamTitle:dreamTitle
             }));
-            setComment((prev)=>[
+            setComments((prev)=>[
                 ...prev, 
                 {
                     username:username, 
                     comment:comment, 
-                    dreamId:dreamId, 
-                    dreamTitle:dreamTitle,
                     date: new Date().toISOString().replace("T", " ").substring(0, 19),
                 }
             ])
+            formRef.current.reset();
+            setInfo("Your comment has been received.");
+        }else {
+            setError("Comment inputs cannot be empty");
         }
-        formRef.current.reset();
     }
 
     return(
         <>
-            <Form onSubmit={add} ref={formRef} className="w-full justify-center items-center">
+            <Form onSubmit={onSubmit} ref={formRef} className="w-full justify-center items-center">
                 <div className="rounded p-1 w-full flex">
                     <div className="flex pt-5">
                         <div className="mr-6">
@@ -69,19 +70,27 @@ export const Comment = ({dreamId, dreamTitle}) => {
                         <textarea rows="4" id="comment" name="comment" className="mt-3 border border-gray-300 p-2 rounded-lg  shadow-md w-full bg-white" placeholder="Write something..."></textarea>
                     </div>
                 </div>
+                <div className='h-4 text-sm leading-2.5 flex justify-end px-2'> 
+                    {error && (<span className='text-red-500'>- {error}</span>)} 
+                    {info && (<span className='text-emerald-500'>- {info}</span>)} 
+                </div>
                 <div className="flex justify-end my-4 mr-1">
                     <button type="submit" className="p-2 px-8 bg-[#92A2CD] text-white rounded-full font-light hover:bg-gray-700 shadow-xl cursor-pointer">Submit</button>
                 </div>
             </Form>
             <div className="p-1">
                 {
-                    comment && (
-                        comment?.map((rew,index) => {
+                    comments && (
+                        comments?.map((rew,index) => {
                             return(
                                 <CommentCard key={index} review={rew} opacity={true}/>
                             )
                         })
                     )
+                }
+                { ( reviewsByDreamId.length === 0)? (
+                    <SyncLoader color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-4'/> 
+                    ) : (null)
                 }
                 {
                     reviewsByDreamId?.map((rew,index) => {
@@ -90,12 +99,12 @@ export const Comment = ({dreamId, dreamTitle}) => {
                         )
                     })
                 }
-                {reviewsByDreamId.length==0 && comment.length==0 &&(
+                {reviewsByDreamId.length==0 && comments.length==0 &&(
                     <div className="bg-gray-100 p-7 shadow-md rounded-xl border border-gray-300 ml-20">
                         No comment available.
                     </div>
                 )}
-                {reviewsByDreamId.length > 3 || comment.length > 3 &&(
+                {reviewsByDreamId.length > 3 || comments.length > 3 &&(
                     <div className="flex justify-center">
                         <button className="p-2 mt-5 px-16 bg-[#92A2CD] text-white rounded-full font-light hover:bg-gray-700 mx-auto cursor-pointer">Load More Comments</button>
                     </div>

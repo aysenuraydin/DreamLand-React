@@ -13,9 +13,6 @@ export const MessageReducer = (state= messageInitialState, action) => {
         messages : [
           ...state.messages,
           {
-            // id:nanoid(), 
-            isArchive:false,
-            date: new Date().toISOString().replace("T", " ").substring(0, 19),
             ...action.payload
           }
         ],

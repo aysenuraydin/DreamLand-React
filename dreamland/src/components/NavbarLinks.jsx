@@ -8,17 +8,18 @@ import { startGoogleLogin, startLogout } from "../actions/authAction";
 import { useAuth } from '../hooks/useAuth';
 
 export const NavbarLinks = () => {
-  const user = useAuth(); 
+  const user = useSelector((state) => state.auth);
+  const dispatch = useDispatch(); 
 
-  const logout = () => {
-    dispatch(startLogout())
+  const logout = async () => {
+    await dispatch(startLogout())
   }
 
   return (
     <ul className="gap-x-3 pt-2 md:flex md:flex-row flex-col">
-      { user && (
+      { user?.uid && (
           <>
-            <li className="text-[#92A2CD] lg:block hidden"> {user?.displayName}</li>
+            <li className="text-[#92A2CD] lg:block hidden"> {user.displayName}</li>
             <li className="navbar-links">
               <NavLink to="/admin" className={({ isActive }) => isActive?'navbar min-w-32 bg-[#92A2CD] text-white border-[#b4c2ea]':'navbar min-w-32'}>
                 Admin Panel
@@ -51,10 +52,9 @@ export const NavbarLinks = () => {
           Faqs
         </NavLink>
       </li>
-      { user ? (
+      { user?.uid ? (
         <li className="navbar-links md:max-w-14">
-          <NavLink to="/" className={({ isActive }) => isActive?'navbar-auth bg-[#92A2CD] text-white border-[#b4c2ea]':'navbar-auth'}
-          onClick={logout}>
+          <NavLink className={({ isActive }) => isActive?'navbar-auth bg-[#92A2CD] text-white border-[#b4c2ea]':'navbar-auth'} onClick={logout}>
               <FontAwesomeIcon icon={faRightToBracket}/>
           </NavLink>
         </li>
@@ -65,8 +65,6 @@ export const NavbarLinks = () => {
           </NavLink>
         </li>
       )}
-      
-    
     </ul>
   );
 };

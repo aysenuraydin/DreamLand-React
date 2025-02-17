@@ -45,19 +45,11 @@ export const Messages = () => {
   }
   const del = (id) => {
     setVisible(false);
-    // dispatch({ 
-    //   type: "DELETE_MESSAGE",
-    //   payload:  {id:id}
-    // });
-    dispatch(deleteMessageFromDatabase( {id:id} ));
+    dispatch(deleteMessageFromDatabase( {id} ));
   }
   const edit = (id) => {
     setVisible(false);
-    // dispatch({ 
-    //   type: "EDIT_MESSAGE",
-    //   payload:  {id:id}
-    // });
-    dispatch(editMessageFromDatabase({id:id}));
+    dispatch(editMessageFromDatabase({id}));
   }
   return(
     <div className="p-8">
@@ -118,13 +110,13 @@ export const Messages = () => {
           </span>
           <div className="w-1/6 text-center"></div>
         </div>
-        <SyncLoader color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-4'/> 
+        { filteredMessages.length === 0 ? (
+            <SyncLoader color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-4'/> 
+          ) : (null)
+        }
         <MessageList get={get} filteredMessages={filteredMessages} isArchive={isArchive} />
         <Pagination/>
       </div>
     </div>
   )
 }
-// export const messagesLoader = async () => {
-//   return;
-// }

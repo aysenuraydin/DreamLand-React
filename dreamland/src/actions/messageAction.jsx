@@ -6,11 +6,16 @@ export const addMessage = (data) => ({ type: "ADD_MESSAGE", payload: data });
 export const addMessageToDatabase = (data = {}) => {
     return (dispatch) => {
         const dataRef = ref(database, "messages");
-        return push( dataRef,  {...data, isArchive:false,})
+        const newdata = {
+            ...data,
+            isArchive: data.isArchive ?? false,
+            date: new Date().toISOString().replace("T", " ").substring(0, 19)
+        }
+        return push( dataRef, newdata)
             .then((newRef) => {
                 dispatch(addMessage({
                     id: newRef.key, 
-                    ...data 
+                    ...newdata 
                 }));
             })
             .catch((error) => {

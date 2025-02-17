@@ -12,15 +12,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addDreamToDatabase, deleteDreamFromDatabase, editDreamFromDatabase } from '../actions/dreamAction';
 
 export const Dreams = () => {
-  // const errors = useActionData();
-  // const items = useLoaderData();
   
   const [visible, setVisible] = useState(false);
   const formRef = useRef(null);
-
-  // const { dreamState, dreamDispatch } = useContext(DreamContext);
-  // const dreams = dreamState.dreams;
-  // const dream = dreamState.dream;
 
   const state = useSelector((state) => state.dream);
   const dispatch = useDispatch(); 
@@ -28,27 +22,14 @@ export const Dreams = () => {
   const dream = state.dream;
 
   const add = (data) => {
-    console.log("add");
-    const title = data.title;
-    const interpretation = data.content;
-    if(title && interpretation){
-        if(dream?.id) {
-          // dispatch({
-          //   type: "EDIT_DREAM",
-          //   payload: {id:dream?.id, title:title, content:interpretation}
-          // });
-          dispatch(editDreamFromDatabase(
-            {id:dream?.id, title:title, content:interpretation}
-          ));
-        } else {
-          // dispatch({
-          //   type: "ADD_DREAM",
-          //   payload: {title:title, content:interpretation}
-          // });
-          dispatch(addDreamToDatabase({title:title, content:interpretation}));
-        }
-        formRef.current.reset();
+    if(dream?.id) {
+      dispatch(editDreamFromDatabase(
+        {id:dream?.id, ...data}
+      ));
+    } else {
+      dispatch(addDreamToDatabase({...data}));
     }
+    formRef.current.reset();
   }
   const reset = () => {
     setVisible(false);
@@ -66,12 +47,8 @@ export const Dreams = () => {
   }
   const del = (id) => {
     setVisible(true);
-    // dispatch({
-    //   type: "DELETE_DREAM",
-    //   payload: {id:id}
-    // });
 
-    dispatch(deleteDreamFromDatabase( {id:id} ));
+    dispatch(deleteDreamFromDatabase( {id} ));
   }
   return(
     <div className="p-8">
@@ -106,7 +83,7 @@ export const Dreams = () => {
           </div>
         </div>
         {
-          visible && ( <DreamForm del={del} dream={dream} add={add} reset={reset} formRef={formRef}/> ) 
+          visible && ( <DreamForm del={del} dream={dream} onSubmit={add} reset={reset} formRef={formRef}/> ) 
         }
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">
           <span className="w-1/6 text-center text-sm bg-white border border-[#1f3f96a2] p-1 rounded-full">
@@ -120,7 +97,11 @@ export const Dreams = () => {
           </span>
           <span className="w-1/4">  </span>
         </div>
-        <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/>
+
+        {dreams.length === 0 ? (
+            <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/>
+          ) : (null)
+        }
         <DreamsList dreams={dreams} edit={edit}/>
         <Pagination/>
       </div>

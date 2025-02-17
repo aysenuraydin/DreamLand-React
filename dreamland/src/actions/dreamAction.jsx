@@ -6,11 +6,15 @@ export const addDream = (data) => ({ type: "ADD_DREAM", payload: data });
 export const addDreamToDatabase = (data = {}) => {
     return (dispatch) => {
         const dataRef = ref(database, "dreams");
-        return push( dataRef,  data)
+        const newdata = {
+            ...data,
+            date: new Date().toISOString().replace("T", " ").substring(0, 19)
+        }
+        return push( dataRef, newdata)
             .then((newRef) => {
                 dispatch(addDream({
                     id: newRef.key, 
-                    ...data 
+                    ...newdata 
                 }));
             })
             .catch((error) => {
@@ -25,7 +29,6 @@ export const editDream = (updates) => ({
 });
 
 export const editDreamFromDatabase = (updates) => {
-    console.log("editDreamFromDatabase")
     return (dispatch) => {
         const { id, ...updatesWithoutId } = updates; 
         const dataRef = ref(database, `dreams/${id}`);
@@ -83,6 +86,25 @@ export const getDreamsFromDatabase = () => {
             dispatch(setDreams(dreams)); 
         } catch (error) {
             console.error("Dreams verisi alınırken hata oluştu:", error);
+        }
+    };
+};
+
+export const setPageDream = (dream) => ({
+    type: "GET_PAGE_DREAM",
+    payload: dream
+});
+
+export const fetchDreamFromDatabase = (id) => {
+    return async (dispatch) => {
+        try { // await dedik boş dönmemesi için
+            const snapshot = await get(ref(database, `dreams/${id}`));
+            if (snapshot.exists) {
+                const dreamData = snapshot.val();
+                dispatch(setPageDream({ id, ...dreamData }));
+            } 
+        } catch (error) {
+            console.error("❌ Firebase Hatası:", error);
         }
     };
 };

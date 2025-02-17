@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-// import { DreamContext } from '../contexts/DreamContext';
 import { useLoaderData } from "react-router-dom";
 import { Facebook } from "../icons/facebook";
 import { Instagram } from "../icons/instagram";
@@ -9,10 +8,9 @@ import DOMPurify from 'dompurify';
 import { useSelector } from 'react-redux';
 
 export const About = () => {
-  // const items = useLoaderData();
 
   const state = useSelector((state) => state.info);
-  const about = state.about;
+  const about = state.about.content;
   const socialMedias = state.socialMedias;
 
   const sanitizedAbout = DOMPurify.sanitize(about);
@@ -57,6 +55,3 @@ export const About = () => {
     </div>
   )
 }
-// export const aboutLoader = async () => {
-//   return;
-// }

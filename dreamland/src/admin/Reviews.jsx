@@ -12,7 +12,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteReviewFromDatabase, editReviewFromDatabase } from '../actions/reviewAction';
 
 export const Reviews = () => {
-  // const items = useLoaderData();
   const [visible, setVisible] = useState(false);
 
   const state = useSelector((state) => state.review);
@@ -23,25 +22,17 @@ export const Reviews = () => {
   const get = (review) => {
     setVisible(true);
     dispatch({ 
-      type: "GET_REVİEW",
+      type: "GET_REVIEW",
       payload: {...review}
     });
   }
   const del = (id) => {
     setVisible(false);
-    // dispatch({ 
-    //   type: "DELETE_REVİEW",
-    //   payload: {id:id}
-    // });
-    dispatch(deleteReviewFromDatabase( {id:id} ));
+    dispatch(deleteReviewFromDatabase( {id} ));
   }
   const edit = (id) => {
     setVisible(false);
-    // dispatch({ 
-    //   type: "EDIT_REVİEW",
-    //   payload: {id:id}
-    // });
-    dispatch(editReviewFromDatabase({id:id}));
+    dispatch(editReviewFromDatabase( {id} ));
   }
   return(
     <div className="p-8">
@@ -86,13 +77,13 @@ export const Reviews = () => {
           </span>
           <div className="w-1/6 text-center"></div>
         </div>
-        <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-4'/> 
+        { reviews.length === 0 ? (
+            <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-4'/> 
+          ) : (null)
+        }
         <ReviewList reviews={reviews} get={get}/>
         <Pagination/>
       </div>
     </div>
   )
 }
-// export const reviewsLoader = async () => {
-//   return;
-// }

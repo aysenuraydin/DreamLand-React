@@ -1,29 +1,32 @@
 import { database } from '../firebase/firebaseConfig';
 import { getDatabase, ref, set, get, update, remove,push, child } from "firebase/database";
 
-export const addReview = (data) => ({ type: "ADD_REVİEW", payload: data });
+export const addReview = (data) => ({ type: "ADD_REVIEW", payload: data });
 
 export const addReviewToDatabase = (data = {}) => {
     return (dispatch) => {
         const dataRef = ref(database, "reviews");
-                    return push( dataRef,  {...data, isConfirm: false,})
-            .then((newRef) => {
-                dispatch(addReview({
-                    id: newRef.key, 
-                    ...data 
-                }));
-            })
-            .catch((error) => {
-                console.error("Error adding REVİEW:", error);
-            });
+        const newdata = {
+            ...data,
+            isConfirm: data.isConfirm ?? false,
+            date: new Date().toISOString().replace("T", " ").substring(0, 19)
+        }
+        return push( dataRef, newdata)
+        .then((newRef) => {
+            dispatch(addReview({
+                id: newRef.key, 
+                ...newdata 
+            }));
+        })
+        .catch((error) => {
+            console.error("Error adding REVIEW:", error);
+        });
     };
-};
-
+}; 
 export const editReview = (updates) => ({
-    type: "EDIT_REVİEW",
+    type: "EDIT_REVIEW",
     payload: { ...updates }
-});
-
+}); 
 export const editReviewFromDatabase = (updates) => {
     return (dispatch) => {
         const { id } = updates; 
@@ -40,16 +43,14 @@ export const editReviewFromDatabase = (updates) => {
                     })
             })
             .catch((error) => {
-                console.error("Error updating REVİEW:", error);
+                console.error("Error updating REVIEW:", error);
             });
     };
-};
-
+}; 
 export const deleteReview = (updates) => ({
-    type: "DELETE_REVİEW",
+    type: "DELETE_REVIEW",
     payload: { ...updates }
-});
-
+}); 
 export const deleteReviewFromDatabase = (updates) => {
     return (dispatch) => {
         const { id } = updates; 
@@ -60,13 +61,12 @@ export const deleteReviewFromDatabase = (updates) => {
                 dispatch(deleteReview(updates)); 
             })
             .catch((error) => {
-                console.error("Error updating REVİEW:", error);
+                console.error("Error updating REVIEW:", error);
             });
         };
 };
-
 export const setReviews = (updates) => ({
-    type: "SET_REVİEWS",
+    type: "SET_REVIEWS",
     payload: updates
 });
 export const getReviewsFromDatabase = () => {
@@ -90,4 +90,21 @@ export const getReviewsFromDatabase = () => {
             console.error("Reviews verisi alınırken hata oluştu:", error);
         }
     };
+};
+export const setReviewsById = (updates) => ({
+    type: "SET_REVIEWS_BY_DREAMID",
+    payload: updates
+});
+export const getReviewsByIdFromDatabase = (id) => async (dispatch) => {
+    try { // await dedik boş dönmemesi için
+        const snapshot = await get(ref(database, "reviews"));
+        if (snapshot.exists()) {
+            const dreamData = Object.values(snapshot.val()).filter(i => i.dreamId === id && i.isConfirm);
+            dispatch(setReviewsById(dreamData)); 
+        } else {
+            dispatch(setReviewsById([])); 
+        }
+    } catch (error) {
+        console.error("❌ Reviews verisi alınırken hata oluştu:", error);
+    }
 };

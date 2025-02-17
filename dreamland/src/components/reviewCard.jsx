@@ -18,7 +18,7 @@ export const ReviewCard = ({review, get, index}) => {
             </span>
             <span className="w-1/3 text-center text-sm">
             <Link to="/dream/9" className="inline-block rounded-md
-            mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium cursor-pointer hover:underline"> {review.dreamId} - {review.dreamTitle}</Link>
+            mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium cursor-pointer hover:underline"> {review.dreamTitle}</Link>
             </span>
             <span className="w-1/3 text-center text-sm">
             <div className="inline-block rounded-md

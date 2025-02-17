@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEnvelope, faPhone} from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +11,17 @@ export const Contact = () => {
   const contact = state.contact;
   const formRef = useRef(null); 
 
-  const add = (event) => {
+  const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setError("");
+        setInfo("");
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [error, info])
+
+  const onSubmit = (event) => {
     event.preventDefault(); 
 
     const name = event.target.elements.name.value;
@@ -27,8 +37,11 @@ export const Contact = () => {
             phone:phone,
             content:content
         }));
+        formRef.current.reset();
+        setInfo("Your message has been received.");
+    } else {
+      setError("Contact inputs cannot be empty");
     }
-    formRef.current.reset();
 }
   return(
     <div className="p-10">
@@ -57,7 +70,7 @@ export const Contact = () => {
                 </div>
               </div>
             </div>
-            <Form onSubmit={add} ref={formRef} className="mt-3 max-w-xl sm:mt-10 border border-gray-300 mx-10 p-5 bg-white rounded-xl">
+            <Form onSubmit={onSubmit} ref={formRef} className="mt-3 max-w-xl sm:mt-10 border border-gray-300 mx-10 p-5 bg-white rounded-xl">
               <div className="grid grid-cols-[1fr,auto] gap-x-8 gap-y-2 sm:grid-cols-2">
                 <div className="">
                   <label htmlFor="name" className="block text-sm/6 font-semibold text-gray-900">First name *
@@ -105,7 +118,11 @@ export const Contact = () => {
                   </label>
                 </div>
               </div>
-              <div className="mt-5">
+              <div className='h-4 text-sm leading-2.5'> 
+                {error && (<span className='text-red-500'>- {error}</span>)} 
+                {info && (<span className='text-emerald-500'>- {info}</span>)} 
+              </div>
+              <div className="mt-1">
                 <button type="submit"
                 className="block w-full rounded-md bg-gray-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-gray-600 cursor-pointer" >Let's talk</button>
               </div>

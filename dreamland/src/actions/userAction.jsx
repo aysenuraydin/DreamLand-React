@@ -18,11 +18,15 @@ export const addUserToDatabase = (data = {}) => async (dispatch) => {
             console.warn("⚠️ Kullanıcı zaten mevcut:", email);
             return;
         }
-        const newRef = await push(dataRef, data);
+        const newdata = {
+            ...data,
+            date: new Date().toISOString().replace("T", " ").substring(0, 19)
+        }
+        const newRef = await push(dataRef, newdata);
         dispatch(
             addUser({
                 id: newRef.key,
-                ...data,
+                ...newdata,
             })
         );
         await dispatch(startRegisterWithEmailPassword(email, "123456")); 

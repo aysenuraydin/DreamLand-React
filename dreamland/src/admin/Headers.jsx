@@ -1,9 +1,7 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
-// import { DreamContext } from '../contexts/DreamContext';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faImage,  faPlus} from "@fortawesome/free-solid-svg-icons";
-import { redirect, useActionData, useLoaderData } from "react-router-dom";
 import { Header } from "../components/Header";
 import SyncLoader from "react-spinners/SyncLoader";
 import { Pagination } from '../components/Pagination';
@@ -13,9 +11,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addHeaderToDatabase, deleteHeaderFromDatabase, editHeaderFromDatabase } from '../actions/headerAction';
 
 export const Headers = () => {
-  // const items = useLoaderData();
-  // const errors = useActionData();
-  
   const [visible, setVisible] = useState(false);
   const [isActive, setActive] = useState(false);
   const formRef = useRef(null); 
@@ -29,30 +24,13 @@ export const Headers = () => {
     setActive(header.isActive)
   },[header])
 
-  const add = (event) => {
-    event.preventDefault(); 
-
-    const name = event.target.elements.name.value;
-    const url = event.target.elements.url.value;
-    const title = event.target.elements.title.value;
-    const titleColor = event.target.elements.titleColor.value;
-
-    if(name && url){
-        if(header?.id){
-          dispatch(editHeaderFromDatabase(
-            {id:header?.id, name:name, isActive:!!isActive, url:url, title:title, titleColor:titleColor}
-          ));
-        } else {
-          dispatch(addHeaderToDatabase({
-            name:name, 
-            isActive:!!isActive, 
-            url:url, title:title, 
-            titleColor:titleColor
-          }));
-        }
-        setActive(false);
-        formRef.current.reset();
-    }
+  const add = (data) => {
+      if(header?.id) {
+        dispatch(editHeaderFromDatabase({id:header?.id, ...data}));
+      } else {
+        dispatch(addHeaderToDatabase({...data}));
+      }
+      formRef.current.reset();
   }
   const reset = () => {
     setActive(false);
@@ -71,7 +49,7 @@ export const Headers = () => {
   }
   const del = (id) => {
     setVisible(true);
-    dispatch(deleteHeaderFromDatabase( {id:id} ));
+    dispatch(deleteHeaderFromDatabase( {id} ));
   }
   const changeActive = () => {
     setActive(prev => !prev)
@@ -111,11 +89,11 @@ export const Headers = () => {
         </div>
         {
           visible && ( 
-              <HeaderForm del={del} header={header} add={add} reset={reset} formRef={formRef} changeActive={changeActive} isActive={isActive} /> 
+              <HeaderForm del={del} header={header} onSubmit={add} reset={reset} formRef={formRef} changeActive={changeActive} isActive={isActive} /> 
             ) 
         }
         { !visible && (
-          <div className='-my-9 -mb-16'> <Header/> </div>
+          <div className='-mt-9'> <Header/> </div>
           
         )}
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">
@@ -136,7 +114,11 @@ export const Headers = () => {
           </span>
           <span className="w-1/4"></span>
         </div>
-        <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-5'/> 
+        
+        { headers.length === 0 ? (
+            <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-5'/> 
+          ) : (null)
+        }
         <HeaderList headers={headers} edit={edit} />
         <Pagination/>
       </div>

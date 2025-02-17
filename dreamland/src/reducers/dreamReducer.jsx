@@ -16,9 +16,8 @@ export const DreamReducer = (state=dreamInitialState, action) => {
             ...state,
             dreams : [
                 ...state.dreams,
-                {
-                    // id:newId,
-                    date: new Date().toISOString().replace("T", " ").substring(0, 19),
+                { // id:newId,
+                    // date: new Date().toISOString().replace("T", " ").substring(0, 19),
                     ...action.payload
                 }
             ],
