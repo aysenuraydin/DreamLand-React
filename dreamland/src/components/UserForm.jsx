@@ -1,11 +1,30 @@
 import React, {useState,useEffect} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faTrash, faAdd, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { Form } from "react-router-dom";;
-import { Confirm } from '../icons/confirm';
-import { Reject } from '../icons/Reject';
+import { Form } from "react-router-dom";
 
-export const UserForm = ({add, formRef, user, del, reset}) => {
+export const UserForm = ({onSubmit, formRef, user, del, reset}) => {
+    const [error, setError] = useState("");
+    const [info, setInfo] = useState("");
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setError("");
+            setInfo("");
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, [error, info])
+
+    const add = (event) => {
+        event.preventDefault();
+        const email = event.target.elements.email.value;
+        if(email){
+            onSubmit(email);
+            setInfo("User has been saved successfully.");
+        }else{
+            if(!email) event.target.elements.email.value = user.email || "";
+            setError("Email cannot be empty");
+        }
+    }
     return(
     <Form onSubmit={add} ref={formRef} className="w-3/5 mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300 flex">
         <div className="w-full py-4">
@@ -13,7 +32,11 @@ export const UserForm = ({add, formRef, user, del, reset}) => {
             <label htmlFor="email" className="mt-2 w-15">Email</label>
             <input type="email" id="email" name="email" className="mt-1 h-8 w-full border rounded-lg text-gray-800 outline-none px-3" defaultValue={user.email}/>
         </div>
-        <div className="w-full flex gap-x-2 mt-4 pl-13">
+        <div className='h-4 text-sm leading-2.5'> 
+            {error && (<span className='text-red-500'>- {error}</span>)} 
+            {info && (<span className='text-emerald-500'>- {info}</span>)} 
+        </div>
+        <div className="w-full flex gap-x-2">
             {
                 !user?.id && (
                     <button type="submit" className="block w-full px-3 py-2 hover:bg-gray-500 hover:text-white bg-gray-200 rounded-lg text-center text-sm cursor-pointer">

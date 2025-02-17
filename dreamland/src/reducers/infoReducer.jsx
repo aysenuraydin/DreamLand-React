@@ -1,9 +1,8 @@
-import { AboutData, ContactData, SocialMediasData } from '../data/dreams';
 
 const initialState = { 
-    about: AboutData,
-    contact: ContactData,
-    socialMedias: SocialMediasData,
+    about: "",
+    contact: {},
+    socialMedias: {},
 };
 
 export const InfoReducer = (state= initialState, action) => {
@@ -23,9 +22,8 @@ export const InfoReducer = (state= initialState, action) => {
                 ...state,
                 socialMedias: { ...action.payload }
             }
-        case "SET_İNFOS":
+        case "SET_INFOS":
             return {
-                ...state,
                 about:  action.payload.about,
                 contact: { ...action.payload.contact },
                 socialMedias: { ...action.payload.socialMedias }

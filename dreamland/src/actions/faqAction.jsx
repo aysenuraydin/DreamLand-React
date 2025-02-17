@@ -47,9 +47,6 @@ export const deleteFaqFromDatabase = (updates) => {
     return (dispatch) => {
         const { id } = updates; 
         const dataRef = ref(database, `faqs/${id}`);
-
-        get(dataRef).then((data)=> console.log(data.val()))
-
         return remove(dataRef)
             .then(() => {
                 dispatch(deleteFaq(updates)); 

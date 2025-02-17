@@ -23,8 +23,6 @@ export const startGoogleLogin = () => {
             const users = getState().user.users; 
 
             if (users.some((user) => user.email === email)) {
-
-                //set user
                 dispatch(login(uid, email.split("@")[0], email));
                 console.log(`✅ Giriş başarılı: ${email}`);
             } else {
@@ -48,8 +46,6 @@ export const startEmailPasswordLogin = (email, password) => {
             const users = getState().user.users; 
 
             if (users.some((user) => user.email === email)) {
-
-                //set user
                 dispatch(login(uid, email.split("@")[0], email));
                 console.log(`✅ Giriş başarılı: ${email}`);
             } else {

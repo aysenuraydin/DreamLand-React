@@ -1,9 +1,10 @@
 import { database } from '../firebase/firebaseConfig';
-import { getDatabase, ref, set, get, update, remove,push, child } from "firebase/database";
+import { getDatabase, ref, get, update  } from "firebase/database";
 
 
 export const editAbout = (data) => (
-    { type: "EDIT_ABOUT", payload: data.about });
+    { type: "EDIT_ABOUT", payload: data }
+);
 
 export const editAboutFromDatabase = (updates) => {
     return (dispatch) => {
@@ -62,7 +63,7 @@ export const getInfosFromDatabase = () => {
             const aboutData = aboutSnapshot.exists() ? aboutSnapshot.val() : {};
             const contactData = contactSnapshot.exists() ? contactSnapshot.val() : {};
             const socialMediasData = socialMediasSnapshot.exists() ? socialMediasSnapshot.val() : {};
-
+            
             dispatch(setInfos({
                 about: aboutData,
                 contact: contactData,

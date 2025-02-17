@@ -5,7 +5,7 @@ import { MessageCard } from './messageCard';
 
 export const MessageList = ({ get, filteredMessages, isArchive }) => {
     return(
-        <div id="messages" className="space-y-5  h-[37rem] overflow-scroll">
+        <div id="messages" className="space-y-5  h-[35rem] overflow-scroll">
             {
                 [...filteredMessages].reverse()?.filter(i=>i.isArchive==isArchive).map((message, index)=>
                 <MessageCard get={get} message={message} index={index} key={index}/>)

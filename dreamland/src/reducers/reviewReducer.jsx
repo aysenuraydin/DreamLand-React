@@ -8,27 +8,29 @@ const reviewInitialState = {
 
 export const ReviewReducer = (state = reviewInitialState, action) => {
     switch (action.type) {
-        case "SET_REVİEWS_BY_DREAMID":
+        case "SET_REVIEWS_BY_DREAMID3":
           return { 
             ...state,
-            reviewsByDreamId : state.reviews.filter(f => f.dreamId === action.payload.id && f.isConfirm),
+            reviewsByDreamId : state.reviews.filter(f => f.dreamId == action.payload.id && f.isConfirm),
           };
-        case "ADD_REVİEW":
+          case "SET_REVIEWS_BY_DREAMID":
+            return { 
+              ...state,
+              reviewsByDreamId : action.payload
+            };
+        case "ADD_REVIEW":
           return {
             ...state,
             reviews : [
               ...state.reviews,
               { 
-                // id:nanoid(),
-                isConfirm:false,
                 username: `${action.payload.name} ${action.payload.surname}`,
-                date: new Date().toISOString().replace("T", " ").substring(0, 19),
                 ...action.payload
               }
             ],
             review: {}
           }
-        case "EDIT_REVİEW":
+        case "EDIT_REVIEW":
           return {
             ...state,
             reviews: [
@@ -40,23 +42,23 @@ export const ReviewReducer = (state = reviewInitialState, action) => {
             ],
             review: {}
           }
-        case "DELETE_REVİEW":
+        case "DELETE_REVIEW":
           return {
             ...state,
             reviews:  state.reviews.filter(f => f.id !== action.payload.id),
             review: {}
           }
-        case "GET_REVİEW":
+        case "GET_REVIEW":
           return {
             ...state,
             review: {...action.payload}
           }
-        case "SET_REVİEWS":
+        case "SET_REVIEWS":
           return {
               ...state,
               reviews: action.payload
           }
-        case "CLEAR_REVİEW":
+        case "CLEAR_REVIEW":
           return {
             ...state,
             review: {}

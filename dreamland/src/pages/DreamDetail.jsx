@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-// import { DreamContext } from '../contexts/DreamContext';
 import { useParams} from "react-router-dom";
 import { Logo } from "../icons/logo";
 import { useLoaderData } from "react-router-dom";
@@ -9,23 +8,20 @@ import { Comment } from "../components/Comment";
 import DOMPurify from 'dompurify';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark} from "@fortawesome/free-solid-svg-icons";
-import {useGetFetch} from '../hooks/useGetFetch';
+import { faXmark} from "@fortawesome/free-solid-svg-icons"; 
+import { fetchDreamFromDatabase } from '../actions/dreamAction';
+import SyncLoader from "react-spinners/SyncLoader";
 
 export const DreamDetail = () => {
-  // const dream = useLoaderData();
-
-    const { id } = useParams();
-    useEffect(() => {
-        dispatch({ 
-            type: "GET_PAGE_DREAM",
-            payload:  {id:id}
-        });
-    }, [id]);
-
     const state = useSelector((state) => state.dream);
     const dispatch = useDispatch(); 
     const dream = state.dreamPage;
+
+    const { id } = useParams();
+
+    useEffect(() => {
+      dispatch(fetchDreamFromDatabase(id)); 
+  }, [id, dream]);
 
     if (!dream) {
       return(
@@ -51,6 +47,10 @@ export const DreamDetail = () => {
             </div>
             <div className='flex justify-center mt-10 scale-125 pt-10'><Logo /></div>
             <div className="mt-5 text-gray-600 min-h-72 pt-10">
+                {dream && (!dream.title || dream.title.length === 0) ? (
+                  <SyncLoader color="#8FA0CB" size={12} speedMultiplier={1} className="text-center pt-14 " />
+                  ) : null
+                }
               <p  dangerouslySetInnerHTML={{ __html: sanitizedContent }}
               className="indent-6 pb-3 text-gray-600"></p>
             </div>
@@ -62,5 +62,3 @@ export const DreamDetail = () => {
       </>
   )
 }
-// export const dreamLoader = async ({ params }) => {
-// }

@@ -25,8 +25,7 @@
     @apply w-full lg:w-auto;
     }
     .admin-sidebar {
-    @apply w-full lg:w-60 p-2 px-5 inline-block text-gray-500 hover:text-gray-500 border border-gray-300 shadow rounded-full 
-        my-[0.35rem] hover:bg-gray-300 bg-gray-50;
+    @apply w-full lg:w-60 p-2 px-5 inline-block text-gray-500 hover:text-gray-500 border border-gray-300 shadow cursor-pointer rounded-full my-[0.35rem] hover:bg-gray-300 bg-gray-50;
     }
     .sidebar {
     @apply inline-block p-2 px-4 cursor-pointer border  border-gray-300 shadow rounded-full w-full hover:bg-gray-100 text-gray-500 bg-gray-50;

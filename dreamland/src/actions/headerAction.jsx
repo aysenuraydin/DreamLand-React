@@ -17,11 +17,15 @@ export const addHeaderToDatabase = (data = {}) => {
                 return set(dataRef, headers)
             })
             .then( (i) => {
-                return push( dataRef,  data)
+                const newdata = {
+                    ...data,
+                    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+                }
+                return push( dataRef,  newdata)
                 .then((newRef) => {
                     dispatch(addHeader({
                         id: newRef.key, 
-                        ...data 
+                        ...newdata 
                     }));
                 })
             } )
@@ -46,7 +50,6 @@ export const editHeaderFromDatabase = (updates) => {
             const headers = datas.val() || {}; 
             if(isActive){
                 Object.keys(headers).forEach(key => {
-                    console.log(key)
                     headers[key].isActive = false;
                 });
             }

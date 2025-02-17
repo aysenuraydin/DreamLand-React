@@ -16,10 +16,10 @@ export const Admins = () => {
 
   const state = useSelector((state) => state.user);
   const auth = useSelector((state) => state.auth);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch(); 
   const users = state.users;
-  const user = state.user;
+  const [user, setUser] = useState({});
 
   const envEmail = import.meta.env.VITE_FIREBASE_ADMIN_EMAIL;
 
@@ -29,22 +29,14 @@ export const Admins = () => {
     }
   },[navigate])
 
-  const add = (event) => {
-    event.preventDefault(); 
-
-    const email = event.target.elements.email.value;
-    console.log(email);
-    if(email){
-        if(!user?.id){
-          dispatch(addUserToDatabase({
-            email:email
-          }));
-        } 
-        formRef.current.reset();
-    }
+  const add = (data) => {
+    dispatch(addUserToDatabase({ email:data }));
+    setUser("");
+    formRef.current.reset();
   }
   const reset = () => {
     setVisible(false);
+    setUser("");
     dispatch({ 
       type: "CLEAR_USER",
     });
@@ -52,6 +44,7 @@ export const Admins = () => {
   }
   const edit = (user) => {
     setVisible(true);
+    setUser(user);
     dispatch({ 
       type: "GET_USER",
       payload: user
@@ -59,6 +52,7 @@ export const Admins = () => {
   }
   const del = (user) => {
     setVisible(true);
+    setUser("");
     formRef.current.reset();
     dispatch(deleteUserFromDatabase({ id: user?.id, email: user?.email }));
 };
@@ -97,7 +91,7 @@ export const Admins = () => {
         </div>
         {
           visible && ( 
-              <UserForm del={del} user={user} add={add} reset={reset} formRef={formRef}/> 
+              <UserForm del={del} user={user} onSubmit={add} reset={reset} formRef={formRef}/> 
             ) 
         }
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">
@@ -118,7 +112,10 @@ export const Admins = () => {
           </span>
           <span className="w-1/4"></span>
         </div>
-        <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-5'/> 
+        { users.length === 0 ? (
+            <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-5'/> 
+          ) : (null)
+        }
         <UserList users={users} edit={edit} />
         <Pagination/>
       </div>

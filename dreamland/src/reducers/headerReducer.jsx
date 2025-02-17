@@ -16,8 +16,6 @@ export const HeaderReducer = (state=headerInitialState, action) => {
                   action.payload.isActive ? { ...h, isActive: false } : h
               ), 
               {
-                // id:nanoid(),
-                date: new Date().toISOString().replace("T", " ").substring(0, 19),
                   ...action.payload
               }
           ],

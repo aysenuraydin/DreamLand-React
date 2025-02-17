@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { DreamContext } from '../contexts/DreamContext';
 import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash, faXmark} from "@fortawesome/free-solid-svg-icons";
@@ -18,16 +17,16 @@ export const FaqsList = () => {
         });
     }
     const del = (faq) => {
-        // dispatch({ 
-        //     type: "DELETE_FAQ",
-        //     payload: {...faq}
-        // });
         dispatch(deleteFaqFromDatabase( {id:faq?.id} ));
     }
     return(
         <>
             <div className="faq-list pt-10">
-                <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/> 
+                { faqs.length === 0 ? (
+                    <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/> 
+                    ) : (null)
+                }
+                
                 <ul className="max-h-[25rem] px-2 overflow-scroll">
                     {
                     [...faqs].reverse().map((faq,index)=> {
