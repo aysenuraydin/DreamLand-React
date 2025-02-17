@@ -66,8 +66,8 @@ export const SocialMediaForm = () => {
                 <label htmlFor="github" className="w-1/6 pt-3 text-sm">Github</label>
                 <input type="text" name="github" id="github" className="w-5/6 border border-gray-300 p-1 my-1 rounded-md" placeholder="Github" defaultValue={socialMedias.github}/>
             </div>
-            <div className="pl-[4.6rem]">
-            <div className='h-4 text-sm leading-2.5'> 
+            <div className="w-5/6 ml-auto">
+                <div className='h-4 text-sm leading-2.5'> 
                     {error && (<span className='text-red-500'>- {error}</span>)} 
                     {info && (<span className='text-emerald-500'>- {info}</span>)} 
                 </div>

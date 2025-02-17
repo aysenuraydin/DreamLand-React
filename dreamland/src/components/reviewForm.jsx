@@ -5,25 +5,26 @@ import { Reject } from '../icons/Reject';
 import { Confirm } from '../icons/confirm';
 export const ReviewForm = ({review, edit,  del}) => {
     return(
-        <div className="w-4/5 mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300">
+        <div className="md:w-4/5 w-full mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300">
             <div className="mb-3 flex">
-                <label htmlFor="color" className="min-w-24 mt-3 text-sm">Username</label>
+                <label htmlFor="color" className="w-24 mt-3 text-sm">Username</label>
                 <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">{review.username}</div>
             </div>
             <div className="mb-3 flex">
-                <label htmlFor="color" className="min-w-24 mt-3 text-sm">Created At</label>
+                <label htmlFor="color" className="w-24 mt-3 text-sm">Created At</label>
                 <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">{review.date}</div>
             </div>
             <div className="mb-3 flex">
-                <label htmlFor="color" className="min-w-24 mt-3 text-sm">Dreams</label>
+                <label htmlFor="color" className="w-24 mt-3 text-sm">Dreams</label>
                 <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">{review.dreamTitle}</div>
             </div>
-            <div className="mb-6 flex">
-                <label htmlFor="color" className="min-w-24 mt-3 text-sm">Reviews</label>
+            <div className="flex mb-5">
+                <label htmlFor="color" className="w-24 mt-3 text-sm">Reviews</label>
                 <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800 max-h-40 h-36 overflow-scroll">{review.comment}</div>
             </div>
 
-            <div className="pl-[6rem]">
+            <div className="flex">
+                <span className="inline-block w-24 mt-3 text-sm"></span>
                 <div className="w-full flex">
                     {
                         review.isConfirm && (
@@ -49,3 +50,6 @@ export const ReviewForm = ({review, edit,  del}) => {
         </div>
     )
 }
+
+
+

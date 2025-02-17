@@ -1,9 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-// import { DreamContext } from '../contexts/DreamContext';
-import headerImage from "../assets/deneme10.png";
 import { useSelector, useDispatch } from 'react-redux';
 
 export const Header = () => {
+  const dummyImageUrl = "https://dummyimage.com/600x500/ccc/aaa";
     const state = useSelector((state) => state.header);
     const dispatch = useDispatch(); 
     const header = state.headerActive;
@@ -20,7 +19,9 @@ export const Header = () => {
         {
           header.isActive && (
             <>
-              <img className="w-full object-contain my-12 rounded-2xl" src={headerImage} alt="Header" />
+              <img className="w-full object-contain my-12 rounded-2xl border border-gray-200"
+              style={{ backgroundColor: header?.titleColor+"55" }} 
+              src={header?.imageUrl || dummyImageUrl} alt="Header" />
               { 
                 header?.title && ( <span className="header" style={{ color: header?.titleColor }}>
                 {

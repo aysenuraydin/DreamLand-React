@@ -46,8 +46,7 @@ export const Dreams = () => {
     });
   }
   const del = (id) => {
-    setVisible(true);
-
+    setVisible(true); 
     dispatch(deleteDreamFromDatabase( {id} ));
   }
   return(

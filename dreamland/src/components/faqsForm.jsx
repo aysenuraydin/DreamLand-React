@@ -57,7 +57,7 @@ export const FaqsForm = () => {
             <h1 className="text-2xl p-5 pt-0 text-center">Faqs</h1>
             <input type="text" name="question" id="question" className="w-full border border-gray-300 p-2 mb-2 rounded-md" placeholder="Question" defaultValue={faq?.question}/>
             <textarea name="answer" id="answer" className="w-full border border-gray-300 p-2 pb-0 rounded-lg" placeholder="Answer" rows="4" defaultValue={faq?.answer}></textarea>
-            <div className='h-4 text-sm leading-2.5'> 
+            <div className='h-4 text-sm leading-2.5 -mt-1'> 
                 {error && (<span className='text-red-500'>- {error}</span>)} 
                 {info && (<span className='text-emerald-500'>- {info}</span>)} 
             </div>

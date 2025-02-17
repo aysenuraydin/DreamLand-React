@@ -11,7 +11,7 @@ export const HeaderCard = ({header, edit, index}) => {
           {index+1}
         </span>
         <span className="w-1/3 text-center text-sm">
-        <img src="https://dummyimage.com/600x500/ccc/aaa" className="object-cover"/>
+        <img src={header.imageUrl || "https://dummyimage.com/600x500/ccc/aaa"}className="object-cover"/>
         </span>
         <span className="w-6/12 text-center text-sm">
           <div className="inline-block rounded-md mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> {header.name} </div>

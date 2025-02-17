@@ -55,7 +55,7 @@ export const ContactForm = () => {
                 <textarea name="address" id="address" className="w-full pt-3 border p-1 border-gray-300 h-20 overflow-scroll rounded-lg" placeholder="Address" defaultValue={contact.address}></textarea>
                 </div>
             </div>
-            <div className='pl-[4.6rem]'>
+            <div className='w-5/6 ml-auto'>
                 <div className='h-4 text-sm leading-2.5'> 
                     {error && (<span className='text-red-500'>- {error}</span>)} 
                     {info && (<span className='text-emerald-500'>- {info}</span>)} 

@@ -60,10 +60,15 @@ export const getInfosFromDatabase = () => {
             const contactSnapshot = await get(ref(database, "contact"));
             const socialMediasSnapshot = await get(ref(database, "socialMedias"));
 
-            const aboutData = aboutSnapshot.exists() ? aboutSnapshot.val() : {};
-            const contactData = contactSnapshot.exists() ? contactSnapshot.val() : {};
-            const socialMediasData = socialMediasSnapshot.exists() ? socialMediasSnapshot.val() : {};
-            
+            const aboutData = aboutSnapshot.exists() 
+                            ? aboutSnapshot.val() 
+                            : {};
+            const contactData = contactSnapshot.exists() 
+                                ? contactSnapshot.val() 
+                                : {};
+            const socialMediasData = socialMediasSnapshot.exists() 
+                                    ? socialMediasSnapshot.val() 
+                                    : {};
             dispatch(setInfos({
                 about: aboutData,
                 contact: contactData,
