@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Search } from "../components/Search";
-import { redirect, useActionData, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  faCancel, faPlus} from "@fortawesome/free-solid-svg-icons";
 import { Logo } from "../icons/logo";
@@ -9,7 +8,7 @@ import { Pagination } from '../components/Pagination';
 import { DreamsList } from '../components/DreamsList';
 import { DreamForm } from '../components/DreamForm';
 import { useSelector, useDispatch } from 'react-redux';
-import { addDreamToDatabase, deleteDreamFromDatabase, editDreamFromDatabase } from '../actions/dreamAction';
+import { addDreamToDatabase, deleteDreamFromDatabase, editDreamFromDatabase, getPaginatedDreamsFromDatabase } from '../actions/dreamAction';
 
 export const Dreams = () => {
   
@@ -21,6 +20,24 @@ export const Dreams = () => {
   const dreams = state.dreams;
   const dream = state.dream;
 
+  const loading = state.loading;
+  const dreamsByPageNumber = state.dreamsByPageNumber;
+  const pageSize = 5;
+  const pageTotal = Math.ceil(dreams.length / pageSize);
+  const [pageNumber, setPagenumber] = useState(1);
+  const [isAdding, setIsAdding] = useState(false); 
+  const [isDeleting, setIsDeleting] = useState(false); 
+  
+  useEffect(() => {
+    if (pageTotal > 0 && isAdding) {
+      setPagenumber(pageTotal);
+      setIsAdding(false);
+    }
+    if (!isDeleting)  return;
+    if (pageNumber > pageTotal) setPagenumber(pageTotal);
+    setIsDeleting(false); 
+  }, [dreams.length]);
+
   const add = (data) => {
     if(dream?.id) {
       dispatch(editDreamFromDatabase(
@@ -28,6 +45,7 @@ export const Dreams = () => {
       ));
     } else {
       dispatch(addDreamToDatabase({...data}));
+      setIsAdding(true);
     }
     formRef.current.reset();
   }
@@ -47,8 +65,21 @@ export const Dreams = () => {
   }
   const del = (id) => {
     setVisible(true); 
+    setIsDeleting(true); 
     dispatch(deleteDreamFromDatabase( {id} ));
   }
+
+  useEffect(() => {
+    console.log("useEffect")
+      const getDatas = async () => {
+          await dispatch(getPaginatedDreamsFromDatabase({pageSize:pageSize, pageNumber:pageNumber}))
+      };
+      getDatas();
+  }, [pageNumber, dreams])
+
+  const changePage = (pageNumber) => {
+    setPagenumber(pageNumber)
+  };
   return(
     <div className="p-8">
       <div className="min-h-[80vh] max-w-6xl mx-auto">
@@ -92,17 +123,22 @@ export const Dreams = () => {
             <span className= "font-bold">Title</span>
           </span>
           <span className="w-1/3 bg-white text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2]">
-            <span className= "font-bold">Created At</span>
+            <span className= "font-bold">Datetime</span>
           </span>
           <span className="w-1/4">  </span>
         </div>
-
-        {dreams.length === 0 ? (
-            <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/>
-          ) : (null)
+        <div className='h-[30rem]'>
+          {loading ? (
+              <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/>
+            ) : (
+              <DreamsList dreams={dreamsByPageNumber} edit={edit}/>
+            )
+          }
+        </div>
+        { dreams.length > pageSize ? (
+          <Pagination pageNumber={pageNumber} pageTotal={pageTotal} changePage={changePage} /> 
+          ) : (null) 
         }
-        <DreamsList dreams={dreams} edit={edit}/>
-        <Pagination/>
       </div>
     </div>
   )

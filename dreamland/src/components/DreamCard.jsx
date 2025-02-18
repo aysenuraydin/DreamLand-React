@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 export const DreamCard  = ({ dream, index, edit }) => {
+    const formattedDate = new Date(dream.date).toISOString().replace("T", " ").substring(0, 19);
     return(
         <div className="flex border border-gray-300 items-center p-3 shadow rounded-lg  bg-white my-3">
             <span className="w-1/6 text-center text-sm">
@@ -14,9 +15,7 @@ export const DreamCard  = ({ dream, index, edit }) => {
                 {dream.title}
                 </div>
             </span>
-            <span className="w-1/3 text-center text-sm">
-                {dream.date} 
-            </span>
+            <span className="w-1/3 text-center text-[0.7rem]"> {formattedDate} </span>
             <span className="w-1/6 flex items-center justify-end pr-4">
                 <button className="block mx-1 p-1 py-2 border border-gray-400 text-sm hover:text-white hover:bg-gray-700 rounded-md text-center w-12 cursor-pointer mr-2"
                 onClick={()=>edit(dream)}>

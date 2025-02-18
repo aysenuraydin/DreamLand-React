@@ -8,7 +8,7 @@ import { Pagination } from '../components/Pagination';
 import { HeaderList } from '../components/HeaderList';
 import { HeaderForm } from '../components/HeaderForm';
 import { useSelector, useDispatch } from 'react-redux';
-import { addHeaderToDatabase, deleteHeaderFromDatabase, editHeaderFromDatabase } from '../actions/headerAction';
+import { addHeaderToDatabase, deleteHeaderFromDatabase, editHeaderFromDatabase, getPaginatedHeadersFromDatabase } from '../actions/headerAction';
 
 export const Headers = () => {
   const [visible, setVisible] = useState(false);
@@ -20,15 +20,34 @@ export const Headers = () => {
   const headers = state.headers;
   const header = state.header;
 
+  const loading = state.loading;
+  const headersByPageNumber = state.headersByPageNumber;
+  const pageSize = 5;
+  const pageTotal = Math.ceil(headers.length / pageSize);
+  const [pageNumber, setPagenumber] = useState(1);
+  const [isAdding, setIsAdding] = useState(false); 
+  const [isDeleting, setIsDeleting] = useState(false); 
+
   useEffect(()=> {
     setActive(header.isActive)
   },[header])
+
+  useEffect(() => {
+    if (pageTotal > 0 && isAdding) {
+      setPagenumber(pageTotal);
+      setIsAdding(false);
+    }
+    if (!isDeleting)  return;
+    if (pageNumber > pageTotal) setPagenumber(pageTotal);
+    setIsDeleting(false); 
+  }, [headers.length]);
 
   const add = (data) => {
       if(header?.id) {
         dispatch(editHeaderFromDatabase({id:header?.id, ...data}));
       } else {
         dispatch(addHeaderToDatabase({...data}));
+        setIsAdding(true);
       }
       formRef.current.reset();
   }
@@ -49,11 +68,23 @@ export const Headers = () => {
   }
   const del = (id) => {
     setVisible(true);
+    setIsDeleting(true); 
     dispatch(deleteHeaderFromDatabase( {id} ));
   }
   const changeActive = () => {
     setActive(prev => !prev)
   }
+  useEffect(() => {
+    console.log("useEffect")
+      const getDatas = async () => {
+          await dispatch(getPaginatedHeadersFromDatabase({pageSize:pageSize, pageNumber:pageNumber}))
+      };
+      getDatas();
+  }, [pageNumber, headers])
+
+  const changePage = (pageNumber) => {
+    setPagenumber(pageNumber)
+  };
 
   return(    
     <div className="p-8">
@@ -110,17 +141,22 @@ export const Headers = () => {
             <span className= "font-bold">Is Active ?</span>
           </span>
           <span className="w-4/12 text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2] bg-white">
-            <span className= "font-bold">Created At </span>
+            <span className= "font-bold">Datetime </span>
           </span>
           <span className="w-1/4"></span>
         </div>
-        
-        { headers.length === 0 ? (
-            <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-5'/> 
-          ) : (null)
+        <div className='h-[30rem]'>
+          {loading ? (
+              <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/>
+            ) : (
+              <HeaderList headers={headersByPageNumber} edit={edit} />
+            )
+          }
+        </div>
+        { headers.length > pageSize ? (
+          <Pagination pageNumber={pageNumber} pageTotal={pageTotal} changePage={changePage} /> 
+          ) : (null) 
         }
-        <HeaderList headers={headers} edit={edit} />
-        <Pagination/>
       </div>
     </div>
   )

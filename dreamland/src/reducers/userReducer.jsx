@@ -2,7 +2,9 @@ import { nanoid } from 'nanoid';
 
 const UserInitialState = { 
     users: [ ],
-    user: null
+    user: null,
+    usersByPageNumber: [ ],
+    loading: false
 };
 
 export const UserReducer = (state=UserInitialState, action) => {
@@ -45,6 +47,14 @@ export const UserReducer = (state=UserInitialState, action) => {
         ...state, 
         user: { ...action.payload } 
       };
+    case "SET_USERS_BY_PAGENUMBER":
+      return {
+          ...state,
+          usersByPageNumber: action.payload,
+          // loading: false 
+      } 
+    case "LOADING_USERS":
+        return { ...state, loading: action.payload };
     case "SET_USERS":
       return {
           ...state,

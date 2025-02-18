@@ -4,6 +4,8 @@ const headerInitialState = {
     headers: [ ],
     header: {},
     headerActive: {},
+    headersByPageNumber: [ ],
+    loading: false
 }
 
 export const HeaderReducer = (state=headerInitialState, action) => {
@@ -51,6 +53,13 @@ export const HeaderReducer = (state=headerInitialState, action) => {
           headerActive : action.payload.find(header => header.isActive)  
                           ?? {}
       }
+    case "SET_HEADERS_BY_PAGENUMBER":
+      return {
+          ...state,
+          headersByPageNumber: action.payload,
+      } 
+    case "LOADING_HEADERS":
+        return { ...state, loading: action.payload };
     case "GET_ACTİVE_HEADER":
       return {
         ...state,

@@ -1,5 +1,5 @@
 import { database } from '../firebase/firebaseConfig';
-import { getDatabase, ref, set, get, update, remove,push, child } from "firebase/database";
+import { getDatabase, ref, set, get, update, remove,push, child, query, orderByChild, startAfter, limitToFirst, limitToLast, startAt, endBefore } from "firebase/database";
 
 export const addDream = (data) => ({ type: "ADD_DREAM", payload: data });
 
@@ -8,7 +8,7 @@ export const addDreamToDatabase = (data = {}) => {
         const dataRef = ref(database, "dreams");
         const newdata = {
             ...data,
-            date: new Date().toISOString().replace("T", " ").substring(0, 19)
+            date: Date.now()+ Math.floor(Math.random() * 1000)
         }
         return push( dataRef, newdata)
             .then((newRef) => {
@@ -83,23 +83,21 @@ export const getDreamsFromDatabase = () => {
                 });
             }
 
-            dispatch(setDreams(dreams)); 
+            dispatch(setDreams(dreams));
         } catch (error) {
             console.error("Dreams verisi alınırken hata oluştu:", error);
         }
     };
 };
-
 export const setPageDream = (dream) => ({
     type: "GET_PAGE_DREAM",
     payload: dream
 });
-
 export const fetchDreamFromDatabase = (id) => {
     return async (dispatch) => {
         try { // await dedik boş dönmemesi için
             const snapshot = await get(ref(database, `dreams/${id}`));
-            if (snapshot.exists) {
+            if (snapshot.exists()) {
                 const dreamData = snapshot.val();
                 dispatch(setPageDream({ id, ...dreamData }));
             } 
@@ -108,3 +106,122 @@ export const fetchDreamFromDatabase = (id) => {
         }
     };
 };
+
+export const setDreamsByPageNumber = (updates) => ({
+    type: "SET_DREAMS_BY_PAGENUMBER",
+    payload: updates
+});
+
+export const getPaginatedDreamsFromDatabase = ({ pageSize, pageNumber }) => {
+    return async (dispatch) => { 
+        const dreamsRef = ref(database, "dreams");
+        dispatch({ type: "LOADING_DREAMS", payload: true });
+
+        const count = pageSize * (pageNumber - 1);
+        let dreams = [];
+        let lastDate = null;
+
+        if (count > 0) {
+            const firstQuery = query(dreamsRef, orderByChild("date"), limitToFirst(count));
+            const firstSnapshot = await get(firstQuery);
+            
+            firstSnapshot.forEach((snap) => {
+                lastDate = snap.val().date; 
+            });
+        }
+
+        let dreamsQuery;
+        if (lastDate) {
+            dreamsQuery = query(dreamsRef, orderByChild("date"), startAfter(lastDate), limitToFirst(pageSize));
+        } else {
+            dreamsQuery = query(dreamsRef, orderByChild("date"), limitToFirst(pageSize));
+        }
+
+        const dreamsSnapshot = await get(dreamsQuery);
+        let allDreams = [];
+
+        dreamsSnapshot.forEach((snap) => {
+            allDreams.push({
+                id: snap.key,
+                ...snap.val(),
+            });
+        });
+
+        dreams = allDreams.reverse();
+
+        dispatch(setDreamsByPageNumber(dreams));
+        dispatch({ type: "LOADING_DREAMS", payload: false });
+    };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const getPaginatedDreamsFromDatabase2 = ({ pageSize, pageNumber }) => {
+    return async (dispatch) => { 
+        const dreamsRef = ref(database, "dreams");
+        let dreams = [];
+
+        dispatch({ type: "LOADING_DREAMS", payload: true });
+
+        const count = pageSize * (pageNumber - 1);
+
+        const dreamsQuery = query(dreamsRef, limitToFirst(count + pageSize));
+        const dreamsSnapshot = await get(dreamsQuery);
+
+        let allDreams = [];
+        dreamsSnapshot.forEach((snap) => {
+            allDreams.push({
+                id: snap.key,
+                ...snap.val(),
+            });
+        });
+
+        dreams = allDreams.slice(count, count + pageSize);
+        
+        dispatch(setDreamsByPageNumber(dreams));
+        dispatch({ type: "LOADING_DREAMS", payload: false });
+    };
+};
+
+
+
+
+
+
+
+
+
+
+

@@ -5,7 +5,7 @@ import { UserCard } from './UserCard';
 
 export const UserList = ({users, edit}) => {
     return(
-      <div id="users" className="space-y-5 overflow-scroll h-[35rem]">
+      <div id="users" className="space-y-3">
       {
         [...users].reverse().map((user, index)=>{
         return(

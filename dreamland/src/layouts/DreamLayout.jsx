@@ -23,7 +23,9 @@ export const DreamLayout = () => {
             </div>
             <div className="flex lg:flex-row flex-col">
                 <div className="lg:w-96 lg:pl-10 px-5 pb-10">
-                    <Sidebar  titles={titles} />
+                    <div className='max-h-[41rem] overflow-scroll'>
+                        <Sidebar  titles={titles} />
+                    </div>
                     <Letters />
                 </div>
                 <div className="w-full px-5">

@@ -66,7 +66,7 @@ export const AdminSidebar = () => {
                                 Admins
                             </NavLink>
                         </li>
-                    ):(<></>)
+                    ):(null)
                 }
                 <li>
                     <NavLink to="/admin/settings" 

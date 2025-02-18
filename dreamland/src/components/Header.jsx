@@ -20,7 +20,7 @@ export const Header = () => {
           header.isActive && (
             <>
               <img className="w-full object-contain my-12 rounded-2xl border border-gray-200"
-              style={{ backgroundColor: header?.titleColor+"55" }} 
+              style={{ backgroundColor: header?.titleColor+"40" }} 
               src={header?.imageUrl || dummyImageUrl} alt="Header" />
               { 
                 header?.title && ( <span className="header" style={{ color: header?.titleColor }}>

@@ -3,52 +3,52 @@ export const DreamsData = [
 {
     title: "Swimming in the Sea",
     content: "Dreaming of swimming in the sea indicates that a person will experience spiritual relief and find comfort both materially and spiritually. If the sea is clear and calm, it signifies the beginning of a beneficial endeavor, peace, and abundance. However, if the sea is rough and murky, it suggests that the person may face challenges and should be cautious.",
-    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+    date: Date.now()+ Math.floor(Math.random() * 1000)
 },
 {
     title: "Wearing a White Dress",
     content: "Dreaming of wearing a white dress signifies that the person has a pure heart and is experiencing spiritual elevation. A white dress also indicates that the person is honest and well-intentioned, living in harmony with those around them. If a sick person dreams of wearing a white dress, it suggests that they will find healing.",
-    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+    date: Date.now()+ Math.floor(Math.random() * 1000)
 },
 {
     title: "Seeing a Snake",
     content: "Dreaming of a snake is generally interpreted as representing enemies, jealous individuals, or discord. If you see yourself killing a snake in the dream, it indicates that you will overcome your enemies. The color and size of the snake also affect the interpretation. A black snake represents a significant enemy, while a small snake symbolizes a cunning foe.",
-    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+    date: Date.now()+ Math.floor(Math.random() * 1000)
 },
 {
     title: "Flying",
     content: "Dreaming of flying signifies that the person will attain a high position, achieve success in their endeavors, and reach significant goals. If the person sees themselves flying comfortably, it indicates that they will enter a peaceful period in life. However, if they fall while flying, it suggests that they may encounter some obstacles.",
-    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+    date: Date.now()+ Math.floor(Math.random() * 1000)
 },
 {
     title: "Seeing Gold",
     content: "Dreaming of gold often signifies financial gain or wealth. However, some interpreters associate gold with sorrow. If a person dreams of finding gold, it suggests that a significant opportunity will come their way soon. If they see themselves losing gold, it indicates that they may experience a loss or miss an opportunity.",
-    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+    date: Date.now()+ Math.floor(Math.random() * 1000)
 },
 {
     title: "Visiting the Kaaba",
     content: "Dreaming of seeing or visiting the Kaaba indicates that the person will progress in their spiritual life and draw closer to God. If the person sees themselves performing tawaf (circumambulation), it suggests that their prayers will be accepted, and they will perform a significant good deed. Seeing the Kaaba from a distance implies that the person needs to make more effort to achieve their goals.",
-    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+    date: Date.now()+ Math.floor(Math.random() * 1000)
 },
 {
     title: "Rainfall",
     content: "Dreaming of rain signifies abundance, mercy, and the acceptance of prayers. If the rain is gentle and soothing, it indicates an increase in sustenance and deliverance from troubles. However, if the rain is very heavy and causes damage, this dream may serve as a warning, suggesting the need for caution.",
-    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+    date: Date.now()+ Math.floor(Math.random() * 1000)
 },
 {
     title: "Birth of a Baby",
     content: "Dreaming of a baby being born generally symbolizes new beginnings and auspicious developments. If the baby appears healthy and happy, it indicates that the person will receive good news and step into a new phase. Seeing a crying baby, however, may point to some difficulties.",
-    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+    date: Date.now()+ Math.floor(Math.random() * 1000)
 },
 {
     title: "Seeing a Deceased Person",
     content: "Dreaming of a deceased person generally suggests that one should pray for their soul and perform good deeds. If the deceased person is smiling, it is believed that they are in a good state in the afterlife. However, if they appear sad, it may indicate that they need prayers and charity.",
-    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+    date: Date.now()+ Math.floor(Math.random() * 1000)
 },
 {
     title: "Losing a Tooth",
     content: "Dreaming of losing a tooth is generally interpreted as a family member becoming ill or moving away. If the tooth falls out painlessly in the dream, it suggests that troubles will ease. However, if it falls out with pain and bleeding, it indicates that the person may go through a difficult period.",
-    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+    date: Date.now()+ Math.floor(Math.random() * 1000)
 }
 ];
 
@@ -93,7 +93,7 @@ export const SocialMediasData = {
 };
 export const ReviewsData = [
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         dreamTitle: "Swimming in the Sea",
         dreamId: 1,
         username: "aysayd1",
@@ -101,7 +101,7 @@ export const ReviewsData = [
         comment: "1- autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio",
     },
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         dreamTitle: "Wearing a White Dress",
         dreamId: 2,
         username: "aysayd3",
@@ -109,7 +109,7 @@ export const ReviewsData = [
         comment: "2- autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio",
     },
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         dreamTitle: "Seeing a Snake",
         dreamId: 3,
         username: "aysayd3",
@@ -117,7 +117,7 @@ export const ReviewsData = [
         comment: "3- autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio",
     },
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         dreamTitle: "Wearing a White Dress",
         dreamId: 2,
         username: "aysayd4",
@@ -125,7 +125,7 @@ export const ReviewsData = [
         comment: "4- autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio",
     },
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         dreamTitle: "Seeing a Snake",
         dreamId: 3,
         username: "aysayd5",
@@ -133,7 +133,7 @@ export const ReviewsData = [
         comment: "5- autem aspernatur deleniti voluptatum commodi vel unde et vitae distinctio ullam, laborum saepe blanditiis, illo, ipsam velit. Velit distinctio",
     },
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         dreamTitle: "Seeing a Snake",
         dreamId: 3,
         username: "aysayd6",
@@ -143,7 +143,7 @@ export const ReviewsData = [
 ];
 export const MessagesData = [
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         isArchive: false,
         fullname: "Ali Yılmaz",
         email: "ali.yilmaz@example.com",
@@ -151,7 +151,7 @@ export const MessagesData = [
         content: "Swimming in the sea gives me peace. Resisting the waves is a wonderful feeling!"
     },
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         isArchive: false,
         fullname: "Zeynep Kaya",
         email: "zeynep.kaya@example.com",
@@ -159,7 +159,7 @@ export const MessagesData = [
         content: "I saw myself swimming in the sea in my dream. I wonder what it means?"
     },
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         isArchive: true,
         fullname: "Mehmet Demir",
         email: "mehmet.demir@example.com",
@@ -167,7 +167,7 @@ export const MessagesData = [
         content: "Swimming in the sea is my greatest passion. I definitely go on vacation every summer."
     },
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         isArchive: true,
         fullname: "Ayşe Çelik",
         email: "ayse.celik@example.com",
@@ -177,7 +177,7 @@ export const MessagesData = [
 ];
 export const HeadersData = [
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         isActive:true,
         name: "header1",
         imageUrl: "https://firebasestorage.googleapis.com/v0/b/dreamland-34dfe.firebasestorage.app/o/uploads%2F-7dJ2Odqtz3HNHKmuI4O8-deneme10.png?alt=media&token=f14ec3bf-4319-469f-9bf4-4d4e0919113a",
@@ -185,7 +185,7 @@ export const HeadersData = [
         titleColor:"#F7DE05"
     },
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         isActive:false,
         name: "header2",
         imageUrl: "https://firebasestorage.googleapis.com/v0/b/dreamland-34dfe.firebasestorage.app/o/uploads%2FqWH-mcb4g4vpmg9bjrvBz-header.png?alt=media&token=bf965408-97d8-416e-8f80-2f1fbf91ccbf",
@@ -193,7 +193,7 @@ export const HeadersData = [
         titleColor:"#F50529"
     },
     {
-        date: new Date().toISOString().replace("T", " ").substring(0, 19),
+        date: Date.now()+ Math.floor(Math.random() * 1000),
         isActive:false,
         name: "header3",
         imageUrl: "https://firebasestorage.googleapis.com/v0/b/dreamland-34dfe.firebasestorage.app/o/uploads%2FseURyUcAT3YwnXiboRJoQ-deneme3.png?alt=media&token=a1acfd1a-fb70-4ca8-8a6a-c7ba677c79c1",

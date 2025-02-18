@@ -1,34 +1,42 @@
 import React from "react";
-import { Previous } from "../icons/Previous";
-import { Next } from "../icons/Next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAnglesRight, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-export const Pagination = () => {
+export const Pagination = ({pageNumber=4, pageTotal=10, changePage}) => {
     return(
             <div className="flex justify-center pt-20 px-0 text-gray-500">
-                <div className="w-full  flex justify-between">
-                    <div className="text-gray-600 mt-3 hover:text-gray-700 cursor-pointer">
-                        <button className="flex items-center" >
-                            <Previous/>
-                            <p className="text-sm ml-3 font-medium leading-none ">Previous</p>
+                <div className="w-1/2 flex justify-between">
+                    <div className={`text-gray-600 hover:text-gray-700 px-4 flex gap-x-3 ${pageNumber==1?'invisible':''}`}>
+                    <button onClick={()=> changePage(1)}>
+                            <FontAwesomeIcon icon={faAnglesRight} className="text-xl  cursor-pointer hover:scale-125 rotate-180 inline-block" />
+                        </button>
+                        <button onClick={()=> changePage(pageNumber-1)} >
+                            <FontAwesomeIcon icon={faAngleRight} className="text-xl  cursor-pointer hover:scale-125 rotate-180 inline-block" />
                         </button>
                     </div>
-                    <div className="flex justify-center">
-                        <div className="flex" >
-                        <div className="hover:border-b  cursor-pointer hover:text-gray-700 hover:border-gray-400 py-1 mr-4 px-4">4</div>
-                            <div className="w-5"> . . .</div>
-                        </div>
-                        <div>
-                        <p className="border-b border-black font-bold leading-none hover:text-gray-700 hover:border-gray-400 py-1 px-4 mx-4 text-xl">5</p>
-                        </div>
-                        <div className="flex" >
-                            <div className="w-5"> . . .</div>
-                            <div className="hover:border-b  cursor-pointer hover:text-gray-700 hover:border-gray-400 py-1 px-4">6</div>
-                        </div>
-                    </div>
-                    <div className="text-gray-600 hover:text-gray-700 cursor-pointer">
-                        <button className="flex mt-3 items-center">
-                            <span className="text-sm font-medium leading-none mr-3 ml-auto">Next</span>
-                            <Next/>
+                    <ul className="flex gap-x-10 items-center">
+                        <li onClick={()=> changePage(pageNumber-1)}>
+                            <span className={`hover:scale-110 cursor-pointer p-2 ${pageNumber==1?'invisible':''}`}>
+                                {pageNumber - 1}
+                            </span>
+                        </li>
+                        <li>
+                            <span className="text-2xl hover:scale-110 cursor-pointer border p-2 px-3 rounded-xl shadow-lg bg-white">
+                                {pageNumber}
+                            </span>
+                        </li>
+                        <li onClick={()=> changePage(pageNumber+1)}>
+                        <span className={`hover:scale-110 cursor-pointer p-2 ${pageNumber==pageTotal?'invisible':''}`}>
+                                {pageNumber + 1}
+                            </span>
+                        </li>
+                    </ul>
+                    <div className={`text-gray-600 hover:text-gray-700 px-4 flex gap-x-3 ${pageNumber==pageTotal?'invisible':''}`}>
+                        <button onClick={()=> changePage(pageNumber+1)}>
+                            <FontAwesomeIcon icon={faAngleRight} className="text-xl  cursor-pointer hover:scale-125" />
+                        </button>
+                        <button onClick={()=> changePage(pageTotal)}>
+                            <FontAwesomeIcon icon={faAnglesRight} className="text-xl  cursor-pointer hover:scale-125" />
                         </button>
                     </div>
                 </div>

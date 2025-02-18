@@ -1,15 +1,14 @@
 import { database } from '../firebase/firebaseConfig';
-import { getDatabase, ref, set, get, update, remove,push, child } from "firebase/database";
+import { getDatabase, ref, set, get, update, remove,push, child, query, orderByChild, startAfter, limitToFirst, limitToLast, startAt, endBefore } from "firebase/database";
 
 export const addReview = (data) => ({ type: "ADD_REVIEW", payload: data });
-
 export const addReviewToDatabase = (data = {}) => {
     return (dispatch) => {
         const dataRef = ref(database, "reviews");
         const newdata = {
             ...data,
             isConfirm: data.isConfirm ?? false,
-            date: new Date().toISOString().replace("T", " ").substring(0, 19)
+            date: Date.now()+ Math.floor(Math.random() * 1000)
         }
         return push( dataRef, newdata)
         .then((newRef) => {
@@ -96,6 +95,7 @@ export const setReviewsById = (updates) => ({
     payload: updates
 });
 export const getReviewsByIdFromDatabase = (id) => async (dispatch) => {
+    dispatch({ type: "LOADING_REVIEWS", payload: true });
     try { // await dedik boş dönmemesi için
         const snapshot = await get(ref(database, "reviews"));
         if (snapshot.exists()) {
@@ -107,4 +107,50 @@ export const getReviewsByIdFromDatabase = (id) => async (dispatch) => {
     } catch (error) {
         console.error("❌ Reviews verisi alınırken hata oluştu:", error);
     }
+    dispatch({ type: "LOADING_REVIEWS", payload: false });
+};
+export const setReviewsByPageNumber = (updates) => ({
+    type: "SET_REVIEWS_BY_PAGENUMBER",
+    payload: updates
+});
+
+export const getPaginatedReviewsFromDatabase = ({ pageSize, pageNumber }) => {
+    return async (dispatch) => {
+        const reviewsRef = ref(database, "reviews");
+        dispatch({ type: "LOADING_REVIEWS", payload: true });
+
+        const count = pageSize * (pageNumber - 1);
+        let reviews = [];
+        let lastDate = null;
+
+        if (count > 0) {
+            const firstQuery = query(reviewsRef, orderByChild("date"), limitToFirst(count));
+            const firstSnapshot = await get(firstQuery);
+            
+            firstSnapshot.forEach((snap) => {
+                lastDate = snap.val().date; 
+            });
+        }
+
+        let reviewsQuery;
+        if (lastDate) {
+            reviewsQuery = query(reviewsRef, orderByChild("date"), startAfter(lastDate), limitToFirst(pageSize));
+        } else {
+            reviewsQuery = query(reviewsRef, orderByChild("date"), limitToFirst(pageSize));
+        }
+
+        const reviewsSnapshot = await get(reviewsQuery);
+        let allReviews = [];
+
+        reviewsSnapshot.forEach((snap) => {
+            allReviews.push({
+                id: snap.key,
+                ...snap.val(),
+            });
+        });
+
+        reviews = allReviews.reverse();
+        dispatch(setReviewsByPageNumber(reviews));
+        dispatch({ type: "LOADING_REVIEWS", payload: false });
+    };
 };
