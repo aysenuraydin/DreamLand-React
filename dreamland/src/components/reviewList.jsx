@@ -5,7 +5,7 @@ import { ReviewCard } from './reviewCard';
 
 export const ReviewList = ({reviews, get}) => {
     return(
-        <div id="reviews" className="space-y-5 h-[35rem] overflow-scroll">
+        <div id="reviews" className="space-y-3">
             {
             [...reviews].reverse().map((review, index)=>{
                 return( <ReviewCard review={review} index={index} key={index} get={get}/> )

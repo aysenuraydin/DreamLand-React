@@ -5,7 +5,7 @@ import { HeaderCard } from './HeaderCard';
 
 export const HeaderList = ({headers, edit}) => {
     return(
-      <div id="headers" className="space-y-5 overflow-scroll h-[25rem]">
+      <div id="headers" className="space-y-3">
       {
         [...headers].reverse().map((header, index)=>{
         return(

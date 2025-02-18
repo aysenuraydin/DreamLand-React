@@ -5,7 +5,9 @@ const dreamInitialState = {
     dreams: [ ],
     dream: {},  
     dreamPage: {},  
-    dreamsTitle: [ ]
+    dreamsTitle: [ ],
+    dreamsByPageNumber: [ ],
+    loading: false
 }
 
 export const DreamReducer = (state=dreamInitialState, action) => {
@@ -29,7 +31,7 @@ export const DreamReducer = (state=dreamInitialState, action) => {
                     title: action.payload.title
                 }
             ],
-            dream: {}
+            dream: {},
         }
         case "EDIT_DREAM":
             return {
@@ -56,7 +58,7 @@ export const DreamReducer = (state=dreamInitialState, action) => {
                 ...state,
                 dreams:  state.dreams.filter(f => f.id !== action.payload.id),
                 dreamsTitle:  state.dreamsTitle.filter(f => f.id !== action.payload.id),
-                dream: {}
+                dream: {},
             }
         case "GET_DREAM":
             return {
@@ -72,7 +74,14 @@ export const DreamReducer = (state=dreamInitialState, action) => {
                 ...state,
                 dreams: action.payload,
                 dreamsTitle: action.payload.map(i => ({ title: i.title, id: i.id })), 
-            }   
+            } 
+        case "SET_DREAMS_BY_PAGENUMBER":
+            return {
+                ...state,
+                dreamsByPageNumber: action.payload,
+            } 
+        case "LOADING_DREAMS":
+            return { ...state, loading: action.payload };
         case "GET_PAGE_DREAM":
             return {
                 ...state,

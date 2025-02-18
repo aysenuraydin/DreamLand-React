@@ -1,10 +1,9 @@
 import { database } from '../firebase/firebaseConfig';
-import { getDatabase, ref, set, get, update, remove,push, child } from "firebase/database";
+import { getDatabase, ref, set, get, update, remove,push, child, query, orderByChild, startAfter, limitToFirst, limitToLast, startAt, endBefore } from "firebase/database";
 import { login, logout, startRegisterWithEmailPassword } from './authAction';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export const addUser = (data) => ({ type: "ADD_USER", payload: data });
-
 export const addUserToDatabase = (data = {}) => async (dispatch) => {
     try {
         const { email } = data;
@@ -20,7 +19,7 @@ export const addUserToDatabase = (data = {}) => async (dispatch) => {
         }
         const newdata = {
             ...data,
-            date: new Date().toISOString().replace("T", " ").substring(0, 19)
+            date: Date.now()+ Math.floor(Math.random() * 1000)
         }
         const newRef = await push(dataRef, newdata);
         dispatch(
@@ -77,12 +76,10 @@ export const getUsersFromDatabase = () => {
         }
     };
 };
-
 export const setUser = (user) => ({
     type: "SET_USER",
     payload: user
 });
-
 export const listenForAuthChanges = () => (dispatch) => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -96,3 +93,49 @@ export const listenForAuthChanges = () => (dispatch) => {
         }
     }); 
 }
+export const setUsersByPageNumber = (updates) => ({
+    type: "SET_USERS_BY_PAGENUMBER",
+    payload: updates
+});
+
+export const getPaginatedUsersFromDatabase = ({ pageSize, pageNumber }) => {
+    return async (dispatch) => { 
+        const usersRef = ref(database, "users");
+        dispatch({ type: "LOADING_USERS", payload: true });
+
+        const count = pageSize * (pageNumber - 1);
+        let users = [];
+        let lastDate = null;
+
+        if (count > 0) {
+            const firstQuery = query(usersRef, orderByChild("date"), limitToFirst(count));
+            const firstSnapshot = await get(firstQuery);
+            
+            firstSnapshot.forEach((snap) => {
+                lastDate = snap.val().date; 
+            });
+        }
+
+        let usersQuery;
+        if (lastDate) {
+            usersQuery = query(usersRef, orderByChild("date"), startAfter(lastDate), limitToFirst(pageSize));
+        } else {
+            usersQuery = query(usersRef, orderByChild("date"), limitToFirst(pageSize));
+        }
+
+        const usersSnapshot = await get(usersQuery);
+        let allUsers = [];
+
+        usersSnapshot.forEach((snap) => {
+            allUsers.push({
+                id: snap.key,
+                ...snap.val(),
+            });
+        });
+
+        users = allUsers.reverse();
+
+        dispatch(setUsersByPageNumber(users));
+        dispatch({ type: "LOADING_USERS", payload: false });
+    };
+};

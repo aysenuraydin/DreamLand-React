@@ -74,6 +74,3 @@ export const Login = () => {
     </>
   )
 }
-// export const loginAction = async ({ request }) => {
-//   return redirect("/");
-// }

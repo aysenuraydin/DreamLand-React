@@ -1,8 +1,7 @@
 import { database } from '../firebase/firebaseConfig';
-import { getDatabase, ref, set, get, update, remove,push, child } from "firebase/database";
+import { getDatabase, ref, set, get, update, remove,push, child, query, orderByChild, startAfter, limitToFirst, limitToLast, startAt, endBefore } from "firebase/database";
 
 export const addHeader = (data) => ({ type: "ADD_HEADER", payload: data });
-
 export const addHeaderToDatabase = (data = {}) => {
     return (dispatch) => {
         const dataRef = ref(database, "headers");
@@ -19,7 +18,7 @@ export const addHeaderToDatabase = (data = {}) => {
             .then( (i) => {
                 const newdata = {
                     ...data,
-                    date: new Date().toISOString().replace("T", " ").substring(0, 19)
+                    date: Date.now()+ Math.floor(Math.random() * 1000)
                 }
                 return push( dataRef,  newdata)
                 .then((newRef) => {
@@ -34,12 +33,10 @@ export const addHeaderToDatabase = (data = {}) => {
             });
     };
 };
-
 export const editHeader = (updates) => ({
     type: "EDIT_HEADER",
     payload: { ...updates }
 });
-
 export const editHeaderFromDatabase = (updates) => {
     return (dispatch) => {
         const { id,isActive, ...updatesWithoutId } = updates; 
@@ -69,12 +66,10 @@ export const editHeaderFromDatabase = (updates) => {
         })
     };
 };
-
 export const deleteHeader = (updates) => ({
     type: "DELETE_HEADER",
     payload: { ...updates }
 });
-
 export const deleteHeaderFromDatabase = (updates) => {
     return (dispatch) => {
         const { id } = updates; 
@@ -89,7 +84,6 @@ export const deleteHeaderFromDatabase = (updates) => {
             });
         };
 };
-
 export const setHeaders = (updates) => ({
     type: "SET_HEADERS",
     payload: updates
@@ -113,5 +107,51 @@ export const getHeadersFromDatabase = () => {
         } catch (error) {
             console.error("Headers verisi alınırken hata oluştu:", error);
         }
+    };
+};
+export const setHeadersByPageNumber = (updates) => ({
+    type: "SET_HEADERS_BY_PAGENUMBER",
+    payload: updates
+});
+
+export const getPaginatedHeadersFromDatabase = ({ pageSize, pageNumber }) => {
+    return async (dispatch) => { 
+        const headersRef = ref(database, "headers");
+        dispatch({ type: "LOADING_HEADERS", payload: true });
+
+        const count = pageSize * (pageNumber - 1);
+        let headers = [];
+        let lastDate = null;
+
+        if (count > 0) {
+            const firstQuery = query(headersRef, orderByChild("date"), limitToFirst(count));
+            const firstSnapshot = await get(firstQuery);
+            
+            firstSnapshot.forEach((snap) => {
+                lastDate = snap.val().date; 
+            });
+        }
+
+        let headersQuery;
+        if (lastDate) {
+            headersQuery = query(headersRef, orderByChild("date"), startAfter(lastDate), limitToFirst(pageSize));
+        } else {
+            headersQuery = query(headersRef, orderByChild("date"), limitToFirst(pageSize));
+        }
+
+        const headersSnapshot = await get(headersQuery);
+        let allHeaders = [];
+
+        headersSnapshot.forEach((snap) => {
+            allHeaders.push({
+                id: snap.key,
+                ...snap.val(),
+            });
+        });
+
+        headers = allHeaders.reverse();
+
+        dispatch(setHeadersByPageNumber(headers));
+        dispatch({ type: "LOADING_HEADERS", payload: false });
     };
 };

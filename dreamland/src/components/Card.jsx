@@ -10,7 +10,7 @@ export const Card = ({dream}) => {
     const sanitizedContent = DOMPurify.sanitize(dream?.content);
     return(
         <div className="rounded-2xl p-5 shadow-lg border border-gray-300 flex flex-col 
-        bg-gradient-to-b from-[#1f3f9682] from-0% via-white via-40% to-white to-100%"> 
+        bg-gradient-to-b from-[#1f3f9682] from-0% via-white via-40% to-gray-100 to-100%"> 
             <Link to={`dream/${dream.id}`}>
                 <h1 className="text-center text-shadow text-2xl sm:text-lg my-5 text-white hover:scale-110 h-12">
                     { dream.title}
@@ -29,4 +29,3 @@ export const Card = ({dream}) => {
         </div>
     )
 }
-//

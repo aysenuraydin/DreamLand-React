@@ -14,6 +14,7 @@ export const Comment = ({dreamId, dreamTitle}) => {
     const state = useSelector((state) => state.review);
     const dispatch = useDispatch(); 
     const reviewsByDreamId = state.reviewsByDreamId;
+    const loading = state.loading;
 
     const [error, setError] = useState("");
     const [info, setInfo] = useState("");
@@ -79,37 +80,34 @@ export const Comment = ({dreamId, dreamTitle}) => {
                 </div>
             </Form>
             <div className="p-1">
-                {
-                    comments && (
-                        comments?.map((rew,index) => {
-                            return(
-                                <CommentCard key={index} review={rew} opacity={true}/>
-                            )
-                        })
+                {loading ? (
+                        <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/>
+                    ) : (
+                        <>
+                            {
+                                comments && (
+                                    comments?.map((rew,index) => {
+                                        return(
+                                            <CommentCard key={index} review={rew} opacity={true}/>
+                                        )
+                                    })
+                                )
+                            }
+                            {
+                                reviewsByDreamId?.map((rew,index) => {
+                                    return(
+                                        <CommentCard key={index} review={rew}/>
+                                    )
+                                })
+                            }
+                            {reviewsByDreamId.length==0 && comments.length==0 &&(
+                                <div className="bg-gray-100 p-7 shadow-md rounded-xl border border-gray-300 ml-20">
+                                    No comment available.
+                                </div>
+                            )}
+                        </>
                     )
                 }
-                { ( reviewsByDreamId.length === 0)? (
-                    <SyncLoader color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-4'/> 
-                    ) : (null)
-                }
-                {
-                    reviewsByDreamId?.map((rew,index) => {
-                        return(
-                            <CommentCard key={index} review={rew}/>
-                        )
-                    })
-                }
-                {reviewsByDreamId.length==0 && comments.length==0 &&(
-                    <div className="bg-gray-100 p-7 shadow-md rounded-xl border border-gray-300 ml-20">
-                        No comment available.
-                    </div>
-                )}
-                {reviewsByDreamId.length > 3 || comments.length > 3 &&(
-                    <div className="flex justify-center">
-                        <button className="p-2 mt-5 px-16 bg-[#92A2CD] text-white rounded-full font-light hover:bg-gray-700 mx-auto cursor-pointer">Load More Comments</button>
-                    </div>
-                )}
-                
             </div>
         </>
     )

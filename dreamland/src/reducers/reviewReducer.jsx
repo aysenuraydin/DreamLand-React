@@ -4,20 +4,17 @@ const reviewInitialState = {
     reviews: [ ],
     reviewsByDreamId: [],
     review: {},
+    reviewsByPageNumber: [ ],
+    loading: false
 }
 
 export const ReviewReducer = (state = reviewInitialState, action) => {
     switch (action.type) {
-        case "SET_REVIEWS_BY_DREAMID3":
+        case "SET_REVIEWS_BY_DREAMID":
           return { 
             ...state,
-            reviewsByDreamId : state.reviews.filter(f => f.dreamId == action.payload.id && f.isConfirm),
+            reviewsByDreamId : action.payload
           };
-          case "SET_REVIEWS_BY_DREAMID":
-            return { 
-              ...state,
-              reviewsByDreamId : action.payload
-            };
         case "ADD_REVIEW":
           return {
             ...state,
@@ -53,10 +50,19 @@ export const ReviewReducer = (state = reviewInitialState, action) => {
             ...state,
             review: {...action.payload}
           }
+        case "SET_REVIEWS_BY_PAGENUMBER":
+          return {
+              ...state,
+              reviewsByPageNumber: action.payload,
+              loading: false
+          } 
+        case "LOADING_REVIEWS":
+            return { ...state, loading: action.payload };
         case "SET_REVIEWS":
           return {
               ...state,
-              reviews: action.payload
+              reviews: action.payload,
+              loading: false
           }
         case "CLEAR_REVIEW":
           return {

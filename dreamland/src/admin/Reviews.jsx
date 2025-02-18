@@ -1,15 +1,13 @@
-import React, { useState, useContext } from 'react';
-// import { DreamContext } from '../contexts/DreamContext';
+import React, { useState, useEffect } from 'react';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faComment} from "@fortawesome/free-solid-svg-icons";
-import { useLoaderData} from "react-router-dom";
 import SyncLoader from "react-spinners/SyncLoader";
 import { Pagination } from '../components/Pagination';
 import { ReviewList } from '../components/reviewList';
 import { ReviewForm } from '../components/reviewForm';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteReviewFromDatabase, editReviewFromDatabase } from '../actions/reviewAction';
+import { deleteReviewFromDatabase, editReviewFromDatabase, getPaginatedReviewsFromDatabase } from '../actions/reviewAction';
 
 export const Reviews = () => {
   const [visible, setVisible] = useState(false);
@@ -18,6 +16,24 @@ export const Reviews = () => {
   const dispatch = useDispatch(); 
   const review = state.review;
   const reviews = state.reviews;
+
+  const loading = state.loading;
+  const reviewsByPageNumber = state.reviewsByPageNumber;
+  const [pageNumber, setPagenumber] = useState(1);
+  const pageSize = 5;
+  const pageTotal = Math.ceil(reviews.length / pageSize);
+  const [isAdding, setIsAdding] = useState(false); 
+  const [isDeleting, setIsDeleting] = useState(false); 
+
+  useEffect(() => {
+    if (pageTotal > 0 && isAdding) {
+      setPagenumber(pageTotal);
+      setIsAdding(false);
+    }
+    if (!isDeleting)  return;
+    if (pageNumber > pageTotal) setPagenumber(pageTotal);
+    setIsDeleting(false); 
+  }, [reviews.length]);
 
   const get = (review) => {
     setVisible(true);
@@ -28,12 +44,24 @@ export const Reviews = () => {
   }
   const del = (id) => {
     setVisible(false);
+    setIsDeleting(true); 
     dispatch(deleteReviewFromDatabase( {id} ));
   }
   const edit = (id) => {
     setVisible(false);
     dispatch(editReviewFromDatabase( {id} ));
   }
+
+  useEffect(() => {
+      const getDatas = async () => {
+          await dispatch(getPaginatedReviewsFromDatabase({pageSize:pageSize, pageNumber:pageNumber}))
+      };
+      getDatas();
+  }, [pageNumber, reviews])
+
+  const changePage = (pageNumber) => {
+    setPagenumber(pageNumber)
+  };
   return(
     <div className="p-8">
       <div className="min-h-[80vh] max-w-6xl mx-auto">
@@ -73,16 +101,23 @@ export const Reviews = () => {
             <span className= "font-bold">Is Confirm ?</span>
           </span>
           <span className="w-1/4 bg-white text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2]">
-            <span className= "font-bold">Created At</span>
+            <span className= "font-bold">Datetime</span>
           </span>
           <div className="w-1/6 text-center"></div>
         </div>
-        { reviews.length === 0 ? (
-            <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-4'/> 
-          ) : (null)
+        <div className='h-[30rem]'>
+          {loading ? (
+              <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/>
+            ) : (
+            
+              <ReviewList reviews={reviewsByPageNumber} get={get}/>
+            )
+          }
+        </div>
+        { reviews.length > pageSize ? (
+          <Pagination pageNumber={pageNumber} pageTotal={pageTotal} changePage={changePage} /> 
+          ) : (null) 
         }
-        <ReviewList reviews={reviews} get={get}/>
-        <Pagination/>
       </div>
     </div>
   )

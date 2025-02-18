@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { MessageCard } from './messageCard';
 
-export const MessageList = ({ get, filteredMessages, isArchive }) => {
+export const MessageList = ({ get, filteredMessages }) => {
     return(
-        <div id="messages" className="space-y-5  h-[35rem] overflow-scroll">
+        <div id="messages" className="space-y-3">
             {
-                [...filteredMessages].reverse()?.filter(i=>i.isArchive==isArchive).map((message, index)=>
+                [...filteredMessages].map((message, index)=>
                 <MessageCard get={get} message={message} index={index} key={index}/>)
             }
             {

@@ -5,7 +5,7 @@ import { DreamCard } from './DreamCard';
 
 export const DreamsList  = ({ dreams,edit }) => {
     return(
-    <div id="dreams" className="space-y-5 h-[37rem] overflow-scroll ">
+    <div id="dreams">
         {
             [...dreams].reverse().map((dream, index)=>{
             return(

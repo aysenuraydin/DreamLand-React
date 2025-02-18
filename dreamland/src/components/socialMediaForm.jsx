@@ -1,8 +1,6 @@
 import React, { useEffect, useState  } from 'react';
-import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
-// import { DreamContext } from "../contexts/DreamContext";
 import { useSelector, useDispatch } from 'react-redux';
 import { editSocialMediaFromDatabase } from '../actions/infoAction';
 

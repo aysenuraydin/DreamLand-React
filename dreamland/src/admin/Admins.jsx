@@ -6,7 +6,7 @@ import { faCancel, faUser,  faPlus} from "@fortawesome/free-solid-svg-icons";
 import SyncLoader from "react-spinners/SyncLoader";
 import { Pagination } from '../components/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
-import { addUserToDatabase, deleteUserFromDatabase } from '../actions/userAction';
+import { addUserToDatabase, deleteUserFromDatabase, getPaginatedUsersFromDatabase } from '../actions/userAction';
 import { UserForm } from '../components/UserForm';
 import { UserList } from '../components/UserList';
 
@@ -23,6 +23,25 @@ export const Admins = () => {
 
   const envEmail = import.meta.env.VITE_FIREBASE_ADMIN_EMAIL;
 
+  const loading = state.loading;
+  const usersByPageNumber = state.usersByPageNumber;
+  const [pageNumber, setPagenumber] = useState(1);
+  const pageSize = 5;
+  const pageTotal = Math.ceil(users.length / pageSize);
+  const [isAdding, setIsAdding] = useState(false); 
+  const [isDeleting, setIsDeleting] = useState(false); 
+
+  useEffect(() => {
+    const totalPages = Math.ceil(users.length / pageSize);
+    if (totalPages > 0 && isAdding) {
+      setPagenumber(totalPages);
+      setIsAdding(false);
+    }
+    if (!isDeleting)  return;
+    if (pageNumber > totalPages) setPagenumber(totalPages);
+    setIsDeleting(false); 
+  }, [users.length]);
+
   useEffect(()=> {
     if( auth.email!=envEmail ){
       navigate("/admin");
@@ -32,6 +51,7 @@ export const Admins = () => {
   const add = (data) => {
     dispatch(addUserToDatabase({ email:data }));
     setUser("");
+    setIsAdding(true);
     formRef.current.reset();
   }
   const reset = () => {
@@ -53,9 +73,21 @@ export const Admins = () => {
   const del = (user) => {
     setVisible(true);
     setUser("");
+    setIsDeleting(true); 
     formRef.current.reset();
     dispatch(deleteUserFromDatabase({ id: user?.id, email: user?.email }));
-};
+  };
+
+  useEffect(() => {
+      const getDatas = async () => {
+          await dispatch(getPaginatedUsersFromDatabase({pageSize:pageSize, pageNumber:pageNumber}))
+      };
+      getDatas();
+  }, [pageNumber, users])
+
+  const changePage = (pageNumber) => {
+    setPagenumber(pageNumber)
+  };
 
   return(    
     <div className="p-8">
@@ -108,16 +140,23 @@ export const Admins = () => {
             <span className= "font-bold">Is Active ?</span>
           </span>
           <span className="w-4/12 text-center text-sm border p-1 rounded-full text-[#1f3f96a2] border-[#1f3f96a2] bg-white">
-            <span className= "font-bold">Created At </span>
+            <span className= "font-bold">Datetime </span>
           </span>
           <span className="w-1/4"></span>
         </div>
-        { users.length === 0 ? (
-            <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-5'/> 
-          ) : (null)
+        <div className='h-[30rem]'>
+          {loading ? (
+              <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/>
+            ) : (
+              <UserList users={usersByPageNumber} edit={edit} />
+            )
+          }
+        </div>
+        { users.length > pageSize ? (
+          <Pagination pageNumber={pageNumber} pageTotal={pageTotal} changePage={changePage} /> 
+          ) : (null) 
         }
-        <UserList users={users} edit={edit} />
-        <Pagination/>
+
       </div>
     </div>
   )

@@ -4,6 +4,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Reject } from '../icons/Reject';
 import { Confirm } from '../icons/confirm';
 export const ReviewForm = ({review, edit,  del}) => {
+    const formattedDate = new Date(review.date).toISOString().replace("T", " ").substring(0, 19);
     return(
         <div className="md:w-4/5 w-full mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300">
             <div className="mb-3 flex">
@@ -11,8 +12,8 @@ export const ReviewForm = ({review, edit,  del}) => {
                 <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">{review.username}</div>
             </div>
             <div className="mb-3 flex">
-                <label htmlFor="color" className="w-24 mt-3 text-sm">Created At</label>
-                <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">{review.date}</div>
+                <label htmlFor="color" className="w-24 mt-3 text-sm">Datetime</label>
+                <div className="mt-1 p-1 w-full border border-gray-300 rounded-lg text-gray-800">{formattedDate}</div>
             </div>
             <div className="mb-3 flex">
                 <label htmlFor="color" className="w-24 mt-3 text-sm">Dreams</label>

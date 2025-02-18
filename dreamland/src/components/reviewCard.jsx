@@ -6,6 +6,7 @@ import { Reject } from '../icons/Reject';
 import { Confirm } from '../icons/confirm';
 
 export const ReviewCard = ({review, get, index}) => {
+    const formattedDate = new Date(review.date).toISOString().replace("T", " ").substring(0, 19);
     return(
         <div className="flex border  border-gray-300 items-center p-1 shadow rounded-md bg-white">
             <span className="w-1/6 text-center text-sm">
@@ -28,8 +29,7 @@ export const ReviewCard = ({review, get, index}) => {
             </span>
             <span className="w-1/4 text-center text-sm">
             <div
-            className="inline-block rounded-md
-            mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium"> {review.date} </div>
+            className="inline-block rounded-md mb-3 mx-2 capitalize text-sm min-w-20 mt-3 p-2 font-medium text-[0.7rem]"> {formattedDate} </div>
             </span>
             <span className="w-1/6">
             <div  className="flex items-center justify-center">

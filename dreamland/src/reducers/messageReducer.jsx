@@ -3,6 +3,8 @@ import { nanoid } from 'nanoid';
 const messageInitialState = {
     messages: [ ],
     message: {},
+    messagesByPageNumber: [ ],
+    loading: false
 }
 
 export const MessageReducer = (state= messageInitialState, action) => {
@@ -18,7 +20,13 @@ export const MessageReducer = (state= messageInitialState, action) => {
         ],
         message: {}
       }
-
+    case "SET_MESSAGES_BY_PAGENUMBER":
+      return {
+          ...state,
+          messagesByPageNumber: action.payload,
+      } 
+    case "LOADING_MESSAGES":
+        return { ...state, loading: action.payload };
       case "EDIT_MESSAGE":
         return {
           ...state,
