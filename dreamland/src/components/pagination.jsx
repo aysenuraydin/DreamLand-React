@@ -6,11 +6,11 @@ export const Pagination = ({pageNumber=4, pageTotal=10, changePage}) => {
     return(
             <div className="flex justify-center pt-20 px-0 text-gray-500">
                 <div className="w-1/2 flex justify-between">
-                    <div className={`text-gray-600 hover:text-gray-700 px-4 flex gap-x-3 ${pageNumber==1?'invisible':''}`}>
-                    <button onClick={()=> changePage(1)}>
+                    <div className={`text-gray-600 hover:text-gray-700 px-4 flex gap-x-3`}>
+                    <button onClick={()=> changePage(1)} className={` ${pageNumber==1 || pageNumber==2?'invisible':''}`}>
                             <FontAwesomeIcon icon={faAnglesRight} className="text-xl  cursor-pointer hover:scale-125 rotate-180 inline-block" />
                         </button>
-                        <button onClick={()=> changePage(pageNumber-1)} >
+                        <button onClick={()=> changePage(pageNumber-1)} className={` ${pageNumber==1 ?'invisible':''}`}>
                             <FontAwesomeIcon icon={faAngleRight} className="text-xl  cursor-pointer hover:scale-125 rotate-180 inline-block" />
                         </button>
                     </div>
@@ -31,11 +31,11 @@ export const Pagination = ({pageNumber=4, pageTotal=10, changePage}) => {
                             </span>
                         </li>
                     </ul>
-                    <div className={`text-gray-600 hover:text-gray-700 px-4 flex gap-x-3 ${pageNumber==pageTotal?'invisible':''}`}>
-                        <button onClick={()=> changePage(pageNumber+1)}>
+                    <div className={`text-gray-600 hover:text-gray-700 px-4 flex gap-x-3`}>
+                        <button onClick={()=> changePage(pageNumber+1)} className={` ${pageNumber==pageTotal ?'invisible':''}`}>
                             <FontAwesomeIcon icon={faAngleRight} className="text-xl  cursor-pointer hover:scale-125" />
                         </button>
-                        <button onClick={()=> changePage(pageTotal)}>
+                        <button onClick={()=> changePage(pageTotal)} className={` ${pageNumber==pageTotal || pageNumber==pageTotal-1 ?'invisible':''}`}>
                             <FontAwesomeIcon icon={faAnglesRight} className="text-xl  cursor-pointer hover:scale-125" />
                         </button>
                     </div>

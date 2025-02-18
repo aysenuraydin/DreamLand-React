@@ -1,6 +1,6 @@
 import React  from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faPenToSquare, faXmark, faPhone} from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faPenToSquare, faPhone} from "@fortawesome/free-solid-svg-icons";
 
 export const MessageCard = ({ get, message, index }) => {
     const formattedDate = new Date(message.date).toISOString().replace("T", " ").substring(0, 19);

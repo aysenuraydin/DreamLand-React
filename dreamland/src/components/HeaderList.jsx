@@ -7,7 +7,7 @@ export const HeaderList = ({headers, edit}) => {
     return(
       <div id="headers" className="space-y-3">
       {
-        [...headers].reverse().map((header, index)=>{
+        [...headers].map((header, index)=>{
         return(
           <HeaderCard key={index} header={header} index={index} edit={edit}/>
         )

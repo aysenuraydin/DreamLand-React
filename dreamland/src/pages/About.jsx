@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { useLoaderData } from "react-router-dom";
+import React from 'react';
 import { Facebook } from "../icons/facebook";
 import { Instagram } from "../icons/instagram";
 import { Twiter } from "../icons/twiter";

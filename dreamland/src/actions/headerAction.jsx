@@ -149,8 +149,7 @@ export const getPaginatedHeadersFromDatabase = ({ pageSize, pageNumber }) => {
             });
         });
 
-        headers = allHeaders.reverse();
-
+        headers = allHeaders;
         dispatch(setHeadersByPageNumber(headers));
         dispatch({ type: "LOADING_HEADERS", payload: false });
     };

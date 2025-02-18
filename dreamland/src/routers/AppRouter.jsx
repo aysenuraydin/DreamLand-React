@@ -20,7 +20,7 @@ import { Informations } from '../admin/Informations';
 import { Reviews } from '../admin/Reviews';
 import { Messages } from '../admin/Messages';
 import { Headers } from '../admin/Headers';
-import { ForgotPassword } from "../pages/forgotPassword";
+import { ForgotPassword } from "../pages/ForgotPassword";
 import { Admins } from "../admin/Admins";
 import { Settings } from "../admin/Settings";
 //? error pages

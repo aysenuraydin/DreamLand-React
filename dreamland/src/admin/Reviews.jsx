@@ -25,6 +25,28 @@ export const Reviews = () => {
   const [isAdding, setIsAdding] = useState(false); 
   const [isDeleting, setIsDeleting] = useState(false); 
 
+  const [datasSearch, setDatasSearch] = useState([]); 
+  const [text, setText] = useState(""); 
+
+  useEffect(() => {
+    if (!text) {
+      setDatasSearch([]);
+      return;
+    }
+  
+    setDatasSearch(
+      reviews.filter(data => 
+          [data.comment, data.dreamTitle, data.username]
+            .some(field => field?.toLowerCase().includes(text.toLowerCase()))
+      )
+    );
+  }, [text, reviews]);
+  
+  const search = (text) => {
+    setText(text)
+    console.log(text)
+  }
+
   useEffect(() => {
     if (pageTotal > 0 && isAdding) {
       setPagenumber(pageTotal);
@@ -71,7 +93,7 @@ export const Reviews = () => {
           </h1>
           <div className="flex gap-x-3">
             <div className="flex items-center relative">
-              <Search/>
+              <Search search={search}/>
             </div>
             {
               visible && (
@@ -87,6 +109,15 @@ export const Reviews = () => {
         {
           visible && (  <ReviewForm review={review} edit={edit} del={del}/> )
         }
+        <div>
+          {text && (  
+            <p className='text-[1rem] absolute mt-4 ml-4 text-gray-500'>
+            Search results for 
+            <span className='font-semibold text-gray-700'> '{text}' </span>
+            are listed !</p>
+          )
+          }
+        </div>
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">
           <span className="w-1/6 bg-white text-center text-sm border border-[#1f3f96a2] p-1 rounded-full">
             <span className="font-bold text-[#1f3f96a2]">Number</span>
@@ -105,16 +136,22 @@ export const Reviews = () => {
           </span>
           <div className="w-1/6 text-center"></div>
         </div>
-        <div className='h-[30rem]'>
+
+        <div className='h-[32rem] overflow-scroll'>
+        { datasSearch.length>0 ? (
+          <ReviewList reviews={datasSearch} get={get}/>
+        ):(
+          <>
           {loading ? (
               <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/>
             ) : (
-            
               <ReviewList reviews={reviewsByPageNumber} get={get}/>
             )
           }
+          </>
+        )}
         </div>
-        { reviews.length > pageSize ? (
+        { reviews.length > pageSize && datasSearch.length == 0 ? (
           <Pagination pageNumber={pageNumber} pageTotal={pageTotal} changePage={changePage} /> 
           ) : (null) 
         }

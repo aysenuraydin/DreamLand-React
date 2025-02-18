@@ -1,10 +1,10 @@
 import React, {useEffect, useRef} from "react";
-import { Form, useNavigate,Link,useLocation, redirect, useActionData } from "react-router-dom";
+import { Form, useNavigate,Link,useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket, faArrowRight, faLock} from "@fortawesome/free-solid-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { startEmailPasswordLogin, startGoogleLogin, startLogout } from "../actions/authAction";
+import { startEmailPasswordLogin, startGoogleLogin } from "../actions/authAction";
 
 export const Login = () => {
   const navigate = useNavigate();

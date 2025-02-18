@@ -149,7 +149,7 @@ export const getPaginatedReviewsFromDatabase = ({ pageSize, pageNumber }) => {
             });
         });
 
-        reviews = allReviews.reverse();
+        reviews = allReviews;
         dispatch(setReviewsByPageNumber(reviews));
         dispatch({ type: "LOADING_REVIEWS", payload: false });
     };

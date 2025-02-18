@@ -1,13 +1,13 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark} from "@fortawesome/free-solid-svg-icons";
-import { ReviewCard } from './reviewCard';
+import { ReviewCard } from './ReviewCard';
 
 export const ReviewList = ({reviews, get}) => {
     return(
         <div id="reviews" className="space-y-3">
             {
-            [...reviews].reverse().map((review, index)=>{
+            [...reviews].map((review, index)=>{
                 return( <ReviewCard review={review} index={index} key={index} get={get}/> )
             })
             }
