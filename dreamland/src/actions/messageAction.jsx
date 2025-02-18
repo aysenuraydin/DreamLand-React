@@ -51,6 +51,7 @@ export const deleteMessage = (updates) => ({
     payload: { ...updates }
 });
 export const deleteMessageFromDatabase = (updates) => {
+    console.log("deleteMessageFromDatabase");
     return (dispatch) => {
         const { id } = updates; 
         const dataRef = ref(database, `messages/${id}`);
@@ -129,8 +130,7 @@ export const getPaginatedMessagesFromDatabase = ({ pageSize, pageNumber }) => {
             });
         });
 
-        messages = allMessages.reverse();
-
+        messages = allMessages;
         dispatch(setMessagesByPageNumber(messages));
         dispatch({ type: "LOADING_MESSAGES", payload: false });
     };

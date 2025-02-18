@@ -1,7 +1,7 @@
 import React  from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { MessageCard } from './messageCard';
+import { MessageCard } from './MessageCard';
 
 export const MessageList = ({ get, filteredMessages }) => {
     return(

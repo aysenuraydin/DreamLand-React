@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams} from "react-router-dom";
 import { Logo } from "../icons/logo";
-import { useLoaderData } from "react-router-dom";
 import { Return } from "../icons/return";
 import { Link } from "react-router-dom";
 import { Comment } from "../components/Comment";

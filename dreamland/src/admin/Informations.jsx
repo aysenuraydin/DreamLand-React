@@ -2,12 +2,11 @@ import React from 'react';
 import { Search } from "../components/Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import { useLoaderData} from "react-router-dom";
-import { AboutForm } from "../components/aboutForm";
-import { ContactForm } from "../components/contactForm";
-import { FaqsForm } from '../components/faqsForm';
-import { SocialMediaForm } from "../components/socialMediaForm";
-import { FaqsList } from "../components/faqsList";
+import { FaqsForm } from '../components/FaqsForm';
+import { SocialMediaForm } from "../components/SocialMediaForm";
+import { FaqsList } from "../components/FaqsList";
+import { AboutForm } from '../components/aboutForm';
+import { ContactForm } from '../components/contactForm';
 
 export const Informations = () => {
 

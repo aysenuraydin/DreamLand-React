@@ -4,7 +4,7 @@ import { CKEditor, useCKEditorCloud } from '@ckeditor/ckeditor5-react';
 const LICENSE_KEY =
 	'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3Njc3NDM5OTksImp0aSI6IjE4NDcwOTBlLThhNjYtNDQyZS04ODg2LTY5MzYxZjE4ZmQyOSIsImxpY2Vuc2VkSG9zdHMiOlsiMTI3LjAuMC4xIiwibG9jYWxob3N0IiwiMTkyLjE2OC4qLioiLCIxMC4qLiouKiIsIjE3Mi4qLiouKiIsIioudGVzdCIsIioubG9jYWxob3N0IiwiKi5sb2NhbCJdLCJ1c2FnZUVuZHBvaW50IjoiaHR0cHM6Ly9wcm94eS1ldmVudC5ja2VkaXRvci5jb20iLCJkaXN0cmlidXRpb25DaGFubmVsIjpbImNsb3VkIiwiZHJ1cGFsIl0sImxpY2Vuc2VUeXBlIjoiZGV2ZWxvcG1lbnQiLCJmZWF0dXJlcyI6WyJEUlVQIl0sInZjIjoiN2Y3Mjc1ZWUifQ.jgIWGFAdO8xWqCgkzb5cHQ-DNx2yBaNZy3NQRH2v_UXdmpgnomqkGrNApLK4rtXoSuLPK5NnAqdluQl1GUX5QQ';
 
- 	export const CkeditorArea = ({ value, handleChange }) => {
+export const CkeditorArea = ({ value, handleChange }) => {
 	const editorContainerRef = useRef(null);
 	const editorRef = useRef(null);
 	const [isLayoutReady, setIsLayoutReady] = useState(false);

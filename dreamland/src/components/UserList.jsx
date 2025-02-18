@@ -7,7 +7,7 @@ export const UserList = ({users, edit}) => {
     return(
       <div id="users" className="space-y-3">
       {
-        [...users].reverse().map((user, index)=>{
+        [...users].map((user, index)=>{
         return(
           <UserCard key={index} user={user} index={index} edit={edit}/>
         )

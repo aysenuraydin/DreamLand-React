@@ -5,7 +5,9 @@ const ProtectedRoute = ({ children }) => {
     const user = useAuth();  
     const location = useLocation(); 
 
-    if (user == undefined)  return null; 
+    if (user == undefined){
+        return null;
+    } 
 
     return user ? (
         children

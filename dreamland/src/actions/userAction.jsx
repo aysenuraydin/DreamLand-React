@@ -133,8 +133,7 @@ export const getPaginatedUsersFromDatabase = ({ pageSize, pageNumber }) => {
             });
         });
 
-        users = allUsers.reverse();
-
+        users = allUsers;
         dispatch(setUsersByPageNumber(users));
         dispatch({ type: "LOADING_USERS", payload: false });
     };

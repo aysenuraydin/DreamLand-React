@@ -147,8 +147,7 @@ export const getPaginatedDreamsFromDatabase = ({ pageSize, pageNumber }) => {
             });
         });
 
-        dreams = allDreams.reverse();
-
+        dreams = allDreams;
         dispatch(setDreamsByPageNumber(dreams));
         dispatch({ type: "LOADING_DREAMS", payload: false });
     };

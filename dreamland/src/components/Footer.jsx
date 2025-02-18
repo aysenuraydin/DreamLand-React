@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Twiter }  from "../icons/twiter"
 import { Instagram } from '../icons/instagram';
 import { Github } from '../icons/github';
@@ -56,5 +56,5 @@ export const Footer = () => {
             </p>
         </div>
     </div>
-  )
+    )
 }

@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCancel, faTrash, faAdd, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCancel, faTrash, faAdd } from "@fortawesome/free-solid-svg-icons";
 import { Form } from "react-router-dom";
 
 export const UserForm = ({onSubmit, formRef, user, del, reset}) => {
@@ -19,24 +19,27 @@ export const UserForm = ({onSubmit, formRef, user, del, reset}) => {
         const email = event.target.elements.email.value;
         if(email){
             onSubmit(email);
-            setInfo("User has been saved successfully.");
+            setInfo("User has been saved successfully. Default paralo : 123456");
         }else{
             if(!email) event.target.elements.email.value = user.email || "";
             setError("Email cannot be empty");
         }
     }
     return(
-    <Form onSubmit={add} ref={formRef} className="md:w-3/5 w-full mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300 flex">
+        <Form onSubmit={add} ref={formRef} className="md:w-3/5 w-full mt-8 mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-300 flex">
         <div className="w-full py-4">
+            <div className='h-9 text-sm pl-13 -mt-2 flex items-end'> 
+                {error && (<span className='text-red-500'>- {error}</span>)} 
+                {info && (<span className='text-emerald-500'>
+                    - {info.split(".")[0]} <br/>
+                    - {info.split(".")[1]}
+                </span>)} 
+            </div>
             <div className="w-full flex my-1">
                 <label htmlFor="email" className="mt-2 w-15">Email</label>
                 <input type="email" id="email" name="email" className="mt-1 h-8 w-full border rounded-lg text-gray-800 outline-none px-3" defaultValue={user.email}/>
             </div>
-            <div className='h-4 text-sm pl-13 -mt-2'> 
-                {error && (<span className='text-red-500'>- {error}</span>)} 
-                {info && (<span className='text-emerald-500'>- {info}</span>)} 
-            </div>
-            <div className="flex mt-1">
+            <div className="flex mt-4">
                 <span className="inline-block w-15 mt-3 text-sm"></span>
                 <div className="w-full flex gap-x-2">
                     {

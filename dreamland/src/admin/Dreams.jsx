@@ -28,6 +28,28 @@ export const Dreams = () => {
   const [isAdding, setIsAdding] = useState(false); 
   const [isDeleting, setIsDeleting] = useState(false); 
   
+  const [datasSearch, setDatasSearch] = useState([]); 
+  const [text, setText] = useState(""); 
+
+  useEffect(() => {
+    if (!text) {
+      setDatasSearch([]);
+      return;
+    }
+  
+    setDatasSearch(
+      dreams.filter(data => 
+          [data.title, data.content]
+            .some(field => field?.toLowerCase().includes(text.toLowerCase()))
+      )
+    );
+  }, [text, dreams]);
+  
+  const search = (text) => {
+    setText(text)
+    console.log(text)
+  }
+
   useEffect(() => {
     if (pageTotal > 0 && isAdding) {
       setPagenumber(pageTotal);
@@ -37,7 +59,6 @@ export const Dreams = () => {
     if (pageNumber > pageTotal) setPagenumber(pageTotal);
     setIsDeleting(false); 
   }, [dreams.length]);
-
   const add = (data) => {
     if(dream?.id) {
       dispatch(editDreamFromDatabase(
@@ -68,9 +89,7 @@ export const Dreams = () => {
     setIsDeleting(true); 
     dispatch(deleteDreamFromDatabase( {id} ));
   }
-
   useEffect(() => {
-    console.log("useEffect")
       const getDatas = async () => {
           await dispatch(getPaginatedDreamsFromDatabase({pageSize:pageSize, pageNumber:pageNumber}))
       };
@@ -90,7 +109,7 @@ export const Dreams = () => {
           </h1>
           <div className="flex gap-x-3">
             <div className="flex items-center relative">
-              <Search/>
+              <Search search={search}/>
             </div>
             {
               !visible && (
@@ -115,6 +134,15 @@ export const Dreams = () => {
         {
           visible && ( <DreamForm del={del} dream={dream} onSubmit={add} reset={reset} formRef={formRef}/> ) 
         }
+        <div>
+          {text && (  
+            <p className='text-[1rem] absolute mt-4 ml-4 text-gray-500'>
+            Search results for 
+            <span className='font-semibold text-gray-700'> '{text}' </span>
+            are listed !</p>
+          )
+          }
+        </div>
         <div className="flex items-start px-2 pb-2 mb-5 mt-16 text-gray-500 gap-x-2">
           <span className="w-1/6 text-center text-sm bg-white border border-[#1f3f96a2] p-1 rounded-full">
             <span className="font-bold text-[#1f3f96a2]">Number</span>
@@ -127,15 +155,23 @@ export const Dreams = () => {
           </span>
           <span className="w-1/4">  </span>
         </div>
-        <div className='h-[30rem]'>
+
+        <div className='h-[32rem] overflow-scroll'>
+        { datasSearch.length>0 ? (
+          <DreamsList dreams={datasSearch} edit={edit}/>
+        ):(
+          <>
           {loading ? (
               <SyncLoader  color="#9d9d9d" size={12} speedMultiplier={1} className='text-center pb-2'/>
             ) : (
               <DreamsList dreams={dreamsByPageNumber} edit={edit}/>
             )
           }
+          </>
+        )}
+          
         </div>
-        { dreams.length > pageSize ? (
+        { dreams.length > pageSize && datasSearch.length == 0 ? (
           <Pagination pageNumber={pageNumber} pageTotal={pageTotal} changePage={changePage} /> 
           ) : (null) 
         }

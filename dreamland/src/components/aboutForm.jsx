@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import SyncLoader from "react-spinners/SyncLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk} from "@fortawesome/free-solid-svg-icons";
-import { CkeditorArea } from '../components/CkeditorArea';
+import { CkeditorArea } from './CkeditorArea';
 import { useSelector, useDispatch } from 'react-redux';
 import { editAboutFromDatabase } from '../actions/infoAction';
 

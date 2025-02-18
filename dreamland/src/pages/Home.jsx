@@ -7,15 +7,15 @@ import { getPaginatedDreamsFromDatabase } from '../actions/dreamAction';
 export const Home = () => {
 
     const state = useSelector((state) => state.dream);
-    const dreams = state.dreams;
     const dispatch = useDispatch(); 
+    const dreams = state.dreams;
     const loading = state.loading;
     const dreamsByPageNumber = state.dreamsByPageNumber;
     const [pageNumber, setPagenumber] = useState(1);
     const pageSize = 9;
     const pageTotal = Math.ceil(dreams.length / pageSize);
+
     useEffect(() => {
-      console.log("useEffect")
         const getDatas = async () => {
             await dispatch(getPaginatedDreamsFromDatabase({pageSize:pageSize, pageNumber:pageNumber}))
         };
@@ -40,7 +40,7 @@ export const Home = () => {
             <div className='min-h-[66rem]'>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:gap-7 gap-9 mt-12">
                 {
-                    dreamsByPageNumber.reverse().map((dream,index) => ( <Card key = {index} dream={dream}/> ))
+                    dreamsByPageNumber.map((dream,index) => ( <Card key = {index} dream={dream}/> ))
                 }
               </div>
             </div>

@@ -1,10 +1,9 @@
 import React from "react"
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage,faComment ,faEnvelope,faCircleInfo,faUser,faGear } from "@fortawesome/free-solid-svg-icons";
 import { faMicrosoft } from "@fortawesome/free-brands-svg-icons";
-import { Logo } from "../icons/logo";
-import { useDispatch, useSelector } from "react-redux";
+import { Logo } from "../icons/logo"; 
 import { useAuth } from '../hooks/useAuth';
 
 export const AdminSidebar = () => {

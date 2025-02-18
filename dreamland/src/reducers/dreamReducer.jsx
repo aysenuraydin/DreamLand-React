@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid';
-import { DreamsData } from '../data/dreams';
 
 const dreamInitialState = {
     dreams: [ ],

@@ -1,5 +1,3 @@
-import { nanoid } from 'nanoid';
-
 const headerInitialState = {
     headers: [ ],
     header: {},

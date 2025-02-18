@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { useLoaderData} from "react-router-dom";
+import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestion} from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from 'react-redux';
@@ -9,14 +8,12 @@ export const Faqs = () => {
     const faqs = state.faqs;
 
     return(
-      <div className="p-10">
-      <div className="min-h-[80vh] max-w-6xl mx-auto">
-        <div className="relative isolate overflow-hidden px-6 lg:px-8 text-xl leading-[3rem] flex justify-center">
-          <div className="rounded-[2rem] m-10 bg-gray-100 border border-gray-300 p-14 shadow-xl">
+      <div className="min-h-[80vh] mx-auto max-w-2xl overflow-hidden text-xl leading-[3rem] flex justify-center">
+          <div className="rounded-[2rem] my-20 m-5 pt-15 bg-gray-100 border border-gray-300 shadow-xl"> 
             <div className="w-lg text-center mb-10">
               <h2 className="text-4xl font-semibold tracking-tight text-[#1f3f96a2]">Faqs</h2>
             </div>
-            <div className="max-h-96 overflow-scroll px-10">
+            <div className="max-h-[29rem] overflow-scroll px-10">
             {
               faqs.map((faq,index) => {
                 return(
@@ -32,8 +29,6 @@ export const Faqs = () => {
             } 
             </div> 
           </div>
-      </div>
-    </div>
     </div>
     )
   }

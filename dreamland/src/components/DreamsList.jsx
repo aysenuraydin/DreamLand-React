@@ -7,7 +7,7 @@ export const DreamsList  = ({ dreams,edit }) => {
     return(
     <div id="dreams">
         {
-            [...dreams].reverse().map((dream, index)=>{
+            [...dreams].map((dream, index)=>{
             return(
                 <DreamCard dream = {dream} index = {index}  edit = {edit} key = {index}/>
             )
