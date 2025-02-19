@@ -123,10 +123,9 @@ This project leverages the power of **React** to build interactive UIs, **Tailwi
 Firebase is used for authentication and cloud storage in this project. You can set up Firebase by following these steps:
 
 1. Install Firebase SDK:
-
-```bash
-npm install firebase
-```
+ ```bash
+ npm install firebase
+````
 
 ## Redux Integration
 
