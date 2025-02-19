@@ -9,7 +9,7 @@ import { DreamsList } from '../components/DreamsList';
 import { DreamForm } from '../components/DreamForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { addDreamToDatabase, deleteDreamFromDatabase, editDreamFromDatabase, getPaginatedDreamsFromDatabase } from '../actions/dreamAction';
-
+import { useSearchParams } from "react-router-dom";
 export const Dreams = () => {
   
   const [visible, setVisible] = useState(false);
@@ -31,6 +31,9 @@ export const Dreams = () => {
   const [datasSearch, setDatasSearch] = useState([]); 
   const [text, setText] = useState(""); 
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const params = searchParams.get("search");
+
   useEffect(() => {
     if (!text) {
       setDatasSearch([]);
@@ -47,7 +50,7 @@ export const Dreams = () => {
   
   const search = (text) => {
     setText(text)
-    console.log(text)
+    setSearchParams({ search: text ,  page: pageNumber });
   }
 
   useEffect(() => {
@@ -103,7 +106,7 @@ export const Dreams = () => {
     <div className="p-8">
       <div className="min-h-[80vh] max-w-6xl mx-auto">
         <div className="flex justify-between border-b-2 text-gray-400 border-gray-300 pb-[0.6rem] px-4">
-          <h1 className="text-3xl">Dreams
+          <h1 className="text-3xl">Dreams {params}
             <span className="admin-icons relative top-1 ml-3">
                 <Logo color="#98A1AE" size={55}/></span>
           </h1>
