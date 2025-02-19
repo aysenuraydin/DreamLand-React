@@ -17,6 +17,10 @@ This project leverages the power of **React** to build interactive UIs, **Tailwi
 - **Redux Thunk**: Middleware for handling asynchronous actions in Redux.
 - **React Router**: Declarative routing for React applications.
 - **React Hooks**: A set of hooks used for managing state and side effects.
+- **uuidv4 & nanoid**: Unique ID generation for various components.
+- **fortawesome**: FontAwesome icon support.
+- **CKEditor**: A powerful WYSIWYG text editor.
+- **DOMPurify**: Ensures safe HTML rendering by preventing XSS attacks.
 
 ## React Hooks Used
 
@@ -101,36 +105,123 @@ This project leverages the power of **React** to build interactive UIs, **Tailwi
      const { id } = useParams();
      ```
 
-9. **`useRouteError`**
+9. **`useMemo`**
 
-   - **Description**: Captures route-level errors (e.g., 404s or any route-specific errors).
+   - **Description**: Optimizes performance by memoizing the result of a function, preventing unnecessary recalculations when dependencies do not change. It is useful for expensive computations or avoiding unnecessary re-renders.
    - **Example**:
      ```javascript
-     const error = useRouteError();
+     function ExpensiveCalculation({ num }) {
+       const computedValue = useMemo(() => {
+         console.log("Computing...");
+         return num * 2;
+       }, [num]);
+     }
      ```
-
-10. **`useActionData`**
-
-    - **Description**: Provides data from the action of the current route.
-    - **Example**:
-      ```javascript
-      const actionData = useActionData();
-      ```
-
-11. **`useLoaderData`**
-    - **Description**: Retrieves data preloaded by the loader of the current route.
-    - **Example**:
-      ```javascript
-      const loaderData = useLoaderData();
-      ```
 
 ## Firebase Integration
 
 Firebase is used for authentication and cloud storage in this project. You can set up Firebase by following these steps:
 
 1. Install Firebase SDK:
+ ```bash
+ npm install firebase
+````
+
+## Redux Integration
+
+Redux is used to manage the global state in the application. You can set up Redux by following these steps:
+
+1. Install Redux SDK:
    ```bash
-   npm install firebase
+   npm install redux react-redux
+   ```
+
+## Redux Thunk Integration
+
+Redux Thunk is a middleware that enables async logic in Redux. You can set up Redux Thunk by following these steps:
+
+1. Install Redux Thunk SDK:
+   ```bash
+   npm install redux-thunk
+   ```
+
+## React Router Integration
+
+React Router is used to navigate between different views. You can set up React Router by following these steps:
+
+1. Install React Router SDK:
+
+   ```bash
+   npm install react-router-dom
+   ```
+
+## React Spinners Integration
+
+React Spinners is a library for customizable loading animations. You can set up React Spinners by following these steps:
+
+1. Install React Spinners SDK:
+
+   ```bash
+   npm install react-spinners
+   ```
+
+## UUID Integration
+
+UUID are used for generating unique IDs. You can set up UUID by following these steps:
+
+1. Install UUID SDK:
+   ```bash
+   npm install uuid
+   ```
+
+## NANOID Integration
+
+nanoid are used for generating unique IDs. You can set up UUID by following these steps:
+
+1. Install UUID SDK:
+
+   ```bash
+   npm install nanoid
+   ```
+
+## Font Awesome Integration
+
+Font Awesome is used for scalable vector icons. You can set up Font Awesome by following these steps:
+
+1. Install Font Awesome SDK:
+
+   ```bash
+   npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome
+   ```
+
+## CKEditor Integration
+
+KEditor provides a feature-rich text editor for content creation. You can set up CKEditor by following these steps:
+
+1. Install CKEditor SDK:
+
+   ```bash
+   npm install @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic
+   ```
+
+## DOMPurify Integration
+
+DOMPurify is used to sanitize HTML inputs and prevent XSS attacks. You can set up DOMPurify by following these steps:
+
+1. Install DOMPurify SDK:
+
+   ```bash
+   npm install dompurify
+   ```
+
+## Tailwind CSS Integration
+
+Tailwind CSS is a utility-first CSS framework for designing the UI efficiently. You can set up Tailwind CSS by following these steps:
+
+1. Install Tailwind CSS SDK:
+   ```bash
+   npm install -D tailwindcss postcss autoprefixer
+   npx tailwindcss init -p
    ```
 
 ## Project Setup
